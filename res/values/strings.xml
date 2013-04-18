@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">EÜ Yemekhane</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_aksam_yemegi">Akşam Yemeği</string>
+    <string name="title_activity_ogle_yemegi">Öğle Yemeği</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>
