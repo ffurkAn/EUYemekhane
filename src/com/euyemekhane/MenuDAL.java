@@ -23,7 +23,7 @@ public class MenuDAL extends DAL {
 		DBAccessFile newDB = new DBAccessFile(context);
 		return newDB.getDB();
 	}
-	
+		
 	public Menu SonOgleYemekGetir()
 	{
 		try {

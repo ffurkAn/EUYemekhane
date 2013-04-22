@@ -3,19 +3,13 @@ package com.euyemekhane;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.GestureDetector.OnGestureListener;
 import android.view.GestureDetector;
+import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class AksamYemegi extends Activity implements OnGestureListener {
 
@@ -24,11 +18,7 @@ public class AksamYemegi extends Activity implements OnGestureListener {
 	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
 	private GestureDetector gestureScanner;
 	private String sorguTarihi;
-	private String[] baslikStr;
-	private String yemek = null;
-	private String yemekTarihi = null;
 	private MenuDAL dalMenu = new MenuDAL(this);
-	private Menu entMenu;
 	private ArrayList<Menu> menuListe = new ArrayList<Menu>();
 	private Intent glIntent;
 
@@ -46,59 +36,27 @@ public class AksamYemegi extends Activity implements OnGestureListener {
 
 		Intent preIntent = getIntent();
 		glIntent = preIntent;
-		
+
 		gestureScanner = new GestureDetector((OnGestureListener) this);
 
 		final Calendar c = Calendar.getInstance();
-		sorguTarihi = "" + c.get(Calendar.DAY_OF_MONTH) + "." + c.get(Calendar.MONTH) + "." + c.get(Calendar.YEAR); //sistemin tarihi
+		sorguTarihi = "" + c.get(Calendar.DAY_OF_MONTH) + "." + (c.get(Calendar.MONTH) + 1) + "." + c.get(Calendar.YEAR); //sistemin tarihi
 
 		final TextView view1 = (TextView) findViewById(R.id.txtViewAksam);
 
-		try {
-			Document doc = Jsoup.connect("http://sksdb.ege.edu.tr/genel/akam-yemek-menuesue").get();
-			Elements baslik = doc.select("td h1"); //sayfanin ustundeki basligi cekiyor
-			baslikStr = baslik.text().toLowerCase().split("\\s+");
-
-			if (dalMenu.SonAksamYemekGetir() != null && dalMenu.SonAksamYemekGetir().getAy().equals(baslikStr[0])) { //baslikta yazan ay ile veritabanindaki ay aynýysa guncelleme yapmiyor
-
-				Toast.makeText(getApplicationContext(), "Güncelleme yok", Toast.LENGTH_LONG).show();
-
-			} else {
-
-				Toast.makeText(getApplicationContext(), "Güncelleniyor", Toast.LENGTH_LONG).show();
-				Elements yemekler = doc.select("td p span"); //tarihi ve o gunku yemegi cekiyor
-
-				for (Element x : yemekler) {
-					//System.out.println("\n" + x.text());
-					entMenu = new Menu();
-					if (x.text().matches("\\d.*\\d.*\\d.*")) { //bos gelen veriler eleniyor
-						yemekTarihi = x.text().trim();
-					}
-					if (x.text().contains("cal")) {
-						yemek = x.text().trim();
-					}
-					if (yemek != null && yemekTarihi != null) { //yemek ve tarihin ikisi de null degilse veritabanina ekleniyor
-						entMenu.setAy(baslikStr[0]);
-						entMenu.setTur("aksam");
-						entMenu.setTarih(yemekTarihi);
-						entMenu.setMenu(yemek);
-						dalMenu.MenuKaydet(entMenu);
-						yemek = null;
-						yemekTarihi = null;
-					}
-				}
-
-			}
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
 		menuListe = dalMenu.TumAksamGetir();
-
-		for (Menu k : menuListe) {
-			view1.append("\n\n" + k.getTarih() + "\n" + k.getMenu());
+		if (preIntent.getIntExtra("gosterimTipi", -1) == 1) {
+			for (Menu k : menuListe) {
+				if (k.getTarih().matches(".*" + c.get(Calendar.DAY_OF_MONTH) + ".*" + (c.get(Calendar.MONTH) + 1) + ".*" + c.get(Calendar.YEAR) + ".*")) {
+					view1.append("\n\n" + k.getTarih() + "\n" + k.getMenu());
+				}
+			}
+		} else if (preIntent.getIntExtra("gosterimTipi", -1) == 2) {
+			for (Menu k : menuListe) {
+				view1.append("\n\n" + k.getTarih() + "\n" + k.getMenu());
+			}
 		}
+
 	}
 
 	@Override
@@ -116,7 +74,7 @@ public class AksamYemegi extends Activity implements OnGestureListener {
 			return false;
 		}
 
-		if(e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+		if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
 			Intent i = new Intent(AksamYemegi.this, OgleYemegi.class);
 			i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			i.putExtra("gosterimTipi", glIntent.getIntExtra("gosterimTipi", -1));
