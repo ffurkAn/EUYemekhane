@@ -24,12 +24,12 @@ public class MenuDAL extends DAL {
 		return newDB.getDB();
 	}
 		
-	public Menu SonOgleYemekGetir()
+	public Menu GunlukOgleYemekGetir(int gun, int ay)
 	{
 		try {
 			SQLiteDatabase db = getDatabase();
 
-			Cursor c = db.rawQuery("select * from EUYemekhane where EUYemekhane.YemekTuru = 'ogle'", null);
+			Cursor c = db.rawQuery("select * from EUYemekhane where YemekTuru = 'ogle' and MenuTarihi like '%" + gun + "%" + ay + "%'", null);
 			c.moveToLast();
 			
 			Menu entMenu = new Menu();
@@ -37,7 +37,57 @@ public class MenuDAL extends DAL {
 			entMenu.setAy(getCursorStr(c, "MenuAyi"));
 			entMenu.setTur(getCursorStr(c, "YemekTuru"));
 			entMenu.setTarih(getCursorStr(c, "MenuTarihi"));
+			entMenu.setGun(getCursorInt(c, "Gun"));
 			entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
+			entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
+
+			return entMenu;
+			
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public Menu GunlukAksamYemekGetir(int gun, int ay)
+	{
+		try {
+			SQLiteDatabase db = getDatabase();
+
+			Cursor c = db.rawQuery("select * from EUYemekhane where YemekTuru = 'aksam' and MenuTarihi like '%" + gun + "%" + ay + "%'", null);
+			c.moveToLast();
+			
+			Menu entMenu = new Menu();
+
+			entMenu.setAy(getCursorStr(c, "MenuAyi"));
+			entMenu.setTur(getCursorStr(c, "YemekTuru"));
+			entMenu.setTarih(getCursorStr(c, "MenuTarihi"));
+			entMenu.setGun(getCursorInt(c, "Gun"));
+			entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
+			entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
+
+			return entMenu;
+			
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public Menu SonOgleYemekGetir()
+	{
+		try {
+			SQLiteDatabase db = getDatabase();
+
+			Cursor c = db.rawQuery("select * from EUYemekhane where YemekTuru = 'ogle'", null);
+			c.moveToLast();
+			
+			Menu entMenu = new Menu();
+
+			entMenu.setAy(getCursorStr(c, "MenuAyi"));
+			entMenu.setTur(getCursorStr(c, "YemekTuru"));
+			entMenu.setTarih(getCursorStr(c, "MenuTarihi"));
+			entMenu.setGun(getCursorInt(c, "Gun"));
+			entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
+			entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
 
 			return entMenu;
 			
@@ -51,7 +101,7 @@ public class MenuDAL extends DAL {
 		try {
 			SQLiteDatabase db = getDatabase();
 
-			Cursor c = db.rawQuery("select * from EUYemekhane where EUYemekhane.YemekTuru = 'aksam'", null);
+			Cursor c = db.rawQuery("select * from EUYemekhane where YemekTuru = 'aksam'", null);
 			c.moveToLast();
 			
 			Menu entMenu = new Menu();
@@ -59,7 +109,9 @@ public class MenuDAL extends DAL {
 			entMenu.setAy(getCursorStr(c, "MenuAyi"));
 			entMenu.setTur(getCursorStr(c, "YemekTuru"));
 			entMenu.setTarih(getCursorStr(c, "MenuTarihi"));
+			entMenu.setGun(getCursorInt(c, "Gun"));
 			entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
+			entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
 
 			return entMenu;
 			
@@ -98,7 +150,7 @@ public class MenuDAL extends DAL {
 		try {
 			SQLiteDatabase db = getDatabase();
 
-			Cursor c = db.rawQuery("select * from EUYemekhane where EUYemekhane.YemekTuru = 'ogle'", null);
+			Cursor c = db.rawQuery("select * from EUYemekhane where YemekTuru = 'ogle'", null);
 
 			menuler = ConvertToEntity(c);
 
@@ -118,7 +170,7 @@ public class MenuDAL extends DAL {
 		try {
 			SQLiteDatabase db = getDatabase();
 
-			Cursor c = db.rawQuery("select * from EUYemekhane where EUYemekhane.YemekTuru = 'aksam'", null);
+			Cursor c = db.rawQuery("select * from EUYemekhane where YemekTuru = 'aksam'", null);
 
 			menuler = ConvertToEntity(c);
 
@@ -143,7 +195,9 @@ public class MenuDAL extends DAL {
 				entMenu.setAy(getCursorStr(c, "MenuAyi"));
 				entMenu.setTur(getCursorStr(c, "YemekTuru"));
 				entMenu.setTarih(getCursorStr(c, "MenuTarihi"));
+				entMenu.setGun(getCursorInt(c, "Gun"));
 				entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
+				entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
 
 				lstMenu.add(entMenu);
 
@@ -162,7 +216,9 @@ public class MenuDAL extends DAL {
 			values.put("MenuAyi", entMenu.getAy());
 			values.put("YemekTuru", entMenu.getTur());
 			values.put("MenuTarihi", entMenu.getTarih());
+			values.put("Gun", entMenu.getGun());
 			values.put("YemekMenusu", entMenu.getMenu());
+			values.put("Sevilmeyen", entMenu.getSevilmeyen());
 
 			SQLiteDatabase db = getDatabase();
 			db.insert("EUYemekhane", null, values);

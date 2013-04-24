@@ -15,8 +15,10 @@ public class MainActivity extends Activity {
 
 		Button btnGunluk = (Button) findViewById(R.id.btnGunluk);
 		Button btnAylik = (Button) findViewById(R.id.btnAylik);
+		Button btnSevYemek = (Button) findViewById(R.id.btnSevYemek);
 		btnGunluk.setOnClickListener(btnGunlukOnClickListener);
 		btnAylik.setOnClickListener(btnAylikOnClickListener);
+		btnSevYemek.setOnClickListener(btnSevYemekOnClickListener);
 
 	}
 
@@ -38,6 +40,16 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated method stub
 			Intent i = new Intent(MainActivity.this, OgleYemegi.class);
 			i.putExtra("gosterimTipi", 2);
+			startActivity(i);
+		}
+	};
+	
+	private Button.OnClickListener btnSevYemekOnClickListener = new Button.OnClickListener(){
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent i = new Intent(MainActivity.this, SevilmeyenYemekEkle.class);
 			startActivity(i);
 		}
 	};

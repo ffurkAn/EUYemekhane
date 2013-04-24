@@ -2,6 +2,7 @@ package com.euyemekhane;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,7 +18,8 @@ public class AksamYemegi extends Activity implements OnGestureListener {
 	private static final int SWIPE_MAX_OFF_PATH = 250;
 	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
 	private GestureDetector gestureScanner;
-	private String sorguTarihi;
+	private String[] gunlukMenu;
+	private Menu menu;
 	private MenuDAL dalMenu = new MenuDAL(this);
 	private ArrayList<Menu> menuListe = new ArrayList<Menu>();
 	private Intent glIntent;
@@ -40,20 +42,30 @@ public class AksamYemegi extends Activity implements OnGestureListener {
 		gestureScanner = new GestureDetector((OnGestureListener) this);
 
 		final Calendar c = Calendar.getInstance();
-		sorguTarihi = "" + c.get(Calendar.DAY_OF_MONTH) + "." + (c.get(Calendar.MONTH) + 1) + "." + c.get(Calendar.YEAR); //sistemin tarihi
-
-		final TextView view1 = (TextView) findViewById(R.id.txtViewAksam);
+		final TextView txtView = (TextView) findViewById(R.id.txtViewAksam);
 
 		menuListe = dalMenu.TumAksamGetir();
 		if (preIntent.getIntExtra("gosterimTipi", -1) == 1) {
-			for (Menu k : menuListe) {
-				if (k.getTarih().matches(".*" + c.get(Calendar.DAY_OF_MONTH) + ".*" + (c.get(Calendar.MONTH) + 1) + ".*" + c.get(Calendar.YEAR) + ".*")) {
-					view1.append("\n\n" + k.getTarih() + "\n" + k.getMenu());
+			txtView.setTextSize(30);
+			menu = dalMenu.GunlukAksamYemekGetir(c.get(Calendar.DAY_OF_MONTH), (c.get(Calendar.MONTH) + 1));
+			if (menu == null) {
+				txtView.setText("Yemek bulunamadý");
+			} else {
+				Pattern splitter = Pattern.compile("[\\/=]");
+				gunlukMenu = splitter.split(menu.getMenu());
+				txtView.append("" + menu.getTarih() + "\n");
+				int size = gunlukMenu.length;
+				for (String s : gunlukMenu) {
+					if (--size == 0) {
+						txtView.append("\nToplam cal = ");
+					}
+					txtView.append("" + s + "\n");
 				}
 			}
+
 		} else if (preIntent.getIntExtra("gosterimTipi", -1) == 2) {
 			for (Menu k : menuListe) {
-				view1.append("\n\n" + k.getTarih() + "\n" + k.getMenu());
+				txtView.append("\n" + k.getTarih() + "\n" + k.getMenu() + "\n");
 			}
 		}
 

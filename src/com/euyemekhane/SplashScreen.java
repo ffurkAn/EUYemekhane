@@ -20,7 +20,7 @@ public class SplashScreen extends Activity {
 	private String yemekTarihi = null;
 	private MenuDAL dalMenu = new MenuDAL(this);
 	private Menu entMenu;
-	private static final int SPLASH_DISPLAY_TIME = 2000;
+	private static final int SPLASH_DISPLAY_TIME = 1000;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +40,11 @@ public class SplashScreen extends Activity {
 
 					if (dalMenu.SonOgleYemekGetir() != null && dalMenu.SonOgleYemekGetir().getAy().equals(baslikStr[0])) { //baslikta yazan ay ile veritabanindaki ay aynýysa guncelleme yapmiyor
 
-						//Toast.makeText(getApplicationContext(), "Öðle yemeði güncel", Toast.LENGTH_LONG).show();
+						//Toast.makeText(getApplicationContext(), "Yemek listesi güncel", Toast.LENGTH_LONG).show();
 
 					} else {
 
-						//Toast.makeText(getApplicationContext(), "Öðle yemeði güncelleniyor", Toast.LENGTH_LONG).show();
+						//Toast.makeText(getApplicationContext(), "Yemek listesi güncelleniyor", Toast.LENGTH_LONG).show();
 						Elements yemekler = doc.select("td p span"); //tarihi ve o gunku yemegi cekiyor
 
 						for (Element x : yemekler) {
@@ -57,6 +57,20 @@ public class SplashScreen extends Activity {
 								yemek = x.text().trim();
 							}
 							if (yemek != null && yemekTarihi != null) { //yemek ve tarihin ikisi de null degilse veritabanina ekleniyor
+								
+								entMenu.setGun(0);
+								if (yemekTarihi.matches("\\d.*\\d.*\\d.*Pa.*"))
+									entMenu.setGun(1);
+								else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Sa.*"))
+									entMenu.setGun(2);
+								else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Ça.*"))
+									entMenu.setGun(3);
+								else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Pe.*"))
+									entMenu.setGun(4);
+								else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Cu.*"))
+									entMenu.setGun(5);
+
+								entMenu.setSevilmeyen(0);
 								entMenu.setAy(baslikStr[0]);
 								entMenu.setTur("ogle");
 								entMenu.setTarih(yemekTarihi);
@@ -100,6 +114,20 @@ public class SplashScreen extends Activity {
 								yemek = x.text().trim();
 							}
 							if (yemek != null && yemekTarihi != null) { //yemek ve tarihin ikisi de null degilse veritabanina ekleniyor
+								
+								entMenu.setGun(0);
+								if (yemekTarihi.matches("\\d.*\\d.*\\d.*Pa.*"))
+									entMenu.setGun(1);
+								else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Sa.*"))
+									entMenu.setGun(2);
+								else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Ça.*"))
+									entMenu.setGun(3);
+								else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Pe.*"))
+									entMenu.setGun(4);
+								else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Cu.*"))
+									entMenu.setGun(5);
+
+								entMenu.setSevilmeyen(0);
 								entMenu.setAy(baslikStr[0]);
 								entMenu.setTur("aksam");
 								entMenu.setTarih(yemekTarihi);

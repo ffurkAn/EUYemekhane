@@ -5,7 +5,9 @@ public class Menu {
 	private String ay;
 	private String tur;
 	private String tarih;
+	private int gun;
 	private String menu;
+	private int sevilmeyen;
 
 	public String getTarih() {
 		return tarih;
@@ -37,6 +39,22 @@ public class Menu {
 
 	public void setAy(String ay) {
 		this.ay = ay;
+	}
+
+	public int getGun() {
+		return gun;
+	}
+
+	public void setGun(int gun) {
+		this.gun = gun;
+	}
+
+	public int getSevilmeyen() {
+		return sevilmeyen;
+	}
+
+	public void setSevilmeyen(int sevilmeyen) {
+		this.sevilmeyen = sevilmeyen;
 	}
 
 }
