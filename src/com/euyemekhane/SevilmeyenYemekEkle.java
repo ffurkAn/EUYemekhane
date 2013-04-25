@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 
 public class SevilmeyenYemekEkle extends Activity {
 
+	private int textChanged = 0;
 	private LinearLayout ll;
 	private EditText editText;
 	private List<EditText> editTextList = new ArrayList<EditText>();
@@ -34,6 +35,7 @@ public class SevilmeyenYemekEkle extends Activity {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				// TODO Auto-generated method stub
+				textChanged = 1;
 			}
 
 			@Override
