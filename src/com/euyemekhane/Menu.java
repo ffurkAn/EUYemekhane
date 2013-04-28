@@ -1,7 +1,8 @@
 package com.euyemekhane;
 
 public class Menu {
-
+	
+	private int id;
 	private String ay;
 	private String tur;
 	private String tarih;
@@ -9,6 +10,14 @@ public class Menu {
 	private String menu;
 	private int sevilmeyen;
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getTarih() {
 		return tarih;
 	}

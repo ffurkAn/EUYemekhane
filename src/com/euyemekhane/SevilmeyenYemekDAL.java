@@ -70,12 +70,36 @@ private Context context;
 			values.put("YemekAdi", entYemek.getYemekAdi());
 
 			SQLiteDatabase db = getDatabase();
-			db.insert("SevilmeyenYemek", null, values);
+			db.insert("SevilmeyenYemek", null,values);
 			db.close();
 
 		}catch (Exception ex) {
 			Log.d("#ERROR SevilmeyenYemekKayit", ex.getMessage());
 		}
 
+	}
+	
+	public void SevilmeyenGüncelle(SevilmeyenYemek entYemek)
+	{
+		try {
+			
+			  ContentValues args = new ContentValues();
+			   args.put("Sevilmeyen", 1);
+			    
+			SQLiteDatabase db = getDatabase();
+			
+			
+				db.update("EUYemekhane", args, "YemekMenusu like '%"+entYemek.getYemekAdi()+"%'", null);
+				//db.execSQL(
+					//	"update EUYemekhane set Sevilmeyen=0 where YemekMenusu like '%"+entYemek.getYemekAdi().toString()+"%'",null);
+						
+						
+			db.close();
+
+		}catch (Exception ex) {
+			Log.d("#ERROR SevilmeyenYemekKayit", ex.getMessage());
+		}
+			
+		
 	}
 }

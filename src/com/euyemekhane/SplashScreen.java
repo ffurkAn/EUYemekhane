@@ -1,5 +1,7 @@
 package com.euyemekhane;
 
+import java.util.Calendar;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -7,6 +9,8 @@ import org.jsoup.select.Elements;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
@@ -26,6 +30,8 @@ public class SplashScreen extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash_screen);
+		
+		
 		
 		new Handler().postDelayed(new Runnable() {
 			
@@ -69,7 +75,11 @@ public class SplashScreen extends Activity {
 									entMenu.setGun(4);
 								else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Cu.*"))
 									entMenu.setGun(5);
-
+								
+								//
+									
+								
+								//
 								entMenu.setSevilmeyen(0);
 								entMenu.setAy(baslikStr[0]);
 								entMenu.setTur("ogle");
@@ -126,7 +136,8 @@ public class SplashScreen extends Activity {
 									entMenu.setGun(4);
 								else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Cu.*"))
 									entMenu.setGun(5);
-
+								
+								
 								entMenu.setSevilmeyen(0);
 								entMenu.setAy(baslikStr[0]);
 								entMenu.setTur("aksam");
@@ -144,6 +155,8 @@ public class SplashScreen extends Activity {
 					// TODO: handle exception
 				}
 				
+				dalMenu.eskiKayitlariSil();
+					//dbTemizle();
 				Intent i = new Intent(SplashScreen.this, MainActivity.class);
 				startActivity(i);
 				SplashScreen.this.finish();
@@ -152,5 +165,32 @@ public class SplashScreen extends Activity {
 		}, SPLASH_DISPLAY_TIME);
 		
 	}
+	
+	/*public void dbTemizle()
+	{
+		final Calendar c = Calendar.getInstance();
+		int gun=c.get(Calendar.DAY_OF_MONTH); 
+		int ay= (c.get(Calendar.MONTH)+1); 
+		int id;
+		DAL dal = new DAL();
+		
+		SQLiteDatabase db = dalMenu.getDatabase();
+		
+		Cursor crsrOgle = db.rawQuery("select * from EUYemekhane where EUYemekhane.YemekTuru = 'ogle' and EUYemekhane.MenuTarihi like '%" + gun + "%" + ay + "%'", null);
+		//id= dal.getCursorInt(crsrOgle, "id"); // id -999 geliyor yani FALSE
+		crsrOgle.moveToFirst();
+		id = crsrOgle.getInt(0); 
+		db.execSQL("delete from EUYemekhane where EUYemekhane.YemekTuru= 'ogle' and EUYemekhane.id <"+id);
+		crsrOgle.close();
+		
+		Cursor crsrAksam = db.rawQuery("select * from EUYemekhane where EUYemekhane.YemekTuru = 'aksam' and EUYemekhane.MenuTarihi like '%" + gun + "%" + ay + "%'",null);
+		crsrAksam.moveToFirst();
+		id= dal.getCursorInt(crsrAksam, "id");
+		//id = crsrAksam.getInt(0);		
+		db.execSQL("delete from EUYemekhane where EUYemekhane.YemekTuru='aksam' and EUYemekhane.id <"+id);
+		crsrAksam.close();
+		
+		db.close();
+	}*/
 
 }
