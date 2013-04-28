@@ -10,6 +10,10 @@ import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class OgleYemegi extends Activity implements OnGestureListener {
@@ -42,10 +46,14 @@ public class OgleYemegi extends Activity implements OnGestureListener {
 		gestureScanner = new GestureDetector((OnGestureListener) this);
 
 		final Calendar c = Calendar.getInstance();
-		final TextView txtView = (TextView) findViewById(R.id.txtViewOgle);
+		final ListView listView = (ListView) findViewById(R.id.ogleListView);
 
-		menuListe = dalMenu.TumOgleGetir();
 		if (preIntent.getIntExtra("gosterimTipi", -1) == 1) {
+			LinearLayout ll = (LinearLayout) findViewById(R.id.ogleLinear);
+			LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			TextView txtView = new TextView(this);
+			txtView.setLayoutParams(params);
+			ll.addView(txtView);
 			txtView.setTextSize(30);
 			menu = dalMenu.GunlukOgleYemekGetir(c.get(Calendar.DAY_OF_MONTH), (c.get(Calendar.MONTH) + 1));
 			if (menu == null) {
@@ -64,8 +72,10 @@ public class OgleYemegi extends Activity implements OnGestureListener {
 			}
 
 		} else if (preIntent.getIntExtra("gosterimTipi", -1) == 2) {
+			menuListe = dalMenu.TumOgleGetir();
 			for (Menu k : menuListe) {
-				txtView.append("\n" + k.getTarih() + "\n" + k.getMenu() + "\n");
+				CustomAdapter adapter = new CustomAdapter(this, R.id.ogleListView, menuListe);
+				listView.setAdapter(adapter);
 			}
 		}
 

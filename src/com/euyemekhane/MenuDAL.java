@@ -1,7 +1,6 @@
 package com.euyemekhane;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -13,14 +12,13 @@ import android.util.Log;
 public class MenuDAL extends DAL {
 
 	private Context context;
-	
-	
+
 	public MenuDAL(Context context)
 	{
 		this.context = context;
 	}
 
-	public SQLiteDatabase getDatabase() // private olcak
+	private SQLiteDatabase getDatabase()
 	{
 		DBAccessFile newDB = new DBAccessFile(context);
 		return newDB.getDB();
@@ -52,25 +50,21 @@ public class MenuDAL extends DAL {
 	
 	public Menu GunlukAksamYemekGetir(int gun, int ay)
 	{
-		
-		
 		try {
 			SQLiteDatabase db = getDatabase();
 
 			Cursor c = db.rawQuery("select * from EUYemekhane where YemekTuru = 'aksam' and MenuTarihi like '%" + gun + "%" + ay + "%'", null);
+			c.moveToLast();
 			
 			Menu entMenu = new Menu();
-			
-				c.moveToLast();
-				
-				entMenu.setAy(getCursorStr(c, "MenuAyi"));
-				entMenu.setTur(getCursorStr(c, "YemekTuru"));
-				entMenu.setTarih(getCursorStr(c, "MenuTarihi"));
-				entMenu.setGun(getCursorInt(c, "Gun"));
-				entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
-				entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
-					
-			
+
+			entMenu.setAy(getCursorStr(c, "MenuAyi"));
+			entMenu.setTur(getCursorStr(c, "YemekTuru"));
+			entMenu.setTarih(getCursorStr(c, "MenuTarihi"));
+			entMenu.setGun(getCursorInt(c, "Gun"));
+			entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
+			entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
+
 			return entMenu;
 			
 		} catch (Exception e) {
@@ -197,8 +191,7 @@ public class MenuDAL extends DAL {
 		if (c.moveToFirst()) {
 			do {
 				Menu entMenu = new Menu();
-				
-				//entMenu.setId(getCursorInt(c, "id"));
+
 				entMenu.setAy(getCursorStr(c, "MenuAyi"));
 				entMenu.setTur(getCursorStr(c, "YemekTuru"));
 				entMenu.setTarih(getCursorStr(c, "MenuTarihi"));
@@ -219,8 +212,7 @@ public class MenuDAL extends DAL {
 	{
 		try {
 			ContentValues values = new ContentValues();
-			
-			//values.put("id",entMenu.getId());
+
 			values.put("MenuAyi", entMenu.getAy());
 			values.put("YemekTuru", entMenu.getTur());
 			values.put("MenuTarihi", entMenu.getTarih());
@@ -237,40 +229,5 @@ public class MenuDAL extends DAL {
 		}
 
 	}
-	
-	public void eskiKayitlariSil()
-	{
-		final Calendar c = Calendar.getInstance();
-		int gun=c.get(Calendar.DAY_OF_MONTH); 
-		int ay= (c.get(Calendar.MONTH)+1); 
-		int id;
-		
-		
-		SQLiteDatabase db = getDatabase();
-		
-		Cursor crsrOgle = db.rawQuery("select * from EUYemekhane where EUYemekhane.YemekTuru = 'ogle' and EUYemekhane.MenuTarihi like '%" + gun + "%" + ay + "%'", null);
-		
-			if(crsrOgle.getCount()!=0)
-			{
-				crsrOgle.moveToFirst();
-				id = crsrOgle.getInt(0); 
-				db.execSQL("delete from EUYemekhane where EUYemekhane.YemekTuru= 'ogle' and EUYemekhane.id <"+id);
-			}
-		crsrOgle.close();
-		
-		Cursor crsrAksam = db.rawQuery("select * from EUYemekhane where EUYemekhane.YemekTuru = 'aksam' and EUYemekhane.MenuTarihi like '%" + gun + "%" + ay + "%'",null);
-		
-		if(crsrAksam.getCount()!=0)
-			{
-				crsrAksam.moveToFirst();
-				id= getCursorInt(crsrAksam, "id");	
-				db.execSQL("delete from EUYemekhane where EUYemekhane.YemekTuru='aksam' and EUYemekhane.id <"+id);
-			}
-		crsrAksam.close();
-		
-		db.close();
-		
-	}
-	
 
 }

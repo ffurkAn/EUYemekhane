@@ -16,76 +16,92 @@ import android.widget.LinearLayout;
 
 public class SevilmeyenYemekEkle extends Activity {
 
-	private int textChanged = 0;
-	private LinearLayout ll;
+	private int editTextID = 0;
+	private int editTextCount = 0;
+	private String text;
+	private LinearLayout rl;
 	private EditText editText;
 	private List<EditText> editTextList = new ArrayList<EditText>();
-	private SevilmeyenYemekDAL dalSevilmeyen = new SevilmeyenYemekDAL(this);
-	private SevilmeyenYemek entYemek = new SevilmeyenYemek();
+	private SevilmeyenYemek entYemek;
+	private SevilmeyenYemekDAL yemekDAL = new SevilmeyenYemekDAL(this);
+	//private RelativeLayout.LayoutParams params;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sevilmeyen_yemek_ekle);
-		
-		
-		Button btnSevilmeyen = (Button) findViewById(R.id.btnSevilmeyenKaydet);
-		btnSevilmeyen.setOnClickListener(btnSevilmeyenKaydet);
-		EditText t1 = (EditText)findViewById(R.id.text1);
-		//EditText t2 = (EditText)findViewById(R.id.text2);
-		editTextList.add(t1);
-		//editTextList.add(t2);
-		
+
+		rl = (LinearLayout) findViewById(R.id.scrollLinear);
+
+		TextWatcher watcher = new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// TODO Auto-generated method stub
+				text = s.toString();
+				if (text != null && editTextCount < 15) {
+					editText.removeTextChangedListener(this);
+					editText = getEditText();
+					editText.addTextChangedListener(this);
+					//params = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+					//params.addRule(RelativeLayout.BELOW, editTextList.get(editTextList.size() - 1).getId());
+					//editText.setLayoutParams(params);
+					editTextList.add(editText);
+					rl.addView(editText);
+				}
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+			}
+		};
+
+		editText = getEditText();
+		editText.addTextChangedListener(watcher);
+		editTextList.add(editText);
+		rl.addView(editText);
+
+		Button btnYemekKaydet = (Button) findViewById(R.id.btnSevilmeyenYemekEkle);
+		btnYemekKaydet.setOnClickListener(btnYemekKaydetOnClickListener);
+
 	}
 
-	private Button.OnClickListener btnSevilmeyenKaydet = new Button.OnClickListener(){
-
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			
-			
-			String newYemekAdi;
-			for(EditText x : editTextList)
-			{
-				
-				newYemekAdi = x.getText().toString().substring(0,1).toUpperCase()+
-						x.getText().toString().substring(1).toLowerCase();
-				
-				entYemek.setYemekAdi(newYemekAdi);
-				dalSevilmeyen.YemekKaydet(entYemek);
-				dalSevilmeyen.SevilmeyenGüncelle(entYemek);
-			}
-			
-			Intent i = new Intent(SevilmeyenYemekEkle.this, MainActivity.class);
-			//i.putExtra("gosterimTipi", 1); //sonraki activity'e yemeklerin gosterim seklini aktariyor
-			startActivity(i);
-		}
-	};
-
-	
 	private EditText getEditText() {
+		editTextID++;
+		editTextCount++;
 		EditText txt = new EditText(this);
 		LayoutParams param = new LayoutParams();
 		param.width = LayoutParams.FILL_PARENT;
 		param.height = LayoutParams.WRAP_CONTENT;
+		txt.setId(editTextID);
 		txt.setLayoutParams(param);
 		txt.setText("");
 
 		return txt;
 	}
 
-	private Button getButton() {
-		Button btn = new Button(this);
-		LayoutParams param = new LayoutParams();
-		param.width = LayoutParams.WRAP_CONTENT;
-		param.height = LayoutParams.WRAP_CONTENT;
-		btn.setLayoutParams(param);
-		btn.setText("");
+	private Button.OnClickListener btnYemekKaydetOnClickListener = new Button.OnClickListener(){
 
-		return btn;
-	}
-	
-	
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			for (EditText x : editTextList) {
+				if (x.getText().length() > 0) {
+					entYemek = new SevilmeyenYemek();
+					entYemek.setYemekAdi(x.getText().toString());
+					yemekDAL.YemekKaydet(entYemek);
+				}
+			}
+			Intent i = new Intent(SevilmeyenYemekEkle.this, MainActivity.class);
+			startActivity(i);
+		}
+	};
 
 }
