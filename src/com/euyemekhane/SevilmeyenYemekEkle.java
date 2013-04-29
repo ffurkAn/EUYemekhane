@@ -23,7 +23,7 @@ public class SevilmeyenYemekEkle extends Activity {
 	private EditText editText;
 	private List<EditText> editTextList = new ArrayList<EditText>();
 	private SevilmeyenYemek entYemek;
-	private SevilmeyenYemekDAL yemekDAL = new SevilmeyenYemekDAL(this);
+	private SevilmeyenYemekDAL dalSevilmeyen = new SevilmeyenYemekDAL(this);
 	//private RelativeLayout.LayoutParams params;
 
 	@Override
@@ -87,16 +87,21 @@ public class SevilmeyenYemekEkle extends Activity {
 		return txt;
 	}
 
-	private Button.OnClickListener btnYemekKaydetOnClickListener = new Button.OnClickListener(){
+	private Button.OnClickListener btnYemekKaydetOnClickListener = new Button.OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			for (EditText x : editTextList) {
+			String newYemekAdi;
+			for (EditText x : editTextList)
+			{
 				if (x.getText().length() > 0) {
 					entYemek = new SevilmeyenYemek();
-					entYemek.setYemekAdi(x.getText().toString());
-					yemekDAL.YemekKaydet(entYemek);
+					newYemekAdi = x.getText().toString().substring(0,1).toUpperCase() + x.getText().toString().substring(1).toLowerCase();
+
+					entYemek.setYemekAdi(newYemekAdi);
+					dalSevilmeyen.YemekKaydet(entYemek);
+					dalSevilmeyen.SevilmeyenGuncelle(entYemek);
 				}
 			}
 			Intent i = new Intent(SevilmeyenYemekEkle.this, MainActivity.class);

@@ -26,24 +26,29 @@ public final class R {
         public static final int splash=0x7f020002;
     }
     public static final class id {
-        public static final int action_settings=0x7f080011;
+        public static final int action_settings=0x7f080016;
+        public static final int big=0x7f080014;
         public static final int btnAylik=0x7f080007;
         public static final int btnGunluk=0x7f080006;
         public static final int btnSevYemek=0x7f080008;
-        public static final int btnSevilmeyenKaydet=0x7f08000d;
-        public static final int dynamicLayout=0x7f08000b;
+        public static final int btnSevilmeyenYemekEkle=0x7f08000f;
+        public static final int checkBox=0x7f080013;
+        public static final int dynamicLayout=0x7f08000c;
         public static final int imageView1=0x7f080004;
-        public static final int imageView2=0x7f080009;
+        public static final int imageView2=0x7f08000a;
         public static final int imageView3=0x7f080002;
-        public static final int pager=0x7f080010;
+        public static final int listViewTexts=0x7f080012;
+        public static final int ogleLinear=0x7f080009;
+        public static final int ogleListView=0x7f08000b;
         public static final int relativeLayout1=0x7f080000;
-        public static final int splashProgBar=0x7f08000f;
-        public static final int splashView=0x7f08000e;
-        public static final int text1=0x7f08000c;
+        public static final int scrollLinear=0x7f08000e;
+        public static final int sevilmeyenYemekScrollView=0x7f08000d;
+        public static final int small=0x7f080015;
+        public static final int splashProgBar=0x7f080011;
+        public static final int splashView=0x7f080010;
         public static final int textView1=0x7f080003;
         public static final int textView2=0x7f080001;
         public static final int txtViewAksam=0x7f080005;
-        public static final int txtViewOgle=0x7f08000a;
     }
     public static final class layout {
         public static final int activity_aksam_yemegi=0x7f030000;
@@ -51,7 +56,7 @@ public final class R {
         public static final int activity_ogle_yemegi=0x7f030002;
         public static final int activity_sevilmeyen_yemek_ekle=0x7f030003;
         public static final int activity_splash_screen=0x7f030004;
-        public static final int activity_tab_layout=0x7f030005;
+        public static final int listview_item=0x7f030005;
     }
     public static final class menu {
         public static final int aksam_yemegi=0x7f070000;

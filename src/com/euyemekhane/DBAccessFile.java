@@ -6,16 +6,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBAccessFile extends SQLiteOpenHelper {
 
-	// TRANSACTION MIN API LEVEL 11
-	  /*db.beginTransactionNonExclusive();
-	   try {
-	     ...
-	     db.setTransactionSuccessful();
-	   } finally {
-	     db.endTransaction();
-	   }*/
-	
-	
 	private final static int DATABASE_VERSION = 5;
 	private final static String DATABASE_NAME = "YEMEKHANE";
 	private static String TABLE_NAME = "";
@@ -34,7 +24,7 @@ public class DBAccessFile extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
-		db.execSQL("CREATE TABLE EUYemekhane(id INTEGER PRIMARY KEY autoincrement ,MenuAyi TEXT, YemekTuru TEXT, MenuTarihi TEXT, Gun INTEGER, YemekMenusu TEXT, Sevilmeyen INTEGER)");
+		db.execSQL("CREATE TABLE EUYemekhane(id INTEGER PRIMARY KEY autoincrement, MenuAyi TEXT, YemekTuru TEXT, MenuTarihi TEXT, Gun INTEGER, YemekMenusu TEXT, Sevilmeyen INTEGER)");
 		db.execSQL("CREATE TABLE SevilmeyenYemek(YemekAdi TEXT)");
 	}
 

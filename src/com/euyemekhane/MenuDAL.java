@@ -1,6 +1,7 @@
 package com.euyemekhane;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -227,6 +228,40 @@ public class MenuDAL extends DAL {
 		}catch (Exception ex) {
 			Log.d("#ERROR MenuKayit", ex.getMessage());
 		}
+
+	}
+	
+	public void eskiKayitlariSil()
+	{
+		final Calendar c = Calendar.getInstance();
+		int gun=c.get(Calendar.DAY_OF_MONTH); 
+		int ay= (c.get(Calendar.MONTH)+1); 
+		int id;
+
+
+		SQLiteDatabase db = getDatabase();
+
+		Cursor crsrOgle = db.rawQuery("select * from EUYemekhane where EUYemekhane.YemekTuru = 'ogle' and EUYemekhane.MenuTarihi like '%" + gun + "%" + ay + "%'", null);
+
+		if(crsrOgle.getCount()!=0)
+		{
+			crsrOgle.moveToFirst();
+			id = crsrOgle.getInt(0); 
+			db.execSQL("delete from EUYemekhane where EUYemekhane.YemekTuru= 'ogle' and EUYemekhane.id <"+id);
+		}
+		crsrOgle.close();
+
+		Cursor crsrAksam = db.rawQuery("select * from EUYemekhane where EUYemekhane.YemekTuru = 'aksam' and EUYemekhane.MenuTarihi like '%" + gun + "%" + ay + "%'",null);
+
+		if(crsrAksam.getCount()!=0)
+		{
+			crsrAksam.moveToFirst();
+			id= getCursorInt(crsrAksam, "id");	
+			db.execSQL("delete from EUYemekhane where EUYemekhane.YemekTuru='aksam' and EUYemekhane.id <"+id);
+		}
+		crsrAksam.close();
+
+		db.close();
 
 	}
 

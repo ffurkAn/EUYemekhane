@@ -31,8 +31,6 @@ public class SplashScreen extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash_screen);
 		
-		
-		
 		new Handler().postDelayed(new Runnable() {
 			
 			@Override
@@ -75,11 +73,7 @@ public class SplashScreen extends Activity {
 									entMenu.setGun(4);
 								else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Cu.*"))
 									entMenu.setGun(5);
-								
-								//
-									
-								
-								//
+
 								entMenu.setSevilmeyen(0);
 								entMenu.setAy(baslikStr[0]);
 								entMenu.setTur("ogle");
@@ -136,8 +130,7 @@ public class SplashScreen extends Activity {
 									entMenu.setGun(4);
 								else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Cu.*"))
 									entMenu.setGun(5);
-								
-								
+
 								entMenu.setSevilmeyen(0);
 								entMenu.setAy(baslikStr[0]);
 								entMenu.setTur("aksam");
@@ -156,7 +149,7 @@ public class SplashScreen extends Activity {
 				}
 				
 				dalMenu.eskiKayitlariSil();
-					//dbTemizle();
+				//dbTemizle();
 				Intent i = new Intent(SplashScreen.this, MainActivity.class);
 				startActivity(i);
 				SplashScreen.this.finish();

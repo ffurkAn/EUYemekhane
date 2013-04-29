@@ -1,7 +1,7 @@
 package com.euyemekhane;
 
 public class Menu {
-	
+
 	private int id;
 	private String ay;
 	private String tur;
@@ -9,13 +9,10 @@ public class Menu {
 	private int gun;
 	private String menu;
 	private int sevilmeyen;
+	private boolean selected;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public Menu() {
+		setSelected(false);
 	}
 	
 	public String getTarih() {
@@ -64,6 +61,22 @@ public class Menu {
 
 	public void setSevilmeyen(int sevilmeyen) {
 		this.sevilmeyen = sevilmeyen;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }
