@@ -101,7 +101,7 @@ public class SevilmeyenYemekEkle extends Activity {
 
 					entYemek.setYemekAdi(newYemekAdi);
 					dalSevilmeyen.YemekKaydet(entYemek);
-					dalSevilmeyen.SevilmeyenGuncelle(entYemek);
+					dalSevilmeyen.SevilmeyenGuncelle(entYemek,1);
 				}
 			}
 			Intent i = new Intent(SevilmeyenYemekEkle.this, MainActivity.class);

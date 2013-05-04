@@ -79,12 +79,12 @@ private Context context;
 
 	}
 	
-	public void SevilmeyenGuncelle(SevilmeyenYemek entYemek)
+	public void SevilmeyenGuncelle(SevilmeyenYemek entYemek, int x)
 	{
 		try {
 
 			ContentValues args = new ContentValues();
-			args.put("Sevilmeyen", 1);
+			args.put("Sevilmeyen", x);
 
 			SQLiteDatabase db = getDatabase();
 

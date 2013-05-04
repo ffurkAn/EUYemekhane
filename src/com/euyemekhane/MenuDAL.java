@@ -19,7 +19,7 @@ public class MenuDAL extends DAL {
 		this.context = context;
 	}
 
-	private SQLiteDatabase getDatabase()
+	public SQLiteDatabase getDatabase()
 	{
 		DBAccessFile newDB = new DBAccessFile(context);
 		return newDB.getDB();
@@ -31,7 +31,7 @@ public class MenuDAL extends DAL {
 			SQLiteDatabase db = getDatabase();
 
 			Cursor c = db.rawQuery("select * from EUYemekhane where YemekTuru = 'ogle' and MenuTarihi like '%" + gun + "%" + ay + "%'", null);
-			c.moveToLast();
+			c.moveToFirst();
 			
 			Menu entMenu = new Menu();
 
@@ -41,7 +41,8 @@ public class MenuDAL extends DAL {
 			entMenu.setGun(getCursorInt(c, "Gun"));
 			entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
 			entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
-
+			
+			
 			return entMenu;
 			
 		} catch (Exception e) {
@@ -55,7 +56,7 @@ public class MenuDAL extends DAL {
 			SQLiteDatabase db = getDatabase();
 
 			Cursor c = db.rawQuery("select * from EUYemekhane where YemekTuru = 'aksam' and MenuTarihi like '%" + gun + "%" + ay + "%'", null);
-			c.moveToLast();
+			c.moveToFirst();
 			
 			Menu entMenu = new Menu();
 
@@ -78,17 +79,17 @@ public class MenuDAL extends DAL {
 		try {
 			SQLiteDatabase db = getDatabase();
 
-			Cursor c = db.rawQuery("select * from EUYemekhane where YemekTuru = 'ogle'", null);
+			Cursor c = db.rawQuery("select MenuTarihi from EUYemekhane where YemekTuru = 'ogle'", null);
 			c.moveToLast();
 			
 			Menu entMenu = new Menu();
 
-			entMenu.setAy(getCursorStr(c, "MenuAyi"));
-			entMenu.setTur(getCursorStr(c, "YemekTuru"));
+			//entMenu.setAy(getCursorStr(c, "MenuAyi"));
+			//entMenu.setTur(getCursorStr(c, "YemekTuru"));
 			entMenu.setTarih(getCursorStr(c, "MenuTarihi"));
-			entMenu.setGun(getCursorInt(c, "Gun"));
-			entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
-			entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
+			//entMenu.setGun(getCursorInt(c, "Gun"));
+			//entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
+			//entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
 
 			return entMenu;
 			
@@ -102,17 +103,17 @@ public class MenuDAL extends DAL {
 		try {
 			SQLiteDatabase db = getDatabase();
 
-			Cursor c = db.rawQuery("select * from EUYemekhane where YemekTuru = 'aksam'", null);
+			Cursor c = db.rawQuery("select MenuTarihi from EUYemekhane where YemekTuru = 'aksam'", null);
 			c.moveToLast();
 			
 			Menu entMenu = new Menu();
 
-			entMenu.setAy(getCursorStr(c, "MenuAyi"));
-			entMenu.setTur(getCursorStr(c, "YemekTuru"));
+			//entMenu.setAy(getCursorStr(c, "MenuAyi"));
+			//entMenu.setTur(getCursorStr(c, "YemekTuru"));
 			entMenu.setTarih(getCursorStr(c, "MenuTarihi"));
-			entMenu.setGun(getCursorInt(c, "Gun"));
-			entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
-			entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
+			//entMenu.setGun(getCursorInt(c, "Gun"));
+			//entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
+			//entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
 
 			return entMenu;
 			
@@ -199,7 +200,12 @@ public class MenuDAL extends DAL {
 				entMenu.setGun(getCursorInt(c, "Gun"));
 				entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
 				entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
-
+				//////////
+						if(getCursorInt(c, "Selected")==1)
+							entMenu.setSelected(true);
+						else
+							entMenu.setSelected(false);
+				//////////
 				lstMenu.add(entMenu);
 
 			}while (c.moveToNext());
@@ -220,7 +226,12 @@ public class MenuDAL extends DAL {
 			values.put("Gun", entMenu.getGun());
 			values.put("YemekMenusu", entMenu.getMenu());
 			values.put("Sevilmeyen", entMenu.getSevilmeyen());
-
+			////////7
+					if(entMenu.isSelected()==false)
+						values.put("Selected", 0);
+					else
+						values.put("Selected", 1);
+			/////////7
 			SQLiteDatabase db = getDatabase();
 			db.insert("EUYemekhane", null, values);
 			db.close();
@@ -243,7 +254,7 @@ public class MenuDAL extends DAL {
 
 		Cursor crsrOgle = db.rawQuery("select * from EUYemekhane where EUYemekhane.YemekTuru = 'ogle' and EUYemekhane.MenuTarihi like '%" + gun + "%" + ay + "%'", null);
 
-		if(crsrOgle.getCount()!=0)
+		if(crsrOgle.getCount()>0)
 		{
 			crsrOgle.moveToFirst();
 			id = crsrOgle.getInt(0); 
@@ -253,7 +264,7 @@ public class MenuDAL extends DAL {
 
 		Cursor crsrAksam = db.rawQuery("select * from EUYemekhane where EUYemekhane.YemekTuru = 'aksam' and EUYemekhane.MenuTarihi like '%" + gun + "%" + ay + "%'",null);
 
-		if(crsrAksam.getCount()!=0)
+		if(crsrAksam.getCount()>0)
 		{
 			crsrAksam.moveToFirst();
 			id= getCursorInt(crsrAksam, "id");	

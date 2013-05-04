@@ -3,7 +3,9 @@ package com.euyemekhane;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +47,24 @@ public class CustomAdapter extends ArrayAdapter<Menu> {
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 					Menu element = (Menu) viewHolder.checkBox.getTag();
 					element.setSelected(buttonView.isChecked());
-					MenuDAL dalMenu = new MenuDAL(null);
+					MenuDAL dalMenu = new MenuDAL(getContext());
+					SQLiteDatabase db = dalMenu.getDatabase();
+					
+					////////////
+					ContentValues args = new ContentValues();
+					if(isChecked)
+						{
+						args.put("Selected", 1);						
+						}
+					else
+						{
+						args.put("Selected", 0);
+						}
+					int gun = element.getGun();
+					
+					db.update("EUYemekhane", args, "YemekMenusu like '%"+element.getAy().toString()+"%"+element.getGun()+"%'", null);
+					
+					///////////
 				}
 			});
 

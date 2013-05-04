@@ -16,11 +16,14 @@ public class MainActivity extends Activity {
 		Button btnGunluk = (Button) findViewById(R.id.btnGunluk);
 		Button btnAylik = (Button) findViewById(R.id.btnAylik);
 		Button btnSevYemek = (Button) findViewById(R.id.btnSevYemek);
+		Button btnSevilmeyenYemekler = (Button) findViewById(R.id.btnsevilmeyenYemekler);
+		
 		btnGunluk.setOnClickListener(btnGunlukOnClickListener);
 		btnAylik.setOnClickListener(btnAylikOnClickListener);
 		btnSevYemek.setOnClickListener(btnSevYemekOnClickListener);
-
+		btnSevilmeyenYemekler.setOnClickListener(btnSevilmeyenYemeklerOnClickistener);
 	}
+
 
 	private Button.OnClickListener btnGunlukOnClickListener = new Button.OnClickListener(){
 
@@ -53,5 +56,17 @@ public class MainActivity extends Activity {
 			startActivity(i);
 		}
 	};
+	
+	private Button.OnClickListener btnSevilmeyenYemeklerOnClickistener = new Button.OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent i = new Intent(MainActivity.this, SevilmeyenYemeklerListesi.class);
+			startActivity(i);
+			
+		}
+	};
+	
 
 }
