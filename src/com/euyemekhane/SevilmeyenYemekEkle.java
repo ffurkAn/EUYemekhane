@@ -13,16 +13,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 public class SevilmeyenYemekEkle extends Activity {
 
 	private int editTextID = 0;
 	private int editTextCount = 0;
 	private String text;
-	private LinearLayout rl;
+	private LinearLayout ll;
+	private ListView listView;
 	private EditText editText;
 	private List<EditText> editTextList = new ArrayList<EditText>();
 	private SevilmeyenYemek entYemek;
+	private ArrayList<SevilmeyenYemek> sevilmeyenYemekListe = new ArrayList<SevilmeyenYemek>();
 	private SevilmeyenYemekDAL dalSevilmeyen = new SevilmeyenYemekDAL(this);
 	//private RelativeLayout.LayoutParams params;
 
@@ -31,7 +34,8 @@ public class SevilmeyenYemekEkle extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sevilmeyen_yemek_ekle);
 
-		rl = (LinearLayout) findViewById(R.id.scrollLinear);
+		ll = (LinearLayout) findViewById(R.id.scrollLinear);
+		listView = (ListView) findViewById(R.id.sevilmeyenYemekListView);
 
 		TextWatcher watcher = new TextWatcher() {
 
@@ -47,7 +51,7 @@ public class SevilmeyenYemekEkle extends Activity {
 					//params.addRule(RelativeLayout.BELOW, editTextList.get(editTextList.size() - 1).getId());
 					//editText.setLayoutParams(params);
 					editTextList.add(editText);
-					rl.addView(editText);
+					ll.addView(editText);
 				}
 			}
 
@@ -66,10 +70,17 @@ public class SevilmeyenYemekEkle extends Activity {
 		editText = getEditText();
 		editText.addTextChangedListener(watcher);
 		editTextList.add(editText);
-		rl.addView(editText);
+		ll.addView(editText);
 
+		sevilmeyenYemekListe = dalSevilmeyen.TumYemekleriGetir();
+		SevilmeyenYemekAdapter adapter = new SevilmeyenYemekAdapter(this, R.id.sevilmeyenYemekListView, sevilmeyenYemekListe);
+		listView.setAdapter(adapter);
+		
 		Button btnYemekKaydet = (Button) findViewById(R.id.btnSevilmeyenYemekEkle);
 		btnYemekKaydet.setOnClickListener(btnYemekKaydetOnClickListener);
+		
+		Button btnYemekSil = (Button) findViewById(R.id.btnSevilmeyenYemekSil);
+		btnYemekSil.setOnClickListener(btnYemekSilOnClickListener);
 
 	}
 
@@ -78,8 +89,8 @@ public class SevilmeyenYemekEkle extends Activity {
 		editTextCount++;
 		EditText txt = new EditText(this);
 		LayoutParams param = new LayoutParams();
-		param.width = LayoutParams.FILL_PARENT;
-		param.height = LayoutParams.WRAP_CONTENT;
+		param.width = android.view.ViewGroup.LayoutParams.FILL_PARENT;
+		param.height = android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 		txt.setId(editTextID);
 		txt.setLayoutParams(param);
 		txt.setText("");
@@ -104,6 +115,17 @@ public class SevilmeyenYemekEkle extends Activity {
 					dalSevilmeyen.SevilmeyenGuncelle(entYemek,1);
 				}
 			}
+			Intent i = new Intent(SevilmeyenYemekEkle.this, MainActivity.class);
+			startActivity(i);
+		}
+	};
+	
+	private Button.OnClickListener btnYemekSilOnClickListener = new Button.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			//Secilen yemekleri silme islemleri
 			Intent i = new Intent(SevilmeyenYemekEkle.this, MainActivity.class);
 			startActivity(i);
 		}

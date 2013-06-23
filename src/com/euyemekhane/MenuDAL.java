@@ -226,12 +226,12 @@ public class MenuDAL extends DAL {
 			values.put("Gun", entMenu.getGun());
 			values.put("YemekMenusu", entMenu.getMenu());
 			values.put("Sevilmeyen", entMenu.getSevilmeyen());
-			////////7
+			////////
 					if(entMenu.isSelected()==false)
 						values.put("Selected", 0);
 					else
 						values.put("Selected", 1);
-			/////////7
+			/////////
 			SQLiteDatabase db = getDatabase();
 			db.insert("EUYemekhane", null, values);
 			db.close();

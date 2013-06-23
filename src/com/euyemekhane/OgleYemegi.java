@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
@@ -43,14 +42,14 @@ public class OgleYemegi extends Activity implements OnGestureListener {
 		Intent preIntent = getIntent();
 		glIntent = preIntent;
 
-		gestureScanner = new GestureDetector((OnGestureListener) this);
+		gestureScanner = new GestureDetector(this);
 
 		final Calendar c = Calendar.getInstance();
 		final ListView listView = (ListView) findViewById(R.id.ogleListView);
 
 		if (preIntent.getIntExtra("gosterimTipi", -1) == 1) {
 			LinearLayout ll = (LinearLayout) findViewById(R.id.ogleLinear);
-			LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			LayoutParams params = new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 			TextView txtView = new TextView(this);
 			txtView.setLayoutParams(params);
 			ll.addView(txtView);
@@ -73,10 +72,8 @@ public class OgleYemegi extends Activity implements OnGestureListener {
 
 		} else if (preIntent.getIntExtra("gosterimTipi", -1) == 2) {
 			menuListe = dalMenu.TumOgleGetir();
-			for (Menu k : menuListe) {
-				CustomAdapter adapter = new CustomAdapter(this, R.id.ogleListView, menuListe);
-				listView.setAdapter(adapter);
-			}
+			CustomAdapter adapter = new CustomAdapter(this, R.id.ogleListView, menuListe);
+			listView.setAdapter(adapter);
 		}
 
 	}

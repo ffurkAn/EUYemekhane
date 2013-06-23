@@ -240,7 +240,8 @@ public class Elements implements List<Element>, Cloneable {
      * @see #text()
      * @see #html()
      */
-    public String toString() {
+    @Override
+	public String toString() {
         return outerHtml();
     }
 
@@ -488,53 +489,78 @@ public class Elements implements List<Element>, Cloneable {
     }
 
     // implements List<Element> delegates:
-    public int size() {return contents.size();}
+    @Override
+	public int size() {return contents.size();}
 
-    public boolean isEmpty() {return contents.isEmpty();}
+    @Override
+	public boolean isEmpty() {return contents.isEmpty();}
 
-    public boolean contains(Object o) {return contents.contains(o);}
+    @Override
+	public boolean contains(Object o) {return contents.contains(o);}
 
-    public Iterator<Element> iterator() {return contents.iterator();}
+    @Override
+	public Iterator<Element> iterator() {return contents.iterator();}
 
-    public Object[] toArray() {return contents.toArray();}
+    @Override
+	public Object[] toArray() {return contents.toArray();}
 
-    public <T> T[] toArray(T[] a) {return contents.toArray(a);}
+    @Override
+	public <T> T[] toArray(T[] a) {return contents.toArray(a);}
 
-    public boolean add(Element element) {return contents.add(element);}
+    @Override
+	public boolean add(Element element) {return contents.add(element);}
 
-    public boolean remove(Object o) {return contents.remove(o);}
+    @Override
+	public boolean remove(Object o) {return contents.remove(o);}
 
-    public boolean containsAll(Collection<?> c) {return contents.containsAll(c);}
+    @Override
+	public boolean containsAll(Collection<?> c) {return contents.containsAll(c);}
 
-    public boolean addAll(Collection<? extends Element> c) {return contents.addAll(c);}
+    @Override
+	public boolean addAll(Collection<? extends Element> c) {return contents.addAll(c);}
 
-    public boolean addAll(int index, Collection<? extends Element> c) {return contents.addAll(index, c);}
+    @Override
+	public boolean addAll(int index, Collection<? extends Element> c) {return contents.addAll(index, c);}
 
-    public boolean removeAll(Collection<?> c) {return contents.removeAll(c);}
+    @Override
+	public boolean removeAll(Collection<?> c) {return contents.removeAll(c);}
 
-    public boolean retainAll(Collection<?> c) {return contents.retainAll(c);}
+    @Override
+	public boolean retainAll(Collection<?> c) {return contents.retainAll(c);}
 
-    public void clear() {contents.clear();}
+    @Override
+	public void clear() {contents.clear();}
 
-    public boolean equals(Object o) {return contents.equals(o);}
+    @Override
+	public boolean equals(Object o) {return contents.equals(o);}
 
-    public int hashCode() {return contents.hashCode();}
+    @Override
+	public int hashCode() {return contents.hashCode();}
 
-    public Element get(int index) {return contents.get(index);}
+    @Override
+	public Element get(int index) {return contents.get(index);}
 
-    public Element set(int index, Element element) {return contents.set(index, element);}
+    @Override
+	public Element set(int index, Element element) {return contents.set(index, element);}
 
-    public void add(int index, Element element) {contents.add(index, element);}
+    @Override
+	public void add(int index, Element element) {contents.add(index, element);}
 
-    public Element remove(int index) {return contents.remove(index);}
+    @Override
+	public Element remove(int index) {return contents.remove(index);}
 
-    public int indexOf(Object o) {return contents.indexOf(o);}
+    @Override
+	public int indexOf(Object o) {return contents.indexOf(o);}
 
-    public int lastIndexOf(Object o) {return contents.lastIndexOf(o);}
+    @Override
+	public int lastIndexOf(Object o) {return contents.lastIndexOf(o);}
 
-    public ListIterator<Element> listIterator() {return contents.listIterator();}
+    @Override
+	public ListIterator<Element> listIterator() {return contents.listIterator();}
 
-    public ListIterator<Element> listIterator(int index) {return contents.listIterator(index);}
+    @Override
+	public ListIterator<Element> listIterator(int index) {return contents.listIterator(index);}
 
-    public List<Element> subList(int fromIndex, int toIndex) {return contents.subList(fromIndex, toIndex);}
+    @Override
+	public List<Element> subList(int fromIndex, int toIndex) {return contents.subList(fromIndex, toIndex);}
 }

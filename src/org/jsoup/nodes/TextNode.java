@@ -28,7 +28,8 @@ public class TextNode extends Node {
         this.text = text;
     }
 
-    public String nodeName() {
+    @Override
+	public String nodeName() {
         return "#text";
     }
     
@@ -89,9 +90,10 @@ public class TextNode extends Node {
         return tailNode;
     }
 
-    void outerHtmlHead(StringBuilder accum, int depth, Document.OutputSettings out) {
+    @Override
+	void outerHtmlHead(StringBuilder accum, int depth, Document.OutputSettings out) {
         String html = Entities.escape(getWholeText(), out);
-        if (out.prettyPrint() && parent() instanceof Element && !Element.preserveWhitespace((Element) parent())) {
+        if (out.prettyPrint() && parent() instanceof Element && !Element.preserveWhitespace(parent())) {
             html = normaliseWhitespace(html);
         }
 
@@ -100,9 +102,11 @@ public class TextNode extends Node {
         accum.append(html);
     }
 
-    void outerHtmlTail(StringBuilder accum, int depth, Document.OutputSettings out) {}
+    @Override
+	void outerHtmlTail(StringBuilder accum, int depth, Document.OutputSettings out) {}
 
-    public String toString() {
+    @Override
+	public String toString() {
         return outerHtml();
     }
 

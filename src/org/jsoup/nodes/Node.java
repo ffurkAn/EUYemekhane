@@ -139,11 +139,13 @@ public abstract class Node implements Cloneable {
         Validate.notNull(baseUri);
 
         traverse(new NodeVisitor() {
-            public void head(Node node, int depth) {
+            @Override
+			public void head(Node node, int depth) {
                 node.baseUri = baseUri;
             }
 
-            public void tail(Node node, int depth) {
+            @Override
+			public void tail(Node node, int depth) {
             }
         });
     }
@@ -560,7 +562,8 @@ public abstract class Node implements Cloneable {
 
     abstract void outerHtmlTail(StringBuilder accum, int depth, Document.OutputSettings out);
 
-    public String toString() {
+    @Override
+	public String toString() {
         return outerHtml();
     }
 
@@ -624,11 +627,13 @@ public abstract class Node implements Cloneable {
             this.out = out;
         }
 
-        public void head(Node node, int depth) {
+        @Override
+		public void head(Node node, int depth) {
             node.outerHtmlHead(accum, depth, out);
         }
 
-        public void tail(Node node, int depth) {
+        @Override
+		public void tail(Node node, int depth) {
             if (!node.nodeName().equals("#text")) // saves a void hit.
                 node.outerHtmlTail(accum, depth, out);
         }

@@ -6,8 +6,6 @@ import org.jsoup.parser.Tag;
 import org.jsoup.select.NodeTraversor;
 import org.jsoup.select.NodeVisitor;
 
-import java.util.List;
-
 /**
  The whitelist based HTML cleaner. Use to ensure that end-user provided HTML contains only the elements and attributes
  that you are expecting; no junk, and no cross-site scripting attacks!
@@ -79,7 +77,8 @@ public class Cleaner {
             this.destination = destination;
         }
 
-        public void head(Node source, int depth) {
+        @Override
+		public void head(Node source, int depth) {
             if (source instanceof Element) {
                 Element sourceEl = (Element) source;
 
@@ -102,7 +101,8 @@ public class Cleaner {
             }
         }
 
-        public void tail(Node source, int depth) {
+        @Override
+		public void tail(Node source, int depth) {
             if (source instanceof Element && whitelist.isSafeTag(source.nodeName())) {
                 destination = destination.parent(); // would have descended, so pop destination stack
             }

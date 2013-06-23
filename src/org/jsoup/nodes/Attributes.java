@@ -100,7 +100,8 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
         attributes.putAll(incoming.attributes);
     }
     
-    public Iterator<Attribute> iterator() {
+    @Override
+	public Iterator<Attribute> iterator() {
         return asList().iterator();
     }
 
@@ -150,7 +151,8 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
         }
     }
     
-    public String toString() {
+    @Override
+	public String toString() {
         return html();
     }
     
@@ -195,7 +197,8 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
                 attributes = new LinkedHashMap<String, Attribute>(2);
         }
 
-        public Set<Entry<String, String>> entrySet() {
+        @Override
+		public Set<Entry<String, String>> entrySet() {
             return new EntrySet();
         }
 
@@ -209,11 +212,13 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
         }
 
         private class EntrySet extends AbstractSet<Map.Entry<String, String>> {
-            public Iterator<Map.Entry<String, String>> iterator() {
+            @Override
+			public Iterator<Map.Entry<String, String>> iterator() {
                 return new DatasetIterator();
             }
 
-            public int size() {
+            @Override
+			public int size() {
                 int count = 0;
                 Iterator iter = new DatasetIterator();
                 while (iter.hasNext())
@@ -225,7 +230,8 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
         private class DatasetIterator implements Iterator<Map.Entry<String, String>> {
             private Iterator<Attribute> attrIter = attributes.values().iterator();
             private Attribute attr;
-            public boolean hasNext() {
+            @Override
+			public boolean hasNext() {
                 while (attrIter.hasNext()) {
                     attr = attrIter.next();
                     if (attr.isDataAttribute()) return true;
@@ -233,11 +239,13 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
                 return false;
             }
 
-            public Entry<String, String> next() {
+            @Override
+			public Entry<String, String> next() {
                 return new Attribute(attr.getKey().substring(dataPrefix.length()), attr.getValue());
             }
 
-            public void remove() {
+            @Override
+			public void remove() {
                 attributes.remove(attr.getKey());
             }
         }

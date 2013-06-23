@@ -15,19 +15,18 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-public class CustomAdapter extends ArrayAdapter<Menu> {
-	private ArrayList<Menu> entries;
+public class SevilmeyenYemekAdapter extends ArrayAdapter<SevilmeyenYemek> {
+	private ArrayList<SevilmeyenYemek> entries;
 	private Activity activity;
 
-	public CustomAdapter(Activity a, int textViewResourceId, ArrayList<Menu> entries) {
+	public SevilmeyenYemekAdapter(Activity a, int textViewResourceId, ArrayList<SevilmeyenYemek> entries) {
 		super(a, textViewResourceId, entries);
 		this.entries = entries;
 		this.activity = a;
 	}
 
 	public static class ViewHolder {
-		protected TextView text1;
-		protected TextView text2;
+		protected TextView text;
 		protected CheckBox checkBox;
 	}
 
@@ -37,19 +36,18 @@ public class CustomAdapter extends ArrayAdapter<Menu> {
 		final ViewHolder viewHolder;
 		if (v == null) {
 			LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			v = vi.inflate(R.layout.listview_item, null);
+			v = vi.inflate(R.layout.sevilmeyen_listview_item, null);
 			viewHolder = new ViewHolder();
-			viewHolder.text1 = (TextView) v.findViewById(R.id.big);
-			viewHolder.text2 = (TextView) v.findViewById(R.id.small);
-			viewHolder.checkBox = (CheckBox) v.findViewById(R.id.checkBox);
+			viewHolder.text = (TextView) v.findViewById(R.id.sevilmeyenListViewYemekAdi);
+			viewHolder.checkBox = (CheckBox) v.findViewById(R.id.checkBoxSevilmeyen);
 			viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
 				@Override
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-					Menu element = (Menu) viewHolder.checkBox.getTag();
+					SevilmeyenYemek element = (SevilmeyenYemek) viewHolder.checkBox.getTag();
 					element.setSelected(buttonView.isChecked());
-					MenuDAL dalMenu = new MenuDAL(activity);
-					SQLiteDatabase db = dalMenu.getDatabase();
+					SevilmeyenYemekDAL dalSevilmeyen = new SevilmeyenYemekDAL(activity);
+					SQLiteDatabase db = dalSevilmeyen.getDatabase();
 					
 					ContentValues args = new ContentValues();
 					if(element.isSelected())
@@ -61,8 +59,7 @@ public class CustomAdapter extends ArrayAdapter<Menu> {
 						args.put("Selected", 0);
 					}
 					
-					//Veritabani guncellenmiyor
-					db.update("EUYemekhane", args, "MenuTarihi like '%" + element.getGun() + "%" + element.getAy() + "%'", null);
+					//Veritabani guncelleme
 				}
 			});
 
@@ -73,10 +70,9 @@ public class CustomAdapter extends ArrayAdapter<Menu> {
 			((ViewHolder) v.getTag()).checkBox.setTag(entries.get(position));
 		}
 
-		final Menu menu = entries.get(position);
-		if (menu != null) {
-			viewHolder.text1.setText(menu.getTarih());
-			viewHolder.text2.setText(menu.getMenu());
+		final SevilmeyenYemek yemek = entries.get(position);
+		if (yemek != null) {
+			viewHolder.text.setText(yemek.getYemekAdi());
 			viewHolder.checkBox.setChecked(entries.get(position).isSelected());
 		}
 		return v;

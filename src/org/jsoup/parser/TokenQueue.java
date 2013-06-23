@@ -387,7 +387,8 @@ public class TokenQueue {
         return accum.toString();
     }
     
-    public String toString() {
+    @Override
+	public String toString() {
         return queue.substring(pos);
     }
 }

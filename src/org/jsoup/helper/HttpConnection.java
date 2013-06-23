@@ -42,12 +42,14 @@ public class HttpConnection implements Connection {
         res = new Response();
     }
 
-    public Connection url(URL url) {
+    @Override
+	public Connection url(URL url) {
         req.url(url);
         return this;
     }
 
-    public Connection url(String url) {
+    @Override
+	public Connection url(String url) {
         Validate.notEmpty(url, "Must supply a valid URL");
         try {
             req.url(new URL(url));
@@ -57,54 +59,64 @@ public class HttpConnection implements Connection {
         return this;
     }
 
-    public Connection userAgent(String userAgent) {
+    @Override
+	public Connection userAgent(String userAgent) {
         Validate.notNull(userAgent, "User agent must not be null");
         req.header("User-Agent", userAgent);
         return this;
     }
 
-    public Connection timeout(int millis) {
+    @Override
+	public Connection timeout(int millis) {
         req.timeout(millis);
         return this;
     }
 
-    public Connection maxBodySize(int bytes) {
+    @Override
+	public Connection maxBodySize(int bytes) {
         req.maxBodySize(bytes);
         return this;
     }
 
-    public Connection followRedirects(boolean followRedirects) {
+    @Override
+	public Connection followRedirects(boolean followRedirects) {
         req.followRedirects(followRedirects);
         return this;
     }
 
-    public Connection referrer(String referrer) {
+    @Override
+	public Connection referrer(String referrer) {
         Validate.notNull(referrer, "Referrer must not be null");
         req.header("Referer", referrer);
         return this;
     }
 
-    public Connection method(Method method) {
+    @Override
+	public Connection method(Method method) {
         req.method(method);
         return this;
     }
 
-    public Connection ignoreHttpErrors(boolean ignoreHttpErrors) {
+    @Override
+	public Connection ignoreHttpErrors(boolean ignoreHttpErrors) {
 		req.ignoreHttpErrors(ignoreHttpErrors);
 		return this;
 	}
 
-    public Connection ignoreContentType(boolean ignoreContentType) {
+    @Override
+	public Connection ignoreContentType(boolean ignoreContentType) {
         req.ignoreContentType(ignoreContentType);
         return this;
     }
 
-    public Connection data(String key, String value) {
+    @Override
+	public Connection data(String key, String value) {
         req.data(KeyVal.create(key, value));
         return this;
     }
 
-    public Connection data(Map<String, String> data) {
+    @Override
+	public Connection data(Map<String, String> data) {
         Validate.notNull(data, "Data map must not be null");
         for (Map.Entry<String, String> entry : data.entrySet()) {
             req.data(KeyVal.create(entry.getKey(), entry.getValue()));
@@ -112,7 +124,8 @@ public class HttpConnection implements Connection {
         return this;
     }
 
-    public Connection data(String... keyvals) {
+    @Override
+	public Connection data(String... keyvals) {
         Validate.notNull(keyvals, "Data key value pairs must not be null");
         Validate.isTrue(keyvals.length %2 == 0, "Must supply an even number of key value pairs");
         for (int i = 0; i < keyvals.length; i += 2) {
@@ -125,17 +138,20 @@ public class HttpConnection implements Connection {
         return this;
     }
 
-    public Connection header(String name, String value) {
+    @Override
+	public Connection header(String name, String value) {
         req.header(name, value);
         return this;
     }
 
-    public Connection cookie(String name, String value) {
+    @Override
+	public Connection cookie(String name, String value) {
         req.cookie(name, value);
         return this;
     }
 
-    public Connection cookies(Map<String, String> cookies) {
+    @Override
+	public Connection cookies(Map<String, String> cookies) {
         Validate.notNull(cookies, "Cookie map must not be null");
         for (Map.Entry<String, String> entry : cookies.entrySet()) {
             req.cookie(entry.getKey(), entry.getValue());
@@ -143,42 +159,50 @@ public class HttpConnection implements Connection {
         return this;
     }
 
-    public Connection parser(Parser parser) {
+    @Override
+	public Connection parser(Parser parser) {
         req.parser(parser);
         return this;
     }
 
-    public Document get() throws IOException {
+    @Override
+	public Document get() throws IOException {
         req.method(Method.GET);
         execute();
         return res.parse();
     }
 
-    public Document post() throws IOException {
+    @Override
+	public Document post() throws IOException {
         req.method(Method.POST);
         execute();
         return res.parse();
     }
 
-    public Connection.Response execute() throws IOException {
+    @Override
+	public Connection.Response execute() throws IOException {
         res = Response.execute(req);
         return res;
     }
 
-    public Connection.Request request() {
+    @Override
+	public Connection.Request request() {
         return req;
     }
 
-    public Connection request(Connection.Request request) {
+    @Override
+	public Connection request(Connection.Request request) {
         req = request;
         return this;
     }
 
-    public Connection.Response response() {
+    @Override
+	public Connection.Response response() {
         return res;
     }
 
-    public Connection response(Connection.Response response) {
+    @Override
+	public Connection response(Connection.Response response) {
         res = response;
         return this;
     }
@@ -195,32 +219,38 @@ public class HttpConnection implements Connection {
             cookies = new LinkedHashMap<String, String>();
         }
 
-        public URL url() {
+        @Override
+		public URL url() {
             return url;
         }
 
-        public T url(URL url) {
+        @Override
+		public T url(URL url) {
             Validate.notNull(url, "URL must not be null");
             this.url = url;
             return (T) this;
         }
 
-        public Method method() {
+        @Override
+		public Method method() {
             return method;
         }
 
-        public T method(Method method) {
+        @Override
+		public T method(Method method) {
             Validate.notNull(method, "Method must not be null");
             this.method = method;
             return (T) this;
         }
 
-        public String header(String name) {
+        @Override
+		public String header(String name) {
             Validate.notNull(name, "Header name must not be null");
             return getHeaderCaseInsensitive(name);
         }
 
-        public T header(String name, String value) {
+        @Override
+		public T header(String name, String value) {
             Validate.notEmpty(name, "Header name must not be empty");
             Validate.notNull(value, "Header value must not be null");
             removeHeader(name); // ensures we don't get an "accept-encoding" and a "Accept-Encoding"
@@ -228,12 +258,14 @@ public class HttpConnection implements Connection {
             return (T) this;
         }
 
-        public boolean hasHeader(String name) {
+        @Override
+		public boolean hasHeader(String name) {
             Validate.notEmpty(name, "Header name must not be empty");
             return getHeaderCaseInsensitive(name) != null;
         }
 
-        public T removeHeader(String name) {
+        @Override
+		public T removeHeader(String name) {
             Validate.notEmpty(name, "Header name must not be empty");
             Map.Entry<String, String> entry = scanHeaders(name); // remove is case insensitive too
             if (entry != null)
@@ -241,7 +273,8 @@ public class HttpConnection implements Connection {
             return (T) this;
         }
 
-        public Map<String, String> headers() {
+        @Override
+		public Map<String, String> headers() {
             return headers;
         }
 
@@ -268,30 +301,35 @@ public class HttpConnection implements Connection {
             return null;
         }
 
-        public String cookie(String name) {
+        @Override
+		public String cookie(String name) {
             Validate.notNull(name, "Cookie name must not be null");
             return cookies.get(name);
         }
 
-        public T cookie(String name, String value) {
+        @Override
+		public T cookie(String name, String value) {
             Validate.notEmpty(name, "Cookie name must not be empty");
             Validate.notNull(value, "Cookie value must not be null");
             cookies.put(name, value);
             return (T) this;
         }
 
-        public boolean hasCookie(String name) {
+        @Override
+		public boolean hasCookie(String name) {
             Validate.notEmpty("Cookie name must not be empty");
             return cookies.containsKey(name);
         }
 
-        public T removeCookie(String name) {
+        @Override
+		public T removeCookie(String name) {
             Validate.notEmpty("Cookie name must not be empty");
             cookies.remove(name);
             return (T) this;
         }
 
-        public Map<String, String> cookies() {
+        @Override
+		public Map<String, String> cookies() {
             return cookies;
         }
     }
@@ -315,69 +353,83 @@ public class HttpConnection implements Connection {
             parser = Parser.htmlParser();
         }
 
-        public int timeout() {
+        @Override
+		public int timeout() {
             return timeoutMilliseconds;
         }
 
-        public Request timeout(int millis) {
+        @Override
+		public Request timeout(int millis) {
             Validate.isTrue(millis >= 0, "Timeout milliseconds must be 0 (infinite) or greater");
             timeoutMilliseconds = millis;
             return this;
         }
 
-        public int maxBodySize() {
+        @Override
+		public int maxBodySize() {
             return maxBodySizeBytes;
         }
 
-        public Connection.Request maxBodySize(int bytes) {
+        @Override
+		public Connection.Request maxBodySize(int bytes) {
             Validate.isTrue(bytes >= 0, "maxSize must be 0 (unlimited) or larger");
             maxBodySizeBytes = bytes;
             return this;
         }
 
-        public boolean followRedirects() {
+        @Override
+		public boolean followRedirects() {
             return followRedirects;
         }
 
-        public Connection.Request followRedirects(boolean followRedirects) {
+        @Override
+		public Connection.Request followRedirects(boolean followRedirects) {
             this.followRedirects = followRedirects;
             return this;
         }
 
-        public boolean ignoreHttpErrors() {
+        @Override
+		public boolean ignoreHttpErrors() {
             return ignoreHttpErrors;
         }
 
-        public Connection.Request ignoreHttpErrors(boolean ignoreHttpErrors) {
+        @Override
+		public Connection.Request ignoreHttpErrors(boolean ignoreHttpErrors) {
             this.ignoreHttpErrors = ignoreHttpErrors;
             return this;
         }
 
-        public boolean ignoreContentType() {
+        @Override
+		public boolean ignoreContentType() {
             return ignoreContentType;
         }
 
-        public Connection.Request ignoreContentType(boolean ignoreContentType) {
+        @Override
+		public Connection.Request ignoreContentType(boolean ignoreContentType) {
             this.ignoreContentType = ignoreContentType;
             return this;
         }
 
-        public Request data(Connection.KeyVal keyval) {
+        @Override
+		public Request data(Connection.KeyVal keyval) {
             Validate.notNull(keyval, "Key val must not be null");
             data.add(keyval);
             return this;
         }
 
-        public Collection<Connection.KeyVal> data() {
+        @Override
+		public Collection<Connection.KeyVal> data() {
             return data;
         }
         
-        public Request parser(Parser parser) {
+        @Override
+		public Request parser(Parser parser) {
             this.parser = parser;
             return this;
         }
         
-        public Parser parser() {
+        @Override
+		public Parser parser() {
             return parser;
         }
     }
@@ -477,23 +529,28 @@ public class HttpConnection implements Connection {
             return res;
         }
 
-        public int statusCode() {
+        @Override
+		public int statusCode() {
             return statusCode;
         }
 
-        public String statusMessage() {
+        @Override
+		public String statusMessage() {
             return statusMessage;
         }
 
-        public String charset() {
+        @Override
+		public String charset() {
             return charset;
         }
 
-        public String contentType() {
+        @Override
+		public String contentType() {
             return contentType;
         }
 
-        public Document parse() throws IOException {
+        @Override
+		public Document parse() throws IOException {
             Validate.isTrue(executed, "Request must be executed (with .execute(), .get(), or .post() before parsing response");
             Document doc = DataUtil.parseByteData(byteData, charset, url.toExternalForm(), req.parser());
             byteData.rewind();
@@ -501,7 +558,8 @@ public class HttpConnection implements Connection {
             return doc;
         }
 
-        public String body() {
+        @Override
+		public String body() {
             Validate.isTrue(executed, "Request must be executed (with .execute(), .get(), or .post() before getting response body");
             // charset gets set from header on execute, and from meta-equiv on parse. parse may not have happened yet
             String body;
@@ -513,7 +571,8 @@ public class HttpConnection implements Connection {
             return body;
         }
 
-        public byte[] bodyAsBytes() {
+        @Override
+		public byte[] bodyAsBytes() {
             Validate.isTrue(executed, "Request must be executed (with .execute(), .get(), or .post() before getting response body");
             return byteData.array();
         }
@@ -659,23 +718,27 @@ public class HttpConnection implements Connection {
             this.value = value;
         }
 
-        public KeyVal key(String key) {
+        @Override
+		public KeyVal key(String key) {
             Validate.notEmpty(key, "Data key must not be empty");
             this.key = key;
             return this;
         }
 
-        public String key() {
+        @Override
+		public String key() {
             return key;
         }
 
-        public KeyVal value(String value) {
+        @Override
+		public KeyVal value(String value) {
             Validate.notNull(value, "Data value must not be null");
             this.value = value;
             return this;
         }
 
-        public String value() {
+        @Override
+		public String value() {
             return value;
         }
 

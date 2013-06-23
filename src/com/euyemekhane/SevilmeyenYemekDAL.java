@@ -17,7 +17,7 @@ private Context context;
 		this.context=context;
 	}
 
-	private SQLiteDatabase getDatabase()
+	public SQLiteDatabase getDatabase()
 	{
 		DBAccessFile newDB = new DBAccessFile(context);
 		return newDB.getDB();

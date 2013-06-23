@@ -39,7 +39,7 @@ public class AksamYemegi extends Activity implements OnGestureListener {
 		Intent preIntent = getIntent();
 		glIntent = preIntent;
 
-		gestureScanner = new GestureDetector((OnGestureListener) this);
+		gestureScanner = new GestureDetector(this);
 
 		final Calendar c = Calendar.getInstance();
 		final TextView txtView = (TextView) findViewById(R.id.txtViewAksam);

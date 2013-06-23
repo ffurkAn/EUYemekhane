@@ -17,7 +17,8 @@ public class DataNode extends Node{
         attributes.put(DATA_KEY, data);
     }
 
-    public String nodeName() {
+    @Override
+	public String nodeName() {
         return "#data";
     }
 
@@ -39,13 +40,16 @@ public class DataNode extends Node{
         return this;
     }
 
-    void outerHtmlHead(StringBuilder accum, int depth, Document.OutputSettings out) {
+    @Override
+	void outerHtmlHead(StringBuilder accum, int depth, Document.OutputSettings out) {
         accum.append(getWholeData()); // data is not escaped in return from data nodes, so " in script, style is plain
     }
 
-    void outerHtmlTail(StringBuilder accum, int depth, Document.OutputSettings out) {}
+    @Override
+	void outerHtmlTail(StringBuilder accum, int depth, Document.OutputSettings out) {}
 
-    public String toString() {
+    @Override
+	public String toString() {
         return outerHtml();
     }
 

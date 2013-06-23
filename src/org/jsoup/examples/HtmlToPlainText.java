@@ -54,7 +54,8 @@ public class HtmlToPlainText {
         private StringBuilder accum = new StringBuilder(); // holds the accumulated text
 
         // hit when the node is first seen
-        public void head(Node node, int depth) {
+        @Override
+		public void head(Node node, int depth) {
             String name = node.nodeName();
             if (node instanceof TextNode)
                 append(((TextNode) node).text()); // TextNodes carry all user-readable text in the DOM.
@@ -63,7 +64,8 @@ public class HtmlToPlainText {
         }
 
         // hit when all of the node's children (if any) have been visited
-        public void tail(Node node, int depth) {
+        @Override
+		public void tail(Node node, int depth) {
             String name = node.nodeName();
             if (name.equals("br"))
                 append("\n");
@@ -102,7 +104,8 @@ public class HtmlToPlainText {
             }
         }
 
-        public String toString() {
+        @Override
+		public String toString() {
             return accum.toString();
         }
     }

@@ -29,7 +29,8 @@ public class Attribute implements Map.Entry<String, String>, Cloneable  {
      Get the attribute key.
      @return the attribute key
      */
-    public String getKey() {
+    @Override
+	public String getKey() {
         return key;
     }
 
@@ -46,7 +47,8 @@ public class Attribute implements Map.Entry<String, String>, Cloneable  {
      Get the attribute value.
      @return the attribute value
      */
-    public String getValue() {
+    @Override
+	public String getValue() {
         return value;
     }
 
@@ -54,7 +56,8 @@ public class Attribute implements Map.Entry<String, String>, Cloneable  {
      Set the attribute value.
      @param value the new attribute value; must not be null
      */
-    public String setValue(String value) {
+    @Override
+	public String setValue(String value) {
         Validate.notNull(value);
         String old = this.value;
         this.value = value;
@@ -81,7 +84,8 @@ public class Attribute implements Map.Entry<String, String>, Cloneable  {
      Get the string representation of this attribute, implemented as {@link #html()}.
      @return string
      */
-    public String toString() {
+    @Override
+	public String toString() {
         return html();
     }
 

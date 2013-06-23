@@ -20,7 +20,8 @@ public class XmlDeclaration extends Node {
         this.isProcessingInstruction = isProcessingInstruction;
     }
 
-    public String nodeName() {
+    @Override
+	public String nodeName() {
         return "#declaration";
     }
 
@@ -32,7 +33,8 @@ public class XmlDeclaration extends Node {
         return attributes.get(DECL_KEY);
     }
 
-    void outerHtmlHead(StringBuilder accum, int depth, Document.OutputSettings out) {
+    @Override
+	void outerHtmlHead(StringBuilder accum, int depth, Document.OutputSettings out) {
         accum
                 .append("<")
                 .append(isProcessingInstruction ? "!" : "?")
@@ -40,9 +42,11 @@ public class XmlDeclaration extends Node {
                 .append(">");
     }
 
-    void outerHtmlTail(StringBuilder accum, int depth, Document.OutputSettings out) {}
+    @Override
+	void outerHtmlTail(StringBuilder accum, int depth, Document.OutputSettings out) {}
 
-    public String toString() {
+    @Override
+	public String toString() {
         return outerHtml();
     }
 }

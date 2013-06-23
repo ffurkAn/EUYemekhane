@@ -38,17 +38,18 @@ public class SplashScreen extends Activity {
 
 				try {
 					doc = Jsoup.connect("http://sksdb.ege.edu.tr/genel/oele-yemek-menuesue").get();
-					baslik = doc.select("td h1"); //sayfanin ustundeki basligi cekiyor
+					baslik = doc.select("td p"); //sayfanin ustundeki basligi cekiyor
 					baslikStr = baslik.text().toLowerCase().split("\\s+");
+					//Log.d("#BASLIK", baslikStr[2]);
 
-					if (dalMenu.SonOgleYemekGetir() != null && dalMenu.SonOgleYemekGetir().getAy().equals(baslikStr[0])) { //baslikta yazan ay ile veritabanindaki ay aynýysa guncelleme yapmiyor
+					if (dalMenu.SonOgleYemekGetir() != null && dalMenu.SonOgleYemekGetir().getAy().equals(baslikStr[2])) { //baslikta yazan ay ile veritabanindaki ay aynýysa guncelleme yapmiyor
 
 						//Toast.makeText(getApplicationContext(), "Yemek listesi güncel", Toast.LENGTH_LONG).show();
 
 					} else {
 
 						//Toast.makeText(getApplicationContext(), "Yemek listesi güncelleniyor", Toast.LENGTH_LONG).show();
-						Elements yemekler = doc.select("td p span"); //tarihi ve o gunku yemegi cekiyor
+						Elements yemekler = doc.select("tr td p"); //tarihi ve o gunku yemegi cekiyor
 
 						for (Element x : yemekler) {
 							//Log.d("#OGLEYEMEK", x.text());
@@ -107,7 +108,7 @@ public class SplashScreen extends Activity {
 									entMenu.setGun(5);
 
 								entMenu.setSevilmeyen(0);
-								entMenu.setAy(baslikStr[0]);
+								entMenu.setAy(baslikStr[2]);
 								entMenu.setTur("ogle");
 								entMenu.setTarih(yemekTarihi);
 								entMenu.setMenu(yemek);
@@ -130,17 +131,17 @@ public class SplashScreen extends Activity {
 					baslik = null;
 					baslikStr = null;
 					doc = Jsoup.connect("http://sksdb.ege.edu.tr/genel/akam-yemek-menuesue").get();
-					baslik = doc.select("td h1"); //sayfanin ustundeki basligi cekiyor
+					baslik = doc.select("td p"); //sayfanin ustundeki basligi cekiyor
 					baslikStr = baslik.text().toLowerCase().split("\\s+");
 
-					if (dalMenu.SonAksamYemekGetir() != null && dalMenu.SonAksamYemekGetir().getAy().equals(baslikStr[0])) { //baslikta yazan ay ile veritabanindaki ay aynýysa guncelleme yapmiyor
+					if (dalMenu.SonAksamYemekGetir() != null && dalMenu.SonAksamYemekGetir().getAy().equals(baslikStr[2])) { //baslikta yazan ay ile veritabanindaki ay aynýysa guncelleme yapmiyor
 
 						Toast.makeText(getApplicationContext(), "Yemek listesi güncel", Toast.LENGTH_LONG).show();
 
 					} else {
 
 						Toast.makeText(getApplicationContext(), "Yemek listesi güncelleniyor", Toast.LENGTH_LONG).show();
-						Elements yemekler = doc.select("td p span"); //tarihi ve o gunku yemegi cekiyor
+						Elements yemekler = doc.select("tr td p"); //tarihi ve o gunku yemegi cekiyor
 
 						for (Element x : yemekler) {
 							//Log.d("#AKSAMYEMEK", x.text());
@@ -199,7 +200,7 @@ public class SplashScreen extends Activity {
 									entMenu.setGun(5);
 
 								entMenu.setSevilmeyen(0);
-								entMenu.setAy(baslikStr[0]);
+								entMenu.setAy(baslikStr[2]);
 								entMenu.setTur("aksam");
 								entMenu.setTarih(yemekTarihi);
 								entMenu.setMenu(yemek);

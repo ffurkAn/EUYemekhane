@@ -112,7 +112,8 @@ public class Element extends Node {
      * 
      * @return this element
      */
-    public Element attr(String attributeKey, String attributeValue) {
+    @Override
+	public Element attr(String attributeKey, String attributeValue) {
         super.attr(attributeKey, attributeValue);
         return this;
     }
@@ -817,7 +818,8 @@ public class Element extends Node {
     public String text() {
         final StringBuilder accum = new StringBuilder();
         new NodeTraversor(new NodeVisitor() {
-            public void head(Node node, int depth) {
+            @Override
+			public void head(Node node, int depth) {
                 if (node instanceof TextNode) {
                     TextNode textNode = (TextNode) node;
                     appendNormalisedText(accum, textNode);
@@ -830,7 +832,8 @@ public class Element extends Node {
                 }
             }
 
-            public void tail(Node node, int depth) {
+            @Override
+			public void tail(Node node, int depth) {
             }
         }).traverse(this);
         return accum.toString().trim();
@@ -1066,7 +1069,8 @@ public class Element extends Node {
         return this;
     }
 
-    void outerHtmlHead(StringBuilder accum, int depth, Document.OutputSettings out) {
+    @Override
+	void outerHtmlHead(StringBuilder accum, int depth, Document.OutputSettings out) {
         if (accum.length() > 0 && out.prettyPrint() && (tag.formatAsBlock() || (parent() != null && parent().tag().formatAsBlock()) || out.outline()) )
             indent(accum, depth, out);
         accum
@@ -1080,7 +1084,8 @@ public class Element extends Node {
             accum.append(">");
     }
 
-    void outerHtmlTail(StringBuilder accum, int depth, Document.OutputSettings out) {
+    @Override
+	void outerHtmlTail(StringBuilder accum, int depth, Document.OutputSettings out) {
         if (!(childNodes.isEmpty() && tag.isSelfClosing())) {
             if (out.prettyPrint() && (!childNodes.isEmpty() && (
                     tag.formatAsBlock() || (out.outline() && (childNodes.size()>1 || (childNodes.size()==1 && !(childNodes.get(0) instanceof TextNode))))
@@ -1120,7 +1125,8 @@ public class Element extends Node {
         return this;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         return outerHtml();
     }
 

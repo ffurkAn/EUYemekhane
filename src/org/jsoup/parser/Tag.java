@@ -190,7 +190,8 @@ public class Tag {
         return result;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         return tagName;
     }
 

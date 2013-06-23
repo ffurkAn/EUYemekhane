@@ -154,7 +154,8 @@ public class Parser {
      * @return parsed Document
      * @deprecated Use {@link #parseBodyFragment} or {@link #parseFragment} instead.
      */
-    public static Document parseBodyFragmentRelaxed(String bodyHtml, String baseUri) {
+    @Deprecated
+	public static Document parseBodyFragmentRelaxed(String bodyHtml, String baseUri) {
         return parse(bodyHtml, baseUri);
     }
     
