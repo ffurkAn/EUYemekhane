@@ -218,7 +218,6 @@ public class SplashScreen extends Activity {
 				}
 
 				//dalMenu.eskiKayitlariSil();
-				//dbTemizle();
 
 				Intent i = new Intent(SplashScreen.this, MainActivity.class);
 				startActivity(i);
@@ -228,32 +227,5 @@ public class SplashScreen extends Activity {
 		}, SPLASH_DISPLAY_TIME);
 
 	}
-
-	/*public void dbTemizle()
-	{
-		final Calendar c = Calendar.getInstance();
-		int gun=c.get(Calendar.DAY_OF_MONTH); 
-		int ay= (c.get(Calendar.MONTH)+1); 
-		int id;
-		DAL dal = new DAL();
-
-		SQLiteDatabase db = dalMenu.getDatabase();
-
-		Cursor crsrOgle = db.rawQuery("select * from EUYemekhane where EUYemekhane.YemekTuru = 'ogle' and EUYemekhane.MenuTarihi like '%" + gun + "%" + ay + "%'", null);
-		//id= dal.getCursorInt(crsrOgle, "id"); // id -999 geliyor yani FALSE
-		crsrOgle.moveToFirst();
-		id = crsrOgle.getInt(0); 
-		db.execSQL("delete from EUYemekhane where EUYemekhane.YemekTuru= 'ogle' and EUYemekhane.id <"+id);
-		crsrOgle.close();
-
-		Cursor crsrAksam = db.rawQuery("select * from EUYemekhane where EUYemekhane.YemekTuru = 'aksam' and EUYemekhane.MenuTarihi like '%" + gun + "%" + ay + "%'",null);
-		crsrAksam.moveToFirst();
-		id= dal.getCursorInt(crsrAksam, "id");
-		//id = crsrAksam.getInt(0);		
-		db.execSQL("delete from EUYemekhane where EUYemekhane.YemekTuru='aksam' and EUYemekhane.id <"+id);
-		crsrAksam.close();
-
-		db.close();
-	}*/
 
 }

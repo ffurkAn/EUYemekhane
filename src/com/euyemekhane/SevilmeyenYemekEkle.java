@@ -25,7 +25,7 @@ public class SevilmeyenYemekEkle extends Activity {
 	private EditText editText;
 	private List<EditText> editTextList = new ArrayList<EditText>();
 	private SevilmeyenYemek entYemek;
-	private ArrayList<SevilmeyenYemek> sevilmeyenYemekListe = new ArrayList<SevilmeyenYemek>();
+	private ArrayList<SevilmeyenYemek> sevilmeyenYemekListe;
 	private SevilmeyenYemekDAL dalSevilmeyen = new SevilmeyenYemekDAL(this);
 	//private RelativeLayout.LayoutParams params;
 
@@ -73,14 +73,20 @@ public class SevilmeyenYemekEkle extends Activity {
 		ll.addView(editText);
 
 		sevilmeyenYemekListe = dalSevilmeyen.TumYemekleriGetir();
-		SevilmeyenYemekAdapter adapter = new SevilmeyenYemekAdapter(this, R.id.sevilmeyenYemekListView, sevilmeyenYemekListe);
-		listView.setAdapter(adapter);
+		if (sevilmeyenYemekListe.isEmpty()) {
+			LinearLayout sevilmeyenLL = (LinearLayout) findViewById(R.id.dynamicLayout);
+			sevilmeyenLL.removeView(findViewById(R.id.sevilmeyenYemekListView));
+			sevilmeyenLL.removeView(findViewById(R.id.btnSevilmeyenYemekSil));
+		}
+		else {
+			SevilmeyenYemekAdapter adapter = new SevilmeyenYemekAdapter(this, R.id.sevilmeyenYemekListView, sevilmeyenYemekListe);
+			listView.setAdapter(adapter);
+			Button btnYemekSil = (Button) findViewById(R.id.btnSevilmeyenYemekSil);
+			btnYemekSil.setOnClickListener(btnYemekSilOnClickListener);
+		}
 		
 		Button btnYemekKaydet = (Button) findViewById(R.id.btnSevilmeyenYemekEkle);
 		btnYemekKaydet.setOnClickListener(btnYemekKaydetOnClickListener);
-		
-		Button btnYemekSil = (Button) findViewById(R.id.btnSevilmeyenYemekSil);
-		btnYemekSil.setOnClickListener(btnYemekSilOnClickListener);
 
 	}
 

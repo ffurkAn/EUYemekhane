@@ -10,7 +10,10 @@ import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.LinearLayout.LayoutParams;
 
 public class AksamYemegi extends Activity implements OnGestureListener {
 
@@ -21,7 +24,7 @@ public class AksamYemegi extends Activity implements OnGestureListener {
 	private String[] gunlukMenu;
 	private Menu menu;
 	private MenuDAL dalMenu = new MenuDAL(this);
-	private ArrayList<Menu> menuListe = new ArrayList<Menu>();
+	private ArrayList<Menu> menuListe;
 	private Intent glIntent;
 
 	@Override
@@ -42,11 +45,15 @@ public class AksamYemegi extends Activity implements OnGestureListener {
 		gestureScanner = new GestureDetector(this);
 
 		final Calendar c = Calendar.getInstance();
-		final TextView txtView = (TextView) findViewById(R.id.txtViewAksam);
+		final ListView listView = (ListView) findViewById(R.id.aksamListView);
 
-		menuListe = dalMenu.TumAksamGetir();
 		if (preIntent.getIntExtra("gosterimTipi", -1) == 1) {
-			txtView.setTextSize(30);
+			LinearLayout ll = (LinearLayout) findViewById(R.id.aksamLinear);
+			LayoutParams params = new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
+			TextView txtView = new TextView(this);
+			txtView.setLayoutParams(params);
+			ll.addView(txtView);
+			txtView.setTextSize(25);
 			menu = dalMenu.GunlukAksamYemekGetir(c.get(Calendar.DAY_OF_MONTH), (c.get(Calendar.MONTH) + 1));
 			if (menu == null) {
 				txtView.setText("Yemek bulunamadý");
@@ -59,14 +66,14 @@ public class AksamYemegi extends Activity implements OnGestureListener {
 					if (--size == 0) {
 						txtView.append("\nToplam cal = ");
 					}
-					txtView.append("" + s + "\n");
+					txtView.append("" + s.trim() + "\n");
 				}
 			}
 
 		} else if (preIntent.getIntExtra("gosterimTipi", -1) == 2) {
-			for (Menu k : menuListe) {
-				txtView.append("\n" + k.getTarih() + "\n" + k.getMenu() + "\n");
-			}
+			menuListe = dalMenu.TumAksamGetir();
+			CustomAdapter adapter = new CustomAdapter(this, R.id.aksamListView, menuListe);
+			listView.setAdapter(adapter);
 		}
 
 	}

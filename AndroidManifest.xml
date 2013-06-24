@@ -43,11 +43,9 @@
         </activity>
         <activity
             android:name="com.euyemekhane.SevilmeyenYemekEkle"
-            android:label="@string/title_activity_sevilmeyen_yemek_ekle" >
-        </activity>
-        <activity
-            android:name="com.euyemekhane.SevilmeyenYemeklerListesi"
-            android:label="@string/title_activity_sevilmeyen_yemekler_listesi" >
+            android:label="@string/title_activity_sevilmeyen_yemek_ekle"
+            android:noHistory="true"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

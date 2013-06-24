@@ -4,12 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:weightSum="1"
     tools:context=".SevilmeyenYemekEkle" >
 
     <ListView
         android:id="@+id/sevilmeyenYemekListView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5" >
     </ListView>
 
     <Button
@@ -20,31 +22,26 @@
         android:text="Seçilenleri Sil" >
     </Button>
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/sevilmeyenYemekEkleScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="0dp"
+        android:layout_weight="0.5" >
 
-        <ScrollView
-            android:id="@+id/sevilmeyenYemekScrollView"
+        <LinearLayout
+            android:id="@+id/scrollLinear"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <LinearLayout
-                android:id="@+id/scrollLinear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-            </LinearLayout>
-        </ScrollView>
-
-        <Button
-            android:id="@+id/btnSevilmeyenYemekEkle"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Yemekleri Ekle" >
-        </Button>
-    </LinearLayout>
+            android:orientation="vertical" >
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnSevilmeyenYemekEkle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Yemekleri Ekle" >
+    </Button>
 
 </LinearLayout>

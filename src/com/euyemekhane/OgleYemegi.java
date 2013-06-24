@@ -24,7 +24,7 @@ public class OgleYemegi extends Activity implements OnGestureListener {
 	private String[] gunlukMenu;
 	private Menu menu;
 	private MenuDAL dalMenu = new MenuDAL(this);
-	private ArrayList<Menu> menuListe = new ArrayList<Menu>();
+	private ArrayList<Menu> menuListe;
 	private Intent glIntent;
 
 	@Override
@@ -53,7 +53,7 @@ public class OgleYemegi extends Activity implements OnGestureListener {
 			TextView txtView = new TextView(this);
 			txtView.setLayoutParams(params);
 			ll.addView(txtView);
-			txtView.setTextSize(30);
+			txtView.setTextSize(25);
 			menu = dalMenu.GunlukOgleYemekGetir(c.get(Calendar.DAY_OF_MONTH), (c.get(Calendar.MONTH) + 1));
 			if (menu == null) {
 				txtView.setText("Yemek bulunamadý");
@@ -66,7 +66,7 @@ public class OgleYemegi extends Activity implements OnGestureListener {
 					if (--size == 0) {
 						txtView.append("\nToplam cal = ");
 					}
-					txtView.append("" + s + "\n");
+					txtView.append("" + s.trim() + "\n");
 				}
 			}
 

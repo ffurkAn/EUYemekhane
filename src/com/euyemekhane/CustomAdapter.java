@@ -1,12 +1,13 @@
 package com.euyemekhane;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,8 +76,19 @@ public class CustomAdapter extends ArrayAdapter<Menu> {
 
 		final Menu menu = entries.get(position);
 		if (menu != null) {
-			viewHolder.text1.setText(menu.getTarih());
-			viewHolder.text2.setText(menu.getMenu());
+			if (menu.getSevilmeyen() == 1)
+				viewHolder.text2.setTextColor(Color.RED);
+			viewHolder.text1.setText("\n" + menu.getTarih());
+			viewHolder.text2.setText("");
+			Pattern splitter = Pattern.compile("[\\/=]");
+			String[] gunlukMenu = splitter.split(menu.getMenu());
+			int size = gunlukMenu.length;
+			for (String s : gunlukMenu) {
+				if (--size == 0) {
+					viewHolder.text2.append("\nToplam cal = ");
+				}
+				viewHolder.text2.append("" + s.trim() + "\n");
+			}
 			viewHolder.checkBox.setChecked(entries.get(position).isSelected());
 		}
 		return v;
