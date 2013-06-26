@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
@@ -48,16 +49,24 @@ public class AksamYemegi extends Activity implements OnGestureListener {
 		final ListView listView = (ListView) findViewById(R.id.aksamListView);
 
 		if (preIntent.getIntExtra("gosterimTipi", -1) == 1) {
+			TextView footer = (TextView) findViewById(R.id.aksamFooterTextView);
+			footer.setText("Günlük Menü");
 			LinearLayout ll = (LinearLayout) findViewById(R.id.aksamLinear);
 			LayoutParams params = new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 			TextView txtView = new TextView(this);
 			txtView.setLayoutParams(params);
 			ll.addView(txtView);
+			txtView.setTextColor(000000);
 			txtView.setTextSize(25);
 			menu = dalMenu.GunlukAksamYemekGetir(c.get(Calendar.DAY_OF_MONTH), (c.get(Calendar.MONTH) + 1));
 			if (menu == null) {
 				txtView.setText("Yemek bulunamadý");
 			} else {
+				if (menu.isSelected()) {
+					txtView.setTextColor(Color.RED);
+				} else {
+					txtView.setTextColor(Color.BLACK);
+				}
 				Pattern splitter = Pattern.compile("[\\/=]");
 				gunlukMenu = splitter.split(menu.getMenu());
 				txtView.append("" + menu.getTarih() + "\n");

@@ -3,8 +3,25 @@
     android:id="@+id/aksamLinear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical"
     tools:context=".AksamYemegi" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/footer" >
+
+        <TextView
+            android:id="@+id/aksamFooterTextView"
+            style="@android:style/TextAppearance.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:gravity="left"
+            android:text="Aylık Liste"
+            android:textColor="#000000" />
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -66,7 +83,8 @@
     <ListView
         android:id="@+id/aksamListView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:cacheColorHint="#00000000" >
     </ListView>
 
 </LinearLayout>

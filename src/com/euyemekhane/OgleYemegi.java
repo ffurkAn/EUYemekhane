@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
@@ -48,6 +49,8 @@ public class OgleYemegi extends Activity implements OnGestureListener {
 		final ListView listView = (ListView) findViewById(R.id.ogleListView);
 
 		if (preIntent.getIntExtra("gosterimTipi", -1) == 1) {
+			TextView footer = (TextView) findViewById(R.id.ogleFooterTextView);
+			footer.setText("Günlük Menü");
 			LinearLayout ll = (LinearLayout) findViewById(R.id.ogleLinear);
 			LayoutParams params = new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 			TextView txtView = new TextView(this);
@@ -58,6 +61,11 @@ public class OgleYemegi extends Activity implements OnGestureListener {
 			if (menu == null) {
 				txtView.setText("Yemek bulunamadý");
 			} else {
+				if (menu.isSelected()) {
+					txtView.setTextColor(Color.RED);
+				} else {
+					txtView.setTextColor(Color.BLACK);
+				}
 				Pattern splitter = Pattern.compile("[\\/=]");
 				gunlukMenu = splitter.split(menu.getMenu());
 				txtView.append("" + menu.getTarih() + "\n");

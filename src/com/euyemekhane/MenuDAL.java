@@ -79,12 +79,12 @@ public class MenuDAL extends DAL {
 		try {
 			SQLiteDatabase db = getDatabase();
 
-			Cursor c = db.rawQuery("select MenuTarihi from EUYemekhane where YemekTuru = 'ogle'", null);
+			Cursor c = db.rawQuery("select MenuAyi, MenuTarihi from EUYemekhane where YemekTuru = 'ogle'", null);
 			c.moveToLast();
 			
 			Menu entMenu = new Menu();
 
-			//entMenu.setAy(getCursorStr(c, "MenuAyi"));
+			entMenu.setAy(getCursorStr(c, "MenuAyi"));
 			//entMenu.setTur(getCursorStr(c, "YemekTuru"));
 			entMenu.setTarih(getCursorStr(c, "MenuTarihi"));
 			//entMenu.setGun(getCursorInt(c, "Gun"));
