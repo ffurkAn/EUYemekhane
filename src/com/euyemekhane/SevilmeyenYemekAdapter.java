@@ -3,9 +3,7 @@ package com.euyemekhane;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +31,7 @@ public class SevilmeyenYemekAdapter extends ArrayAdapter<SevilmeyenYemek> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
 		final ViewHolder viewHolder;
+
 		if (v == null) {
 			LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			v = vi.inflate(R.layout.sevilmeyen_listview_item, null);
@@ -43,27 +42,22 @@ public class SevilmeyenYemekAdapter extends ArrayAdapter<SevilmeyenYemek> {
 
 				@Override
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-					SevilmeyenYemek element = (SevilmeyenYemek) viewHolder.checkBox.getTag();
-					element.setSelected(buttonView.isChecked());
+					SevilmeyenYemek element = (SevilmeyenYemek) buttonView.getTag();
+					element.setSelected(isChecked);
 					SevilmeyenYemekDAL dalSevilmeyen = new SevilmeyenYemekDAL(activity);
-					SQLiteDatabase db = dalSevilmeyen.getDatabase();
-					
-					ContentValues args = new ContentValues();
-					if(element.isSelected())
-					{
-						args.put("Selected", 1);						
-					}
+					int x;
+
+					if (element.isSelected())
+						x = 1;
 					else
-					{
-						args.put("Selected", 0);
-					}
+						x = 0;
 					
-					//Veritabani guncelleme
+					dalSevilmeyen.SecilenGuncelle(element, x);
 				}
 			});
-
-			v.setTag(viewHolder);
 			viewHolder.checkBox.setTag(entries.get(position));
+			v.setTag(viewHolder);
+			
 		} else {
 			viewHolder = (ViewHolder)v.getTag();
 			((ViewHolder) v.getTag()).checkBox.setTag(entries.get(position));
@@ -74,6 +68,7 @@ public class SevilmeyenYemekAdapter extends ArrayAdapter<SevilmeyenYemek> {
 			viewHolder.text.setText(yemek.getYemekAdi());
 			viewHolder.checkBox.setChecked(entries.get(position).isSelected());
 		}
+		
 		return v;
 	}
 }

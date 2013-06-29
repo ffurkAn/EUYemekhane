@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +34,7 @@ public class CustomAdapter extends ArrayAdapter<Menu> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
 		final ViewHolder viewHolder;
+
 		if (v == null) {
 			LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			v = vi.inflate(R.layout.listview_item, null);
@@ -47,28 +46,22 @@ public class CustomAdapter extends ArrayAdapter<Menu> {
 
 				@Override
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-					Menu element = (Menu) viewHolder.checkBox.getTag();
-					element.setSelected(buttonView.isChecked());
+					Menu element = (Menu) buttonView.getTag();
+					element.setSelected(isChecked);
 					MenuDAL dalMenu = new MenuDAL(activity);
-					SQLiteDatabase db = dalMenu.getDatabase();
-					
-					ContentValues args = new ContentValues();
-					if(element.isSelected())
-					{
-						args.put("Selected", 1);						
-					}
+					int x;
+
+					if (element.isSelected())
+						x = 1;
 					else
-					{
-						args.put("Selected", 0);
-					}
-					
-					//Veritabani guncellenmiyor
-					db.update("EUYemekhane", args, "MenuTarihi like '%" + element.getGun() + "%" + element.getAy() + "%'", null);
+						x = 0;
+
+					dalMenu.SecilenGuncelle(element, x);
 				}
 			});
-
-			v.setTag(viewHolder);
 			viewHolder.checkBox.setTag(entries.get(position));
+			v.setTag(viewHolder);
+
 		} else {
 			viewHolder = (ViewHolder)v.getTag();
 			((ViewHolder) v.getTag()).checkBox.setTag(entries.get(position));
@@ -78,7 +71,7 @@ public class CustomAdapter extends ArrayAdapter<Menu> {
 		if (menu != null) {
 			if (menu.getSevilmeyen() == 1)
 				viewHolder.text2.setTextColor(Color.RED);
-			viewHolder.text1.setText("\n" + menu.getTarih());
+			viewHolder.text1.setText(menu.getTarih());
 			viewHolder.text2.setText("");
 			Pattern splitter = Pattern.compile("[\\/=]");
 			String[] gunlukMenu = splitter.split(menu.getMenu());
@@ -91,6 +84,7 @@ public class CustomAdapter extends ArrayAdapter<Menu> {
 			}
 			viewHolder.checkBox.setChecked(entries.get(position).isSelected());
 		}
+
 		return v;
 	}
 }

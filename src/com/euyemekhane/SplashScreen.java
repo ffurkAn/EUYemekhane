@@ -9,18 +9,18 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SplashScreen extends Activity {
+import com.actionbarsherlock.app.SherlockActivity;
+
+public class SplashScreen extends SherlockActivity {
 
 	private Document doc;
 	private Elements baslik;
@@ -35,7 +35,7 @@ public class SplashScreen extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash_screen);
-
+	
 		ImageView logo = (ImageView) findViewById(R.id.splashLogo);
 		Animation slide = AnimationUtils.loadAnimation(this, R.anim.slide_out_top);
 		slide.setDuration(3000);
@@ -48,7 +48,8 @@ public class SplashScreen extends Activity {
 
 		entMenu = dalMenu.SonOgleYemekGetir();
 		final Calendar c = Calendar.getInstance();
-
+		//Log.d("#MONTHCHECK", entMenu.getAy() + " - " + ayBul(entMenu.getAy()) + " - " + c.get(Calendar.MONTH));
+		
 		if (entMenu != null && (ayBul(entMenu.getAy()) == c.get(Calendar.MONTH))) {
 			//Log.d("#UPDATECHECK", "if");
 		} else {
@@ -134,9 +135,7 @@ public class SplashScreen extends Activity {
 							yemek = null;
 							yemekTarihi = null;
 						}
-
 					}
-
 				}
 
 			} catch (Exception e) {
@@ -227,9 +226,7 @@ public class SplashScreen extends Activity {
 							yemek = null;
 							yemekTarihi = null;
 						}
-
 					}
-
 				}
 
 			} catch (Exception e) {
@@ -237,7 +234,7 @@ public class SplashScreen extends Activity {
 			}
 		}
 
-		//dalMenu.eskiKayitlariSil();
+		//dalMenu.EskiKayitlariSil();
 
 		new Handler().postDelayed(new Runnable() {
 
@@ -254,29 +251,29 @@ public class SplashScreen extends Activity {
 	}
 
 	private int ayBul(String ay) {
-		if (ay.equals("ocak"))
+		if (ay.matches("ocak"))
 			return 0;
-		else if (ay.equals("þubat"))
+		else if (ay.matches(".*ubat"))
 			return 1;
-		else if (ay.equals("mart"))
+		else if (ay.matches("mart"))
 			return 2;
-		else if (ay.equals("nisan"))
+		else if (ay.matches("n.*san"))
 			return 3;
-		else if (ay.equals("mayýs"))
+		else if (ay.matches("may.*s"))
 			return 4;
-		else if (ay.equals("haziran"))
+		else if (ay.matches("haz.*ran"))
 			return 5;
-		else if (ay.equals("temmuz"))
+		else if (ay.matches("temmuz"))
 			return 6;
-		else if (ay.equals("aðustos"))
+		else if (ay.matches("a.*ustos"))
 			return 7;
-		else if (ay.equals("eylül"))
+		else if (ay.matches("eyl.*l"))
 			return 8;
-		else if (ay.equals("ekim"))
+		else if (ay.matches("ek.*m"))
 			return 9;
-		else if (ay.equals("kasým"))
+		else if (ay.matches("kas.*m"))
 			return 10;
-		else if (ay.equals("aralýk"))
+		else if (ay.matches("aral.*k"))
 			return 11;
 
 		return -1;

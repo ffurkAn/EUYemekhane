@@ -8,6 +8,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.widget.RemoteViews;
 
 public class WidgetOgle extends AppWidgetProvider {
@@ -28,8 +29,13 @@ public class WidgetOgle extends AppWidgetProvider {
 
 			RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_small);
 
-			remoteViews.setTextViewText(R.id.smallWidgetTextViewBold, ogle.getTarih() + "Öðle");
-			remoteViews.setTextViewText(R.id.smallWidgetTextView, ogle.getMenu());
+			if (ogle != null) {
+				if (ogle.getSevilmeyen() == 1) {
+					remoteViews.setTextColor(R.id.smallWidgetTextView, Color.RED);
+				}
+				remoteViews.setTextViewText(R.id.smallWidgetTextViewBold, ogle.getTarih() + " Öðle");
+				remoteViews.setTextViewText(R.id.smallWidgetTextView, ogle.getMenu());
+			}
 
 			Intent intent = new Intent(context, WidgetOgle.class);
 

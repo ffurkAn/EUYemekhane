@@ -9,6 +9,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.widget.RemoteViews;
 
 public class WidgetOgleAksam extends AppWidgetProvider {
@@ -29,31 +30,46 @@ public class WidgetOgleAksam extends AppWidgetProvider {
 		for (int widgetId : allWidgetIds) {
 
 			RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
-
 			Pattern splitter = Pattern.compile("[\\/=]");
-			String[] gunlukMenu = splitter.split(ogle.getMenu());
-			int size = gunlukMenu.length;
-			String menu = "Öðle\n";
-			for (String s : gunlukMenu) {
-				if (--size == 0) {
-					menu += "\nToplam cal = ";
+			String menu;
+			String[] gunlukMenu;
+			int size;
+
+			if (ogle != null) {
+				gunlukMenu = splitter.split(ogle.getMenu());
+				size = gunlukMenu.length;
+				menu = "";
+				for (String s : gunlukMenu) {
+					if (--size == 0) {
+						menu += "\nToplam cal = ";
+					}
+					menu += "" + s.trim() + "\n";
 				}
-				menu += "" + s.trim() + "\n";
+				
+				if (ogle.getSevilmeyen() == 1) {
+					remoteViews.setTextColor(R.id.widgetTextViewOgle, Color.RED);
+				}
+				remoteViews.setTextViewText(R.id.widgetTextViewOgleBold, ogle.getTarih() + " Öðle");
+				remoteViews.setTextViewText(R.id.widgetTextViewOgle, menu);
 			}
-			remoteViews.setTextViewText(R.id.widgetTextViewOgleBold, ogle.getTarih() + "Öðle");
-			remoteViews.setTextViewText(R.id.widgetTextViewOgle, menu);
 			
-			gunlukMenu = splitter.split(aksam.getMenu());
-			size = gunlukMenu.length;
-			menu = "Akþam\n";
-			for (String s : gunlukMenu) {
-				if (--size == 0) {
-					menu += "\nToplam cal = ";
+			if (aksam != null) {
+				gunlukMenu = splitter.split(aksam.getMenu());
+				size = gunlukMenu.length;
+				menu = "";
+				for (String s : gunlukMenu) {
+					if (--size == 0) {
+						menu += "\nToplam cal = ";
+					}
+					menu += "" + s.trim() + "\n";
 				}
-				menu += "" + s.trim() + "\n";
+				
+				if (aksam.getSevilmeyen() == 1) {
+					remoteViews.setTextColor(R.id.widgetTextViewAksam, Color.RED);
+				}
+				remoteViews.setTextViewText(R.id.widgetTextViewAksamBold, aksam.getTarih() + " Akþam");
+				remoteViews.setTextViewText(R.id.widgetTextViewAksam, menu);
 			}
-			remoteViews.setTextViewText(R.id.widgetTextViewAksamBold, aksam.getTarih() + "Akþam");
-			remoteViews.setTextViewText(R.id.widgetTextViewAksam, menu);
 
 			Intent intent = new Intent(context, WidgetOgleAksam.class);
 

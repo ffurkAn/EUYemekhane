@@ -2,12 +2,8 @@
 <resources>
 
     <string name="app_name">EÜ Yemekhane</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_aksam_yemegi">Akşam Yemeği</string>
-    <string name="title_activity_ogle_yemegi">Öğle Yemeği</string>
     <string name="title_activity_sevilmeyen_yemek_ekle">Sevmediğim Yemekler</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="menu_settings">Settings</string>
-    <string name="title_activity_sevilmeyen_yemekler_listesi">SevilmeyenYemeklerListesi</string>
+    <string name="title_activity_ogle_aksam">Aylık Liste</string>
+    <string name="title_activity_secilen_yemekler">Seçtiğim Yemekler</string>
 
 </resources>

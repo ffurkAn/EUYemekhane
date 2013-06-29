@@ -8,6 +8,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.widget.RemoteViews;
 
 public class WidgetAksam extends AppWidgetProvider {
@@ -28,8 +29,14 @@ public class WidgetAksam extends AppWidgetProvider {
 
 			RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_small);
 
-			remoteViews.setTextViewText(R.id.smallWidgetTextViewBold, aksam.getTarih() + "Akþam");
-			remoteViews.setTextViewText(R.id.smallWidgetTextView, aksam.getMenu());
+			if (aksam != null) {
+				if (aksam.getSevilmeyen() == 1) {
+					remoteViews.setTextColor(R.id.smallWidgetTextView, Color.RED);
+				}
+				remoteViews.setTextViewText(R.id.smallWidgetTextViewBold, aksam.getTarih() + " Akþam");
+				remoteViews.setTextViewText(R.id.smallWidgetTextView, aksam.getMenu());
+
+			}
 
 			Intent intent = new Intent(context, WidgetAksam.class);
 

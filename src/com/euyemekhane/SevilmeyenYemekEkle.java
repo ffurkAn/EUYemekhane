@@ -3,7 +3,6 @@ package com.euyemekhane;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager.LayoutParams;
@@ -15,7 +14,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-public class SevilmeyenYemekEkle extends Activity {
+import com.actionbarsherlock.app.SherlockActivity;
+
+public class SevilmeyenYemekEkle extends SherlockActivity {
 
 	private int editTextID = 0;
 	private int editTextCount = 0;
@@ -24,8 +25,6 @@ public class SevilmeyenYemekEkle extends Activity {
 	private ListView listView;
 	private EditText editText;
 	private List<EditText> editTextList = new ArrayList<EditText>();
-	private SevilmeyenYemek entYemek;
-	private ArrayList<SevilmeyenYemek> sevilmeyenYemekListe;
 	private SevilmeyenYemekDAL dalSevilmeyen = new SevilmeyenYemekDAL(this);
 	//private RelativeLayout.LayoutParams params;
 
@@ -33,7 +32,7 @@ public class SevilmeyenYemekEkle extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sevilmeyen_yemek_ekle);
-
+		
 		ll = (LinearLayout) findViewById(R.id.scrollLinear);
 		listView = (ListView) findViewById(R.id.sevilmeyenYemekListView);
 
@@ -72,13 +71,12 @@ public class SevilmeyenYemekEkle extends Activity {
 		editTextList.add(editText);
 		ll.addView(editText);
 
-		sevilmeyenYemekListe = dalSevilmeyen.TumYemekleriGetir();
+		ArrayList<SevilmeyenYemek> sevilmeyenYemekListe = dalSevilmeyen.TumYemekleriGetir();
 		if (sevilmeyenYemekListe.isEmpty()) {
 			LinearLayout sevilmeyenLL = (LinearLayout) findViewById(R.id.dynamicLayout);
 			sevilmeyenLL.removeView(findViewById(R.id.sevilmeyenYemekListView));
 			sevilmeyenLL.removeView(findViewById(R.id.btnSevilmeyenYemekSil));
-		}
-		else {
+		} else {
 			SevilmeyenYemekAdapter adapter = new SevilmeyenYemekAdapter(this, R.id.sevilmeyenYemekListView, sevilmeyenYemekListe);
 			listView.setAdapter(adapter);
 			Button btnYemekSil = (Button) findViewById(R.id.btnSevilmeyenYemekSil);
@@ -95,7 +93,7 @@ public class SevilmeyenYemekEkle extends Activity {
 		editTextCount++;
 		EditText txt = new EditText(this);
 		LayoutParams param = new LayoutParams();
-		param.width = android.view.ViewGroup.LayoutParams.FILL_PARENT;
+		param.width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 		param.height = android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 		txt.setId(editTextID);
 		txt.setLayoutParams(param);
@@ -109,16 +107,15 @@ public class SevilmeyenYemekEkle extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
+			SevilmeyenYemek entYemek;
 			String newYemekAdi;
-			for (EditText x : editTextList)
-			{
+			for (EditText x : editTextList) {
 				if (x.getText().length() > 0) {
 					entYemek = new SevilmeyenYemek();
 					newYemekAdi = x.getText().toString().substring(0,1).toUpperCase() + x.getText().toString().substring(1).toLowerCase();
-
 					entYemek.setYemekAdi(newYemekAdi);
 					dalSevilmeyen.YemekKaydet(entYemek);
-					dalSevilmeyen.SevilmeyenGuncelle(entYemek,1);
+					dalSevilmeyen.SevilmeyenGuncelle(entYemek, 1);
 				}
 			}
 			Intent i = new Intent(SevilmeyenYemekEkle.this, MainActivity.class);
@@ -131,7 +128,10 @@ public class SevilmeyenYemekEkle extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			//Secilen yemekleri silme islemleri
+			for (SevilmeyenYemek x : dalSevilmeyen.SeciliYemekleriGetir()) {
+					dalSevilmeyen.YemekSil(x);
+					dalSevilmeyen.SevilmeyenGuncelle(x, 0);
+			}
 			Intent i = new Intent(SevilmeyenYemekEkle.this, MainActivity.class);
 			startActivity(i);
 		}

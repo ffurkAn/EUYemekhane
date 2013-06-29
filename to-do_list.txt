@@ -1,24 +1,31 @@
 Furkan
 --------------------
-1) SevilmeyenYemekAdapter.java, line: 61
-	Sevilmeyen yemeklerin olduðu listview'deki checkbox'larýn durumu veritabanýnda güncellenecek
+1) Sevilmeyen yemek olarak "dondurma" eklendiðinde içinde "dondurma" geçmeyen bazý yemekler de iþaretleniyor
 
-2) SevilmeyenYemekEkle.java, line: 134
-	Seçilenleri Sil butonuna basýldýðý zaman seçilmiþ olan sevilmeyen yemekler veritabanýndan silinecek
-	Hint: Yemeðin seçili olup olmadýðý veritabanýndaki 'Sevilmeyen' sahasýna göre anlaþýlýr
+2) Eski kayýtlarý silme haftalýk yapýlmalý
 
-3) CustomAdapter.java, line: 66
-	Aylýk görünüm listview'deki checkbox'larýn durumu veritabanýnda güncellenecek (sorun var)
+3) 
 
-4) Sevilmeyen yemek olarak "dondurma" eklendiðinde içinde "dondurma" geçmeyen bazý yemekler de iþaretleniyor
+4) 
 
 
 Onur
 --------------------
-1) Aylýk listede seçilen yemekleri farklý bir activity'de gösterme
+1) Temmuz listesine uyum saðlama :D
 
-2) Uygulama ve widget tasarýmýnda iyileþtirme
+2) Tasarým ve performans iyileþtirmeleri
 
-3) Farklý ekran boyutlarý için test, sorun giderme
+3) 
 
-4) Öðle - Akþam activity'leri fragment olarak birleþtirilebilir
+4) 
+
+
+Burak
+--------------------
+1) Ýngilizce dil desteði
+
+2) 
+
+3) 
+
+4) 

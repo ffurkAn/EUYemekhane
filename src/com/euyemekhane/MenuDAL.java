@@ -19,7 +19,7 @@ public class MenuDAL extends DAL {
 		this.context = context;
 	}
 
-	public SQLiteDatabase getDatabase()
+	private SQLiteDatabase getDatabase()
 	{
 		DBAccessFile newDB = new DBAccessFile(context);
 		return newDB.getDB();
@@ -42,6 +42,7 @@ public class MenuDAL extends DAL {
 			entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
 			entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
 			
+			db.close();
 			
 			return entMenu;
 			
@@ -67,6 +68,8 @@ public class MenuDAL extends DAL {
 			entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
 			entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
 
+			db.close();
+			
 			return entMenu;
 			
 		} catch (Exception e) {
@@ -91,6 +94,8 @@ public class MenuDAL extends DAL {
 			//entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
 			//entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
 
+			db.close();
+			
 			return entMenu;
 			
 		} catch (Exception e) {
@@ -115,11 +120,30 @@ public class MenuDAL extends DAL {
 			//entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
 			//entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
 
+			db.close();
+			
 			return entMenu;
 			
 		} catch (Exception e) {
 			Log.d("#ERROR SonAksamYemekGetir", e.getMessage());
 			return null;
+		}
+	}
+	
+	public void SecilenGuncelle(Menu entMenu, int x)
+	{
+		try {
+			SQLiteDatabase db = getDatabase();
+			ContentValues args = new ContentValues();
+			
+			args.put("Selected", x);
+
+			db.update("EUYemekhane", args, "YemekTuru = '" + entMenu.getTur() + "' and MenuTarihi = '" + entMenu.getTarih() + "'", null);
+
+			db.close();
+
+		}catch (Exception ex) {
+			Log.d("#ERROR SecilenGuncelle", ex.getMessage());
 		}
 	}
 	
@@ -137,13 +161,48 @@ public class MenuDAL extends DAL {
 			menuler = ConvertToEntity(c);
 
 			c.close();
+			
+			db.close();
 
 			return menuler;
 
 		}catch(Exception ex) {
 			return null;
 		}
+	}
+	
+	public ArrayList<Menu> SeciliKayitlariGetir(int s)
+	{
+		ArrayList<Menu> menuler = new ArrayList<Menu>();
+		try {
+			SQLiteDatabase db = getDatabase();
+			Cursor c;
+			
+			switch (s) {
+			case 1:
+				c = db.rawQuery("select * from EUYemekhane where YemekTuru = 'ogle' and Selected = 1", null);
+				break;
+				
+			case 2:
+				c = db.rawQuery("select * from EUYemekhane where YemekTuru = 'aksam' and Selected = 1", null);
+				break;
 
+			default:
+				c = db.rawQuery("select * from EUYemekhane where Selected = 1", null);
+				break;
+			}
+
+			menuler = ConvertToEntity(c);
+
+			c.close();
+			
+			db.close();
+
+			return menuler;
+
+		}catch(Exception ex) {
+			return null;
+		}
 	}
 	
 	public ArrayList<Menu> TumOgleGetir()
@@ -157,13 +216,14 @@ public class MenuDAL extends DAL {
 			menuler = ConvertToEntity(c);
 
 			c.close();
+			
+			db.close();
 
 			return menuler;
 
 		}catch(Exception ex) {
 			return null;
 		}
-
 	}
 	
 	public ArrayList<Menu> TumAksamGetir()
@@ -177,13 +237,14 @@ public class MenuDAL extends DAL {
 			menuler = ConvertToEntity(c);
 
 			c.close();
+			
+			db.close();
 
 			return menuler;
 
 		}catch(Exception ex) {
 			return null;
 		}
-
 	}
 
 	private ArrayList<Menu> ConvertToEntity(Cursor c)
@@ -200,24 +261,24 @@ public class MenuDAL extends DAL {
 				entMenu.setGun(getCursorInt(c, "Gun"));
 				entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
 				entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
-				//////////
-						if(getCursorInt(c, "Selected")==1)
-							entMenu.setSelected(true);
-						else
-							entMenu.setSelected(false);
-				//////////
+
+				if (getCursorInt(c, "Selected") == 1)
+					entMenu.setSelected(true);
+				else
+					entMenu.setSelected(false);
+
 				lstMenu.add(entMenu);
 
 			}while (c.moveToNext());
 		}
 
 		return lstMenu;
-
 	}
 
 	public void MenuKaydet(Menu entMenu)
 	{
 		try {
+			SQLiteDatabase db = getDatabase();
 			ContentValues values = new ContentValues();
 
 			values.put("MenuAyi", entMenu.getAy());
@@ -226,54 +287,51 @@ public class MenuDAL extends DAL {
 			values.put("Gun", entMenu.getGun());
 			values.put("YemekMenusu", entMenu.getMenu());
 			values.put("Sevilmeyen", entMenu.getSevilmeyen());
-			////////
-					if(entMenu.isSelected()==false)
-						values.put("Selected", 0);
-					else
-						values.put("Selected", 1);
-			/////////
-			SQLiteDatabase db = getDatabase();
+
+			if(entMenu.isSelected() == false)
+				values.put("Selected", 0);
+			else
+				values.put("Selected", 1);
+
 			db.insert("EUYemekhane", null, values);
+			
 			db.close();
 
 		}catch (Exception ex) {
 			Log.d("#ERROR MenuKayit", ex.getMessage());
 		}
-
 	}
 	
-	public void eskiKayitlariSil()
+	public void EskiKayitlariSil()
 	{
 		final Calendar c = Calendar.getInstance();
-		int gun=c.get(Calendar.DAY_OF_MONTH); 
-		int ay= (c.get(Calendar.MONTH)+1); 
+		int gun = c.get(Calendar.DAY_OF_MONTH); 
+		int ay = (c.get(Calendar.MONTH)+1); 
 		int id;
-
 
 		SQLiteDatabase db = getDatabase();
 
 		Cursor crsrOgle = db.rawQuery("select * from EUYemekhane where EUYemekhane.YemekTuru = 'ogle' and EUYemekhane.MenuTarihi like '%" + gun + "%" + ay + "%'", null);
 
-		if(crsrOgle.getCount()>0)
+		if (crsrOgle.getCount() > 0)
 		{
 			crsrOgle.moveToFirst();
 			id = crsrOgle.getInt(0); 
-			db.execSQL("delete from EUYemekhane where EUYemekhane.YemekTuru= 'ogle' and EUYemekhane.id <"+id);
+			db.execSQL("delete from EUYemekhane where EUYemekhane.YemekTuru = 'ogle' and EUYemekhane.id <" + id);
 		}
 		crsrOgle.close();
 
-		Cursor crsrAksam = db.rawQuery("select * from EUYemekhane where EUYemekhane.YemekTuru = 'aksam' and EUYemekhane.MenuTarihi like '%" + gun + "%" + ay + "%'",null);
+		Cursor crsrAksam = db.rawQuery("select * from EUYemekhane where EUYemekhane.YemekTuru = 'aksam' and EUYemekhane.MenuTarihi like '%" + gun + "%" + ay + "%'", null);
 
-		if(crsrAksam.getCount()>0)
+		if (crsrAksam.getCount() > 0)
 		{
 			crsrAksam.moveToFirst();
-			id= getCursorInt(crsrAksam, "id");	
-			db.execSQL("delete from EUYemekhane where EUYemekhane.YemekTuru='aksam' and EUYemekhane.id <"+id);
+			id = getCursorInt(crsrAksam, "id");	
+			db.execSQL("delete from EUYemekhane where EUYemekhane.YemekTuru = 'aksam' and EUYemekhane.id <" + id);
 		}
 		crsrAksam.close();
 
 		db.close();
-
 	}
 
 }

@@ -10,14 +10,14 @@ import android.util.Log;
 
 public class SevilmeyenYemekDAL extends DAL {
 
-private Context context;
+	private Context context;
 
 	public SevilmeyenYemekDAL(Context context)
 	{
 		this.context=context;
 	}
 
-	public SQLiteDatabase getDatabase()
+	private SQLiteDatabase getDatabase()
 	{
 		DBAccessFile newDB = new DBAccessFile(context);
 		return newDB.getDB();
@@ -34,13 +34,35 @@ private Context context;
 			yemekler = ConvertToEntity(c);
 
 			c.close();
+			
+			db.close();
 
 			return yemekler;
 
 		}catch(Exception ex) {
 			return null;
 		}
+	}
+	
+	public ArrayList<SevilmeyenYemek> SeciliYemekleriGetir()
+	{
+		ArrayList<SevilmeyenYemek> yemekler = new ArrayList<SevilmeyenYemek>();
+		try {
+			SQLiteDatabase db = getDatabase();
 
+			Cursor c = db.rawQuery("select * from SevilmeyenYemek where Selected = 1", null);
+
+			yemekler = ConvertToEntity(c);
+
+			c.close();
+			
+			db.close();
+
+			return yemekler;
+
+		}catch(Exception ex) {
+			return null;
+		}
 	}
 
 	private ArrayList<SevilmeyenYemek> ConvertToEntity(Cursor c)
@@ -52,6 +74,11 @@ private Context context;
 				SevilmeyenYemek entYemek = new SevilmeyenYemek();
 
 				entYemek.setYemekAdi(getCursorStr(c, "YemekAdi"));
+				
+				if (getCursorInt(c, "Selected") == 1)
+					entYemek.setSelected(true);
+				else
+					entYemek.setSelected(false);
 
 				lstYemek.add(entYemek);
 
@@ -59,46 +86,76 @@ private Context context;
 		}
 
 		return lstYemek;
-
 	}
 
 	public void YemekKaydet(SevilmeyenYemek entYemek)
 	{
 		try {
+			SQLiteDatabase db = getDatabase();
 			ContentValues values = new ContentValues();
 
 			values.put("YemekAdi", entYemek.getYemekAdi());
 
-			SQLiteDatabase db = getDatabase();
+			if(entYemek.isSelected() == false)
+				values.put("Selected", 0);
+			else
+				values.put("Selected", 1);
+			
 			db.insert("SevilmeyenYemek", null, values);
+			
 			db.close();
 
 		}catch (Exception ex) {
 			Log.d("#ERROR SevilmeyenYemekKayit", ex.getMessage());
 		}
-
 	}
 	
+	public void YemekSil(SevilmeyenYemek entYemek)
+	{
+		try {
+			SQLiteDatabase db = getDatabase();
+
+			db.execSQL("delete from SevilmeyenYemek where YemekAdi = '" + entYemek.getYemekAdi() + "'");
+
+			db.close();
+
+		}catch (Exception ex) {
+			Log.d("#ERROR SevilmeyenYemekSil", ex.getMessage());
+		}
+	}
+	
+	public void SecilenGuncelle(SevilmeyenYemek entYemek, int x)
+	{
+		try {
+			SQLiteDatabase db = getDatabase();
+			ContentValues args = new ContentValues();
+			
+			args.put("Selected", x);
+
+			db.update("SevilmeyenYemek", args, "YemekAdi = '" + entYemek.getYemekAdi() + "'", null);
+
+			db.close();
+
+		}catch (Exception ex) {
+			Log.d("#ERROR SecilenGuncelle", ex.getMessage());
+		}
+	}
+
 	public void SevilmeyenGuncelle(SevilmeyenYemek entYemek, int x)
 	{
 		try {
-
+			SQLiteDatabase db = getDatabase();
 			ContentValues args = new ContentValues();
+
 			args.put("Sevilmeyen", x);
 
-			SQLiteDatabase db = getDatabase();
-
-
-			db.update("EUYemekhane", args, "YemekMenusu like '%"+entYemek.getYemekAdi()+"%'", null);
-			//db.execSQL(
-			//	"update EUYemekhane set Sevilmeyen=0 where YemekMenusu like '%"+entYemek.getYemekAdi().toString()+"%'",null);
-
+			db.update("EUYemekhane", args, "YemekMenusu like '%" + entYemek.getYemekAdi() + "%'", null);
 
 			db.close();
 
 		}catch (Exception ex) {
-			Log.d("#ERROR SevilmeyenYemekKayit", ex.getMessage());
+			Log.d("#ERROR SevilmeyenGuncelle", ex.getMessage());
 		}
-
 	}
+
 }
