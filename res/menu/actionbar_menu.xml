@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/actionbar_settings_btn"
+        android:icon="@drawable/actionbar_settings"
+        android:showAsAction="always"
+        android:title="">
+        <menu>
+            <item
+                android:id="@+id/sevilenleriSec"
+                android:title="Sevdiklerimi seç"/>
+            <item
+                android:id="@+id/secilenleriTemizle"
+                android:title="Seçilenleri temizle"/>
+        </menu>
+    </item>
+
+</menu>

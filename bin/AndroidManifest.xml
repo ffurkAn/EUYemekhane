@@ -44,6 +44,15 @@
             android:name="com.euyemekhane.SecilenYemekler"
             android:label="@string/title_activity_secilen_yemekler" >
         </activity>
+        <activity
+            android:name="com.euyemekhane.Ayarlar"
+            android:label="@string/title_activity_ayarlar" >
+        </activity>
+        <activity
+            android:name="com.euyemekhane.Hakkinda"
+            android:label="@string/title_activity_hakkinda"
+            android:screenOrientation="portrait" >
+        </activity>
 
         <receiver
             android:name="com.euyemekhane.WidgetOgleAksam"
@@ -78,7 +87,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_info_small" />
         </receiver>
-
     </application>
 
 </manifest>

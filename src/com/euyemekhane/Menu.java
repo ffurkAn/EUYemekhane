@@ -7,6 +7,7 @@ public class Menu {
 	private String tur;
 	private String tarih;
 	private int gun;
+	private int hafta;
 	private String menu;
 	private int sevilmeyen;
 	private boolean selected;
@@ -77,6 +78,14 @@ public class Menu {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getHafta() {
+		return hafta;
+	}
+
+	public void setHafta(int hafta) {
+		this.hafta = hafta;
 	}
 
 }

@@ -793,10 +793,6 @@ containing a value of this type.
          */
         public static final int abs__search_view_text_min_width=0x7f09000b;
         /**  Default screen margins, per the Android Design guidelines. 
-
-         Customize dimensions originally defined in res/values/dimens.xml (such as
-         screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
-    
          */
         public static final int activity_horizontal_margin=0x7f09000f;
         public static final int activity_vertical_margin=0x7f090010;
@@ -914,12 +910,15 @@ containing a value of this type.
         public static final int abs__textfield_searchview_right_holo_dark=0x7f02006d;
         public static final int abs__textfield_searchview_right_holo_light=0x7f02006e;
         public static final int abs__toast_frame=0x7f02006f;
-        public static final int eu_yemekhane=0x7f020070;
-        public static final int footer=0x7f020071;
-        public static final int ic_launcher=0x7f020072;
-        public static final int widget_shape=0x7f020073;
+        public static final int actionbar_settings=0x7f020070;
+        public static final int eu_yemekhane=0x7f020071;
+        public static final int footer=0x7f020072;
+        public static final int ic_launcher=0x7f020073;
+        public static final int widget_shape=0x7f020074;
     }
     public static final class id {
+        public static final int Ayarlar=0x7f060056;
+        public static final int Hakkinda=0x7f060057;
         public static final int abs__action_bar=0x7f060020;
         public static final int abs__action_bar_container=0x7f06001f;
         public static final int abs__action_bar_subtitle=0x7f060011;
@@ -959,48 +958,52 @@ containing a value of this type.
         public static final int abs__textButton=0x7f060013;
         public static final int abs__title=0x7f06001b;
         public static final int abs__up=0x7f06000b;
-        public static final int aksamLinear=0x7f060040;
-        public static final int aksamListView=0x7f060041;
-        public static final int big=0x7f060046;
+        public static final int actionbar_settings_btn=0x7f060053;
+        public static final int aksamLinear=0x7f060041;
+        public static final int aksamListView=0x7f060042;
+        public static final int big=0x7f060047;
         public static final int btnAylik=0x7f060033;
         public static final int btnGunluk=0x7f060032;
         public static final int btnSecilenYemek=0x7f060034;
         public static final int btnSevYemek=0x7f060035;
-        public static final int btnSevilmeyenYemekEkle=0x7f06003d;
-        public static final int btnSevilmeyenYemekSil=0x7f06003a;
-        public static final int checkBox=0x7f060045;
-        public static final int checkBoxSevilmeyen=0x7f060049;
+        public static final int btnSevilmeyenYemekEkle=0x7f06003e;
+        public static final int btnSevilmeyenYemekSil=0x7f06003b;
+        public static final int checkBox=0x7f060046;
+        public static final int checkBoxSevilmeyen=0x7f06004a;
         public static final int disableHome=0x7f060009;
-        public static final int dynamicLayout=0x7f060038;
+        public static final int dynamicLayout=0x7f060039;
         public static final int edit_query=0x7f060026;
         public static final int homeAsUp=0x7f060006;
         public static final int listMode=0x7f060002;
-        public static final int listViewTexts=0x7f060044;
+        public static final int listViewTexts=0x7f060045;
         public static final int normal=0x7f060001;
-        public static final int ogleLinear=0x7f060042;
-        public static final int ogleListView=0x7f060043;
+        public static final int ogleLinear=0x7f060043;
+        public static final int ogleListView=0x7f060044;
         public static final int pager=0x7f060036;
-        public static final int scrollLinear=0x7f06003c;
-        public static final int secilenYemeklerTextView=0x7f060037;
-        public static final int sevilmeyenListViewTexts=0x7f060048;
-        public static final int sevilmeyenListViewYemekAdi=0x7f06004a;
-        public static final int sevilmeyenYemekEkleScrollView=0x7f06003b;
-        public static final int sevilmeyenYemekListView=0x7f060039;
+        public static final int scrollLinear=0x7f06003d;
+        public static final int secilenYemeklerTextViewAksam=0x7f060038;
+        public static final int secilenYemeklerTextViewOgle=0x7f060037;
+        public static final int secilenleriTemizle=0x7f060055;
+        public static final int sevilenleriSec=0x7f060054;
+        public static final int sevilmeyenListViewTexts=0x7f060049;
+        public static final int sevilmeyenListViewYemekAdi=0x7f06004b;
+        public static final int sevilmeyenYemekEkleScrollView=0x7f06003c;
+        public static final int sevilmeyenYemekListView=0x7f06003a;
         public static final int showCustom=0x7f060008;
         public static final int showHome=0x7f060005;
         public static final int showTitle=0x7f060007;
-        public static final int small=0x7f060047;
-        public static final int smallWidgetTextView=0x7f060051;
-        public static final int smallWidgetTextViewBold=0x7f060050;
-        public static final int splashLogo=0x7f06003e;
-        public static final int splashText=0x7f06003f;
+        public static final int small=0x7f060048;
+        public static final int smallWidgetTextView=0x7f060052;
+        public static final int smallWidgetTextViewBold=0x7f060051;
+        public static final int splashLogo=0x7f06003f;
+        public static final int splashText=0x7f060040;
         public static final int tabMode=0x7f060003;
         public static final int useLogo=0x7f060004;
-        public static final int widgetLayout=0x7f06004b;
-        public static final int widgetTextViewAksam=0x7f06004f;
-        public static final int widgetTextViewAksamBold=0x7f06004e;
-        public static final int widgetTextViewOgle=0x7f06004d;
-        public static final int widgetTextViewOgleBold=0x7f06004c;
+        public static final int widgetLayout=0x7f06004c;
+        public static final int widgetTextViewAksam=0x7f060050;
+        public static final int widgetTextViewAksamBold=0x7f06004f;
+        public static final int widgetTextViewOgle=0x7f06004e;
+        public static final int widgetTextViewOgleBold=0x7f06004d;
         public static final int wrap_content=0x7f060000;
     }
     public static final class integer {
@@ -1028,19 +1031,24 @@ containing a value of this type.
         public static final int abs__search_dropdown_item_icons_2line=0x7f030012;
         public static final int abs__search_view=0x7f030013;
         public static final int abs__simple_dropdown_hint=0x7f030014;
-        public static final int activity_main=0x7f030015;
-        public static final int activity_ogle_aksam=0x7f030016;
-        public static final int activity_secilen_yemekler=0x7f030017;
-        public static final int activity_sevilmeyen_yemek_ekle=0x7f030018;
-        public static final int activity_splash_screen=0x7f030019;
-        public static final int fragment_aksam=0x7f03001a;
-        public static final int fragment_ogle=0x7f03001b;
-        public static final int listview_item=0x7f03001c;
-        public static final int sevilmeyen_listview_item=0x7f03001d;
-        public static final int sherlock_spinner_dropdown_item=0x7f03001e;
-        public static final int sherlock_spinner_item=0x7f03001f;
-        public static final int widget_layout=0x7f030020;
-        public static final int widget_layout_small=0x7f030021;
+        public static final int activity_hakkinda=0x7f030015;
+        public static final int activity_main=0x7f030016;
+        public static final int activity_ogle_aksam=0x7f030017;
+        public static final int activity_secilen_yemekler=0x7f030018;
+        public static final int activity_sevilmeyen_yemek_ekle=0x7f030019;
+        public static final int activity_splash_screen=0x7f03001a;
+        public static final int fragment_aksam=0x7f03001b;
+        public static final int fragment_ogle=0x7f03001c;
+        public static final int listview_item=0x7f03001d;
+        public static final int sevilmeyen_listview_item=0x7f03001e;
+        public static final int sherlock_spinner_dropdown_item=0x7f03001f;
+        public static final int sherlock_spinner_item=0x7f030020;
+        public static final int widget_layout=0x7f030021;
+        public static final int widget_layout_small=0x7f030022;
+    }
+    public static final class menu {
+        public static final int actionbar_menu=0x7f0d0000;
+        public static final int settings_menu=0x7f0d0001;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1083,6 +1091,9 @@ containing a value of this type.
          */
         public static final int abs__shareactionprovider_share_with_application=0x7f0b0007;
         public static final int app_name=0x7f0b000d;
+        public static final int hakkinda=0x7f0b0013;
+        public static final int title_activity_ayarlar=0x7f0b0011;
+        public static final int title_activity_hakkinda=0x7f0b0012;
         public static final int title_activity_ogle_aksam=0x7f0b000f;
         public static final int title_activity_secilen_yemekler=0x7f0b0010;
         public static final int title_activity_sevilmeyen_yemek_ekle=0x7f0b000e;
@@ -1093,11 +1104,13 @@ containing a value of this type.
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
 
 
+
     
 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
+
 
 
         
@@ -1204,8 +1217,9 @@ containing a value of this type.
         public static final int Widget_Sherlock_TextView_SpinnerItem=0x7f0c0032;
     }
     public static final class xml {
-        public static final int widget_info=0x7f050000;
-        public static final int widget_info_small=0x7f050001;
+        public static final int ayarlar=0x7f050000;
+        public static final int widget_info=0x7f050001;
+        public static final int widget_info_small=0x7f050002;
     }
     public static final class styleable {
         /**  Attributes used to style the Action Bar. 

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 
@@ -42,7 +43,9 @@ public class SevilmeyenYemekEkle extends SherlockActivity {
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				// TODO Auto-generated method stub
 				text = s.toString();
-				if (text != null && editTextCount < 15) {
+				if (text != null && editTextCount < 10) {
+					if (editText.getId() == 1)
+						Toast.makeText(getApplicationContext(), "Lütfen, Türkçe karakter kullanýn", Toast.LENGTH_LONG).show();
 					editText.removeTextChangedListener(this);
 					editText = getEditText();
 					editText.addTextChangedListener(this);
@@ -120,6 +123,7 @@ public class SevilmeyenYemekEkle extends SherlockActivity {
 			}
 			Intent i = new Intent(SevilmeyenYemekEkle.this, MainActivity.class);
 			startActivity(i);
+			finish();
 		}
 	};
 	
@@ -134,6 +138,7 @@ public class SevilmeyenYemekEkle extends SherlockActivity {
 			}
 			Intent i = new Intent(SevilmeyenYemekEkle.this, MainActivity.class);
 			startActivity(i);
+			finish();
 		}
 	};
 

@@ -71,6 +71,9 @@ public class CustomAdapter extends ArrayAdapter<Menu> {
 		if (menu != null) {
 			if (menu.getSevilmeyen() == 1)
 				viewHolder.text2.setTextColor(Color.RED);
+			else
+				viewHolder.text2.setTextColor(Color.BLACK);
+
 			viewHolder.text1.setText(menu.getTarih());
 			viewHolder.text2.setText("");
 			Pattern splitter = Pattern.compile("[\\/=]");

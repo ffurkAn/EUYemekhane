@@ -85,6 +85,8 @@ public class SevilmeyenYemekDAL extends DAL {
 			}while (c.moveToNext());
 		}
 
+		c.close();
+		
 		return lstYemek;
 	}
 
@@ -155,6 +157,25 @@ public class SevilmeyenYemekDAL extends DAL {
 
 		}catch (Exception ex) {
 			Log.d("#ERROR SevilmeyenGuncelle", ex.getMessage());
+		}
+	}
+	
+	public void TumSevilmeyenGuncelle()
+	{
+		try {
+			SQLiteDatabase db = getDatabase();
+			ContentValues args = new ContentValues();
+
+			args.put("Sevilmeyen", 1);
+			
+			for (SevilmeyenYemek entYemek : TumYemekleriGetir()) {
+				db.update("EUYemekhane", args, "YemekMenusu like '%" + entYemek.getYemekAdi() + "%'", null);
+			}
+
+			db.close();
+
+		}catch (Exception ex) {
+			Log.d("#ERROR TumSevilmeyenGuncelle", ex.getMessage());
 		}
 	}
 

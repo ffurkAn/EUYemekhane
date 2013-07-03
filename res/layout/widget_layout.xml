@@ -12,6 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.5"
+        android:gravity="center"
         android:orientation="vertical" >
 
         <TextView
@@ -19,25 +20,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="4dp"
             android:gravity="center_horizontal|center_vertical"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="#FF0099CC"
             android:textStyle="bold" >
         </TextView>
-
-        <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@android:color/holo_blue_light" />
 
         <TextView
             android:id="@+id/widgetTextViewOgle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="4dp"
+            android:layout_marginTop="5dp"
             android:gravity="center_horizontal|center_vertical"
             android:text="EÜ Yemekhane"
             android:textColor="#000000" >
@@ -47,14 +40,17 @@
     <ImageView
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@android:color/holo_blue_light" />
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="8dp"
+        android:src="#FF33B5E5" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.5"
+        android:gravity="center"
         android:orientation="vertical" >
 
         <TextView
@@ -62,25 +58,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="4dp"
             android:gravity="center_horizontal|center_vertical"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="#FF0099CC"
             android:textStyle="bold" >
         </TextView>
-
-        <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@android:color/holo_blue_light" />
 
         <TextView
             android:id="@+id/widgetTextViewAksam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="4dp"
+            android:layout_marginTop="5dp"
             android:gravity="center_horizontal|center_vertical"
             android:textColor="#000000" >
         </TextView>

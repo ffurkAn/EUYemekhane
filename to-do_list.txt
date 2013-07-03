@@ -1,8 +1,8 @@
 Furkan
 --------------------
-1) Sevilmeyen yemek olarak "dondurma" eklendiðinde içinde "dondurma" geçmeyen bazý yemekler de iþaretleniyor
+1) 
 
-2) Eski kayýtlarý silme haftalýk yapýlmalý
+2) 
 
 3) 
 
@@ -11,9 +11,9 @@ Furkan
 
 Onur
 --------------------
-1) Temmuz listesine uyum saðlama :D
+1) 
 
-2) Tasarým ve performans iyileþtirmeleri
+2) 
 
 3) 
 
@@ -24,7 +24,7 @@ Burak
 --------------------
 1) Ýngilizce dil desteði
 
-2) 
+2) Kullanýcý arayüzü iyileþtirme
 
 3) 
 

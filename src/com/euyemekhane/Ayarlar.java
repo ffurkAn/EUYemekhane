@@ -1,6 +1,5 @@
 package com.euyemekhane;
 
-import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,58 +8,62 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
 
-public class SplashScreen extends SherlockActivity {
+public class Ayarlar extends SherlockPreferenceActivity {
 
+	private MenuDAL dalMenu = new MenuDAL(this);
+	private SevilmeyenYemekDAL dalSevilmeyen = new SevilmeyenYemekDAL(this);
 	private Document doc;
 	private Elements baslik;
 	private String[] baslikStr;
 	private String yemek = null;
 	private String yemekTarihi = null;
-	private MenuDAL dalMenu = new MenuDAL(this);
-	private SevilmeyenYemekDAL dalSevilmeyen = new SevilmeyenYemekDAL(this);
 	private Menu entMenu;
-	private static final int SPLASH_DISPLAY_TIME = 3000;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_splash_screen);
+		addPreferencesFromResource(R.xml.ayarlar);
 
-		ImageView logo = (ImageView) findViewById(R.id.splashLogo);
-		Animation slide = AnimationUtils.loadAnimation(this, R.anim.slide_out_top);
-		slide.setDuration(3000);
-		logo.startAnimation(slide);
+		Preference prefListeSil = findPreference("listeSil");
+		Preference prefGuncelle = findPreference("guncelle");
 
-		TextView text = (TextView) findViewById(R.id.splashText);
-		Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
-		fadeIn.setDuration(3000);
-		text.startAnimation(fadeIn);
+		prefListeSil.setOnPreferenceClickListener(prefListeSilClickListener);
+		prefGuncelle.setOnPreferenceClickListener(prefGuncelleClickListener);
+	}
 
-		entMenu = dalMenu.SonOgleYemekGetir();
-		final Calendar c = Calendar.getInstance();
-		int hafta = 1;
-		//Log.d("#MONTHCHECK", entMenu.getAy() + " - " + ayBul(entMenu.getAy()) + " - " + c.get(Calendar.MONTH));
+	private Preference.OnPreferenceClickListener prefListeSilClickListener = new OnPreferenceClickListener() {
 
-		if (entMenu != null && (ayBul(entMenu.getAy()) == c.get(Calendar.MONTH))) {
-			//Log.d("#UPDATECHECK", "if");
-		} else {
-			//Log.d("#UPDATECHECK", "else");
+		@Override
+		public boolean onPreferenceClick(Preference preference) {
+			// TODO Auto-generated method stub
+			dalMenu.TumKayitlariSil();
+			Toast.makeText(getApplicationContext(), "Silindi", Toast.LENGTH_SHORT).show();
+			return false;
+		}
+	};
+
+	private Preference.OnPreferenceClickListener prefGuncelleClickListener = new OnPreferenceClickListener() {
+
+		@Override
+		public boolean onPreferenceClick(Preference preference) {
+			// TODO Auto-generated method stub
+
 			try {
 				doc = Jsoup.connect("http://sksdb.ege.edu.tr/genel/oele-yemek-menuesue").get();
 				baslik = doc.select("tr td p span"); //sayfanin ustundeki basligi cekiyor
 				baslikStr = baslik.text().toLowerCase().split("\\s+");
 				//Log.d("#BASLIK", baslikStr[2]);
+
+				entMenu = dalMenu.SonOgleYemekGetir();
+				int hafta = 1;
 
 				if (entMenu != null && entMenu.getAy().equals(baslikStr[2])) { //baslikta yazan ay ile veritabanindaki ay aynýysa guncelleme yapmiyor
 
@@ -130,7 +133,7 @@ public class SplashScreen extends SherlockActivity {
 				baslik = doc.select("tr td p span"); //sayfanin ustundeki basligi cekiyor
 				baslikStr = baslik.text().toLowerCase().split("\\s+");
 
-				hafta = 1;
+				int hafta = 1;
 
 				Elements yemekler = doc.select("tr td p"); //tarihi ve o gunku yemegi cekiyor
 
@@ -183,52 +186,9 @@ public class SplashScreen extends SherlockActivity {
 				// TODO: handle exception
 				Toast.makeText(getApplicationContext(), "Liste indirilemedi", Toast.LENGTH_SHORT).show();
 			}
+
+			return false;
 		}
-
-		//dalMenu.GunlukEskiKayitlariSil();
-		dalMenu.HaftalikEskiKayitlariSil();
-
-		new Handler().postDelayed(new Runnable() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-
-				Intent i = new Intent(SplashScreen.this, MainActivity.class);
-				startActivity(i);
-				SplashScreen.this.finish();
-			}
-		}, SPLASH_DISPLAY_TIME);
-
-	}
-
-	private int ayBul(String ay) {
-		if (ay.matches("ocak"))
-			return 0;
-		else if (ay.matches(".*ubat"))
-			return 1;
-		else if (ay.matches("mart"))
-			return 2;
-		else if (ay.matches("n.*san"))
-			return 3;
-		else if (ay.matches("may.*s"))
-			return 4;
-		else if (ay.matches("haz.*ran"))
-			return 5;
-		else if (ay.matches("temmuz"))
-			return 6;
-		else if (ay.matches("a.*ustos"))
-			return 7;
-		else if (ay.matches("eyl.*l"))
-			return 8;
-		else if (ay.matches("ek.*m"))
-			return 9;
-		else if (ay.matches("kas.*m"))
-			return 10;
-		else if (ay.matches("aral.*k"))
-			return 11;
-
-		return -1;
-	}
+	};
 
 }

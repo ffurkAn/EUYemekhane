@@ -16,21 +16,32 @@ public class SecilenYemekler extends SherlockActivity {
 		
 		MenuDAL dalMenu = new MenuDAL(this);
 		ArrayList<com.euyemekhane.Menu> seciliKayitlar;
-		TextView txtView = (TextView) findViewById(R.id.secilenYemeklerTextView);
+		TextView txtViewOgle = (TextView) findViewById(R.id.secilenYemeklerTextViewOgle);
+		TextView txtViewAksam = (TextView) findViewById(R.id.secilenYemeklerTextViewAksam);
 		
 		seciliKayitlar = dalMenu.SeciliKayitlariGetir(1);
 		if (seciliKayitlar != null) {
-			txtView.setText("Öðle\n");
+			int hafta = 1;
+			txtViewOgle.setText("");
 			for (com.euyemekhane.Menu x : seciliKayitlar) {
-				txtView.append(x.getTarih() + "\n");
+				if (hafta != x.getHafta())
+					txtViewOgle.append("\n");
+				
+				txtViewOgle.append(x.getTarih() + "\n");
+				hafta = x.getHafta();
 			}
 		}
 		
 		seciliKayitlar = dalMenu.SeciliKayitlariGetir(2);
 		if (seciliKayitlar != null) {
-			txtView.append("\nAkþam\n");
+			int hafta = 1;
+			txtViewAksam.setText("");
 			for (com.euyemekhane.Menu x : seciliKayitlar) {
-				txtView.append(x.getTarih() + "\n");
+				if (hafta != x.getHafta())
+					txtViewAksam.append("\n");
+				
+				txtViewAksam.append(x.getTarih() + "\n");
+				hafta = x.getHafta();
 			}
 		}
 	}
