@@ -160,7 +160,7 @@ public class SevilmeyenYemekDAL extends DAL {
 		}
 	}
 	
-	public void TumSevilmeyenGuncelle()
+	public void TumSevilmeyenGuncelle(int s)
 	{
 		try {
 			SQLiteDatabase db = getDatabase();
@@ -168,8 +168,24 @@ public class SevilmeyenYemekDAL extends DAL {
 
 			args.put("Sevilmeyen", 1);
 			
-			for (SevilmeyenYemek entYemek : TumYemekleriGetir()) {
-				db.update("EUYemekhane", args, "YemekMenusu like '%" + entYemek.getYemekAdi() + "%'", null);
+			switch (s) {
+				case 1:
+					for (SevilmeyenYemek entYemek : TumYemekleriGetir()) {
+						db.update("EUYemekhane", args, "YemekTuru = 'ogle' and YemekMenusu like '%" + entYemek.getYemekAdi() + "%'", null);
+					}
+					break;
+					
+				case 2:
+					for (SevilmeyenYemek entYemek : TumYemekleriGetir()) {
+						db.update("EUYemekhane", args, "YemekTuru = 'aksam' and YemekMenusu like '%" + entYemek.getYemekAdi() + "%'", null);
+					}
+					break;
+	
+				default:
+					for (SevilmeyenYemek entYemek : TumYemekleriGetir()) {
+						db.update("EUYemekhane", args, "YemekMenusu like '%" + entYemek.getYemekAdi() + "%'", null);
+					}
+					break;
 			}
 
 			db.close();

@@ -48,6 +48,8 @@ public class WidgetOgleAksam extends AppWidgetProvider {
 				
 				if (ogle.getSevilmeyen() == 1) {
 					remoteViews.setTextColor(R.id.widgetTextViewOgle, Color.RED);
+				} else {
+					remoteViews.setTextColor(R.id.widgetTextViewOgle, Color.BLACK);
 				}
 				remoteViews.setTextViewText(R.id.widgetTextViewOgleBold, ogle.getTarih() + " Öðle");
 				remoteViews.setTextViewText(R.id.widgetTextViewOgle, menu);
@@ -66,6 +68,8 @@ public class WidgetOgleAksam extends AppWidgetProvider {
 				
 				if (aksam.getSevilmeyen() == 1) {
 					remoteViews.setTextColor(R.id.widgetTextViewAksam, Color.RED);
+				} else {
+					remoteViews.setTextColor(R.id.widgetTextViewAksam, Color.BLACK);
 				}
 				remoteViews.setTextViewText(R.id.widgetTextViewAksamBold, aksam.getTarih() + " Akþam");
 				remoteViews.setTextViewText(R.id.widgetTextViewAksam, menu);

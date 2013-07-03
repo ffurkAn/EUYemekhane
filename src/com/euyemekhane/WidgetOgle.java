@@ -32,6 +32,8 @@ public class WidgetOgle extends AppWidgetProvider {
 			if (ogle != null) {
 				if (ogle.getSevilmeyen() == 1) {
 					remoteViews.setTextColor(R.id.smallWidgetTextView, Color.RED);
+				} else {
+					remoteViews.setTextColor(R.id.smallWidgetTextView, Color.BLACK);
 				}
 				remoteViews.setTextViewText(R.id.smallWidgetTextViewBold, ogle.getTarih() + " Öðle");
 				remoteViews.setTextViewText(R.id.smallWidgetTextView, ogle.getMenu());

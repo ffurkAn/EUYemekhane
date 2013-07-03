@@ -1,5 +1,6 @@
 package com.euyemekhane;
 
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,56 +9,33 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceClickListener;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import com.actionbarsherlock.app.SherlockActivity;
 
-public class Ayarlar extends SherlockPreferenceActivity {
+public class YemekListesi extends SherlockActivity {
 
-	private MenuDAL dalMenu = new MenuDAL(this);
-	private SevilmeyenYemekDAL dalSevilmeyen = new SevilmeyenYemekDAL(this);
-	private Document doc;
-	private Elements baslik;
-	private String[] baslikStr;
-	private String yemek = null;
-	private String yemekTarihi = null;
-	private Menu entMenu;
+	protected int yemekListesiIndir() {
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.ayarlar);
+		Document doc;
+		Elements baslik;
+		String[] baslikStr;
+		String yemek = null;
+		String yemekTarihi = null;
+		Menu entMenu;
+		MenuDAL dalMenu = new MenuDAL(this);
+		SevilmeyenYemekDAL dalSevilmeyen = new SevilmeyenYemekDAL(this);
+		final Calendar c = Calendar.getInstance();
+		int hafta;
+		int sonuc = 0;
 
-		Preference prefListeSil = findPreference("listeSil");
-		Preference prefGuncelle = findPreference("guncelle");
+		entMenu = dalMenu.SonOgleYemekGetir();
+		//Log.d("#MONTHCHECK", entMenu.getAy() + " - " + ayBul(entMenu.getAy()) + " - " + c.get(Calendar.MONTH));
 
-		prefListeSil.setOnPreferenceClickListener(prefListeSilClickListener);
-		prefGuncelle.setOnPreferenceClickListener(prefGuncelleClickListener);
-	}
-
-	private Preference.OnPreferenceClickListener prefListeSilClickListener = new OnPreferenceClickListener() {
-
-		@Override
-		public boolean onPreferenceClick(Preference preference) {
-			// TODO Auto-generated method stub
-			dalMenu.TumKayitlariSil(0);
-			Toast.makeText(getApplicationContext(), "Silindi", Toast.LENGTH_SHORT).show();
-			return false;
-		}
-	};
-
-	private Preference.OnPreferenceClickListener prefGuncelleClickListener = new OnPreferenceClickListener() {
-
-		@Override
-		public boolean onPreferenceClick(Preference preference) {
-			// TODO Auto-generated method stub
-			int hafta;
-			int sonuc = 0;
+		if (entMenu != null && (ayBul(entMenu.getAy()) == c.get(Calendar.MONTH))) {
+			//Log.d("#UPDATECHECK", "if");
+		} else {
+			//Log.d("#UPDATECHECK", "else");
 
 			try {
 				doc = Jsoup.connect("http://sksdb.ege.edu.tr/genel/oele-yemek-menuesue").get();
@@ -201,18 +179,43 @@ public class Ayarlar extends SherlockPreferenceActivity {
 				//Toast.makeText(getApplicationContext(), "Baðlantý hatasý", Toast.LENGTH_SHORT).show();
 			}
 
-			Log.d("#SONUC", "" + sonuc);
-			if (sonuc != -1) {
-				if (sonuc == 1)
-					Toast.makeText(getApplicationContext(), "Yemek listesi güncel", Toast.LENGTH_SHORT).show();
-				else if (sonuc == 2) {
-					Toast.makeText(getApplicationContext(), "Yemek listesi güncelleniyor", Toast.LENGTH_SHORT).show();
-					dalMenu.HaftalikEskiKayitlariSil();
-				}
-			}
-
-			return false;
 		}
-	};
+
+		return sonuc;
+	}
+	
+	protected void haftalikEskiKayitlariSil() {
+		MenuDAL dalMenu = new MenuDAL(this);
+		dalMenu.HaftalikEskiKayitlariSil();
+	}
+
+	private int ayBul(String ay) {
+		if (ay.matches("ocak"))
+			return 0;
+		else if (ay.matches(".*ubat"))
+			return 1;
+		else if (ay.matches("mart"))
+			return 2;
+		else if (ay.matches("n.*san"))
+			return 3;
+		else if (ay.matches("may.*s"))
+			return 4;
+		else if (ay.matches("haz.*ran"))
+			return 5;
+		else if (ay.matches("temmuz"))
+			return 6;
+		else if (ay.matches("a.*ustos"))
+			return 7;
+		else if (ay.matches("eyl.*l"))
+			return 8;
+		else if (ay.matches("ek.*m"))
+			return 9;
+		else if (ay.matches("kas.*m"))
+			return 10;
+		else if (ay.matches("aral.*k"))
+			return 11;
+
+		return -1;
+	}
 
 }

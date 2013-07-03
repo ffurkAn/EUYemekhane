@@ -32,6 +32,8 @@ public class WidgetAksam extends AppWidgetProvider {
 			if (aksam != null) {
 				if (aksam.getSevilmeyen() == 1) {
 					remoteViews.setTextColor(R.id.smallWidgetTextView, Color.RED);
+				} else {
+					remoteViews.setTextColor(R.id.smallWidgetTextView, Color.BLACK);
 				}
 				remoteViews.setTextViewText(R.id.smallWidgetTextViewBold, aksam.getTarih() + " Akþam");
 				remoteViews.setTextViewText(R.id.smallWidgetTextView, aksam.getMenu());

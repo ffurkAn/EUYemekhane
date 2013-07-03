@@ -188,12 +188,12 @@ public class MenuDAL extends DAL {
 		try {
 			SQLiteDatabase db = getDatabase();
 
-			Cursor c = db.rawQuery("select MenuTarihi from EUYemekhane where YemekTuru = 'aksam'", null);
+			Cursor c = db.rawQuery("select MenuAyi, MenuTarihi from EUYemekhane where YemekTuru = 'aksam'", null);
 			c.moveToLast();
 
 			Menu entMenu = new Menu();
 
-			//entMenu.setAy(getCursorStr(c, "MenuAyi"));
+			entMenu.setAy(getCursorStr(c, "MenuAyi"));
 			//entMenu.setTur(getCursorStr(c, "YemekTuru"));
 			entMenu.setTarih(getCursorStr(c, "MenuTarihi"));
 			//entMenu.setGun(getCursorInt(c, "Gun"));
@@ -445,11 +445,23 @@ public class MenuDAL extends DAL {
 		}
 	}
 
-	public void TumKayitlariSil()
+	public void TumKayitlariSil(int s)
 	{
 		SQLiteDatabase db = getDatabase();
-
-		db.execSQL("delete from EUYemekhane");
+		
+		switch (s) {
+			case 1:
+				db.execSQL("delete from EUYemekhane where YemekTuru = 'ogle'");
+				break;
+				
+			case 2:
+				db.execSQL("delete from EUYemekhane where YemekTuru = 'aksam'");
+				break;
+	
+			default:
+				db.execSQL("delete from EUYemekhane");
+				break;
+		}
 
 		db.close();
 	}
