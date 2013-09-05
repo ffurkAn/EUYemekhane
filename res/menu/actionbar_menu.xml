@@ -9,10 +9,10 @@
         <menu>
             <item
                 android:id="@+id/sevilenleriSec"
-                android:title="Sevdiklerimi seç"/>
+                android:title="Sevdiğim yemekleri seç"/>
             <item
                 android:id="@+id/secilenleriTemizle"
-                android:title="Seçilenleri temizle"/>
+                android:title="Tüm işaretleri kaldır"/>
         </menu>
     </item>
 

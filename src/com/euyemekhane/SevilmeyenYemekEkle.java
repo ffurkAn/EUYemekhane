@@ -122,6 +122,7 @@ public class SevilmeyenYemekEkle extends SherlockActivity {
 				}
 			}
 			Intent i = new Intent(SevilmeyenYemekEkle.this, MainActivity.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(i);
 			finish();
 		}
@@ -137,6 +138,7 @@ public class SevilmeyenYemekEkle extends SherlockActivity {
 					dalSevilmeyen.SevilmeyenGuncelle(x, 0);
 			}
 			Intent i = new Intent(SevilmeyenYemekEkle.this, MainActivity.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(i);
 			finish();
 		}

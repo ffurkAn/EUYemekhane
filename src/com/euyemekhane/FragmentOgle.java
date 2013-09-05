@@ -26,18 +26,25 @@ public class FragmentOgle extends SherlockFragment {
 
 		if (getArguments().getInt("GosterimTipi", -1) == 1) {
 			int size;
+			int dpValue = 8; //margin in dips
+			float d = getActivity().getResources().getDisplayMetrics().density;
+			int margin = (int)(dpValue * d); //margin in pixels
 			MenuDAL dalMenu = new MenuDAL(getActivity());
 			String[] gunlukMenu;
 			Menu menu;
 			Calendar c = Calendar.getInstance();
 			Pattern splitter = Pattern.compile("[\\/=]");
 			LinearLayout ll = (LinearLayout) getView().findViewById(R.id.ogleLinear);
-			LayoutParams params = new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
-			params.setMargins(8, 0, 0, 0);
+			LayoutParams params1 = new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
+			params1.setMargins(margin, margin, 0, 0);
+			LayoutParams params2 = new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
+			dpValue = 16;
+			margin = (int)(dpValue * d);
+			params2.setMargins(margin, 0, 0, 0);
 			TextView txtViewTarih = new TextView(getActivity());
 			TextView txtView = new TextView(getActivity());
-			txtViewTarih.setLayoutParams(params);
-			txtView.setLayoutParams(params);
+			txtViewTarih.setLayoutParams(params1);
+			txtView.setLayoutParams(params2);
 			ll.addView(txtViewTarih);
 			ll.addView(txtView);
 			txtView.setTextSize(20);
@@ -46,7 +53,7 @@ public class FragmentOgle extends SherlockFragment {
 
 			menu = dalMenu.GunlukOgleYemekGetir(c.get(Calendar.DAY_OF_MONTH), (c.get(Calendar.MONTH) + 1));
 			if (menu == null) {
-				Toast.makeText(getActivity(), "Yemek bulunamadý", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "Yemek bulunamadý - Öðle", Toast.LENGTH_SHORT).show();
 			} else {
 
 				if (menu.getSevilmeyen() == 1) {
@@ -77,7 +84,7 @@ public class FragmentOgle extends SherlockFragment {
 		MenuDAL dalMenu = new MenuDAL(getActivity());
 		ArrayList<Menu> menuListe = dalMenu.TumOgleGetir();
 		if (menuListe.isEmpty()) {
-			Toast.makeText(getActivity(), "Liste yok", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), "Liste yok - Öðle", Toast.LENGTH_SHORT).show();
 		} else {
 			ListView listView = (ListView) getView().findViewById(R.id.ogleListView);
 			CustomAdapter adapter = new CustomAdapter(getActivity(), R.id.ogleListView, menuListe);

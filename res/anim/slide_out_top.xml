@@ -3,7 +3,7 @@
     android:fillAfter="true" >
 
     <translate
-        android:fromYDelta="0%"
-        android:toYDelta="-5%" />
+        android:fromYDelta="-10%"
+        android:toYDelta="-15%" />
 
 </set>

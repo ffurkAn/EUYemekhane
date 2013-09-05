@@ -1,38 +1,70 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="8dp"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="#FFFFFF"
-    android:orientation="vertical"
     tools:context=".MainActivity" >
 
     <Button
         android:id="@+id/btnGunluk"
+        style="@style/Button.Custom"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="Günlük" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/gunluk"
+        android:text="Günlük Menü"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btnAylik"
+        style="@style/Button.Custom"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="Aylık" />
+        android:layout_below="@id/btnGunluk"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/aylik"
+        android:text="Aylık Menü"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btnSecilenYemek"
+        style="@style/Button.Custom"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="Seçtiğim Yemekler" />
+        android:layout_below="@id/btnAylik"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/secilen"
+        android:text="Alacağım Yemekler"
+        android:textSize="18sp" />
 
     <Button
-        android:id="@+id/btnSevYemek"
+        android:id="@+id/btnSevilmeyenYemek"
+        style="@style/Button.Custom"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="Sevmediğim Yemekler" />
+        android:layout_below="@id/btnSecilenYemek"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/sevilmeyen"
+        android:text="Sevmediğim Yemekler"
+        android:textSize="18sp" />
+    
+    <ImageView
+        android:id="@+id/imgViewCheff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/btnSevilmeyenYemek"
+        android:scaleType="fitEnd"
+        android:src="@drawable/android_cheff" />
 
-</LinearLayout>
+</RelativeLayout>

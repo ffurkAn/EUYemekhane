@@ -3,8 +3,8 @@
 
     <string name="app_name">EÜ Yemekhane</string>
     <string name="title_activity_sevilmeyen_yemek_ekle">Sevmediğim Yemekler</string>
-    <string name="title_activity_ogle_aksam">Aylık Liste</string>
-    <string name="title_activity_secilen_yemekler">Seçtiğim Yemekler</string>
+    <string name="title_activity_ogle_aksam">Aylık Menü</string>
+    <string name="title_activity_secilen_yemekler">Alacağım Yemekler</string>
     <string name="title_activity_ayarlar">Ayarlar</string>
     <string name="title_activity_hakkinda">Hakkında</string>
     <string name="hakkinda">Yemek listeleri Ege Üniversitesi SKSDB internet sitesinden alınmaktadır. Listelerin yazılış şeklinden kaynaklanan hatalar oluşabilir.
@@ -13,6 +13,7 @@
         \n\n	Onur Cem Şenel
         \n	A. Furkan Tanrıverdi
 
-\n\ntarafından geliştirilmiştir. Bize ulaşmak için ...</string>
+\n\ntarafından geliştirilmiştir. Bize ulaşmak için ...
+\n\nUygulamada kullanılan ikonlar için: www.visualpharm.com</string>
 
 </resources>

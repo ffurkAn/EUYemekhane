@@ -39,7 +39,7 @@ public class SevilmeyenYemekDAL extends DAL {
 
 			return yemekler;
 
-		}catch(Exception ex) {
+		} catch (Exception ex) {
 			return null;
 		}
 	}
@@ -60,7 +60,7 @@ public class SevilmeyenYemekDAL extends DAL {
 
 			return yemekler;
 
-		}catch(Exception ex) {
+		} catch (Exception ex) {
 			return null;
 		}
 	}
@@ -82,7 +82,7 @@ public class SevilmeyenYemekDAL extends DAL {
 
 				lstYemek.add(entYemek);
 
-			}while (c.moveToNext());
+			} while (c.moveToNext());
 		}
 
 		c.close();
@@ -107,7 +107,7 @@ public class SevilmeyenYemekDAL extends DAL {
 			
 			db.close();
 
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			Log.d("#ERROR SevilmeyenYemekKayit", ex.getMessage());
 		}
 	}
@@ -121,7 +121,7 @@ public class SevilmeyenYemekDAL extends DAL {
 
 			db.close();
 
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			Log.d("#ERROR SevilmeyenYemekSil", ex.getMessage());
 		}
 	}
@@ -138,7 +138,7 @@ public class SevilmeyenYemekDAL extends DAL {
 
 			db.close();
 
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			Log.d("#ERROR SecilenGuncelle", ex.getMessage());
 		}
 	}
@@ -155,7 +155,7 @@ public class SevilmeyenYemekDAL extends DAL {
 
 			db.close();
 
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			Log.d("#ERROR SevilmeyenGuncelle", ex.getMessage());
 		}
 	}
@@ -190,7 +190,7 @@ public class SevilmeyenYemekDAL extends DAL {
 
 			db.close();
 
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			Log.d("#ERROR TumSevilmeyenGuncelle", ex.getMessage());
 		}
 	}

@@ -225,7 +225,7 @@ public class MenuDAL extends DAL {
 
 			db.close();
 
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			Log.d("#ERROR SecilenGuncelle", ex.getMessage());
 		}
 	}
@@ -253,7 +253,7 @@ public class MenuDAL extends DAL {
 
 			db.close();
 
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			Log.d("#ERROR SecilenleriTemizle", ex.getMessage());
 		}
 	}
@@ -281,7 +281,7 @@ public class MenuDAL extends DAL {
 
 			db.close();
 
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			Log.d("#ERROR SevilenleriSec", ex.getMessage());
 		}
 	}
@@ -305,7 +305,7 @@ public class MenuDAL extends DAL {
 
 			return menuler;
 
-		}catch(Exception ex) {
+		} catch (Exception ex) {
 			return null;
 		}
 	}
@@ -339,7 +339,7 @@ public class MenuDAL extends DAL {
 
 			return menuler;
 
-		}catch(Exception ex) {
+		} catch (Exception ex) {
 			return null;
 		}
 	}
@@ -360,7 +360,7 @@ public class MenuDAL extends DAL {
 
 			return menuler;
 
-		}catch(Exception ex) {
+		} catch (Exception ex) {
 			return null;
 		}
 	}
@@ -381,7 +381,7 @@ public class MenuDAL extends DAL {
 
 			return menuler;
 
-		}catch(Exception ex) {
+		} catch (Exception ex) {
 			return null;
 		}
 	}
@@ -409,7 +409,7 @@ public class MenuDAL extends DAL {
 
 				lstMenu.add(entMenu);
 
-			}while (c.moveToNext());
+			} while (c.moveToNext());
 		}
 
 		c.close();
@@ -440,84 +440,112 @@ public class MenuDAL extends DAL {
 
 			db.close();
 
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			Log.d("#ERROR MenuKayit", ex.getMessage());
 		}
 	}
 
 	public void TumKayitlariSil(int s)
 	{
-		SQLiteDatabase db = getDatabase();
-		
-		switch (s) {
-			case 1:
-				db.execSQL("delete from EUYemekhane where YemekTuru = 'ogle'");
-				break;
-				
-			case 2:
-				db.execSQL("delete from EUYemekhane where YemekTuru = 'aksam'");
-				break;
-	
-			default:
-				db.execSQL("delete from EUYemekhane");
-				break;
-		}
+		try {
+			SQLiteDatabase db = getDatabase();
+			
+			switch (s) {
+				case 1:
+					db.execSQL("delete from EUYemekhane where YemekTuru = 'ogle'");
+					break;
+					
+				case 2:
+					db.execSQL("delete from EUYemekhane where YemekTuru = 'aksam'");
+					break;
 
-		db.close();
+				default:
+					db.execSQL("delete from EUYemekhane");
+					break;
+			}
+
+			db.close();
+		} catch (Exception ex) {
+			Log.d("#ERROR TumKayitlariSil", ex.getMessage());
+		}
 	}
 
 	public void GunlukEskiKayitlariSil()
 	{
-		final Calendar c = Calendar.getInstance();
-		int gun = c.get(Calendar.DAY_OF_MONTH); 
-		int ay = (c.get(Calendar.MONTH)+1); 
-		int id;
+		try {
+			final Calendar c = Calendar.getInstance();
+			int gun = c.get(Calendar.DAY_OF_MONTH); 
+			int ay = (c.get(Calendar.MONTH)+1); 
+			int id;
 
-		SQLiteDatabase db = getDatabase();
+			SQLiteDatabase db = getDatabase();
 
-		Cursor crsrOgle;
-		
-		if (gun < 10)
-			crsrOgle = db.rawQuery("select * from EUYemekhane where YemekTuru = 'ogle' and MenuTarihi like '%0" + gun + "%" + ay + "%'", null);
-		else
-			crsrOgle = db.rawQuery("select * from EUYemekhane where YemekTuru = 'ogle' and MenuTarihi like '%" + gun + "%" + ay + "%'", null);
-		
-		if (crsrOgle.getCount() > 0)
-		{
-			crsrOgle.moveToFirst();
-			id = crsrOgle.getInt(0); 
-			db.execSQL("delete from EUYemekhane where EUYemekhane.YemekTuru = 'ogle' and EUYemekhane.id <" + id);
+			Cursor crsrOgle;
+			
+			if (gun < 10)
+				crsrOgle = db.rawQuery("select * from EUYemekhane where YemekTuru = 'ogle' and MenuTarihi like '%0" + gun + "%" + ay + "%'", null);
+			else
+				crsrOgle = db.rawQuery("select * from EUYemekhane where YemekTuru = 'ogle' and MenuTarihi like '%" + gun + "%" + ay + "%'", null);
+			
+			if (crsrOgle.getCount() > 0)
+			{
+				crsrOgle.moveToFirst();
+				id = crsrOgle.getInt(0); 
+				db.execSQL("delete from EUYemekhane where EUYemekhane.YemekTuru = 'ogle' and EUYemekhane.id <" + id);
+			}
+			crsrOgle.close();
+
+			Cursor crsrAksam;
+			
+			if (gun < 10)
+				crsrAksam = db.rawQuery("select * from EUYemekhane where YemekTuru = 'aksam' and MenuTarihi like '%0" + gun + "%" + ay + "%'", null);
+			else
+				crsrAksam = db.rawQuery("select * from EUYemekhane where YemekTuru = 'aksam' and MenuTarihi like '%" + gun + "%" + ay + "%'", null);
+
+			if (crsrAksam.getCount() > 0)
+			{
+				crsrAksam.moveToFirst();
+				id = getCursorInt(crsrAksam, "id");	
+				db.execSQL("delete from EUYemekhane where EUYemekhane.YemekTuru = 'aksam' and EUYemekhane.id <" + id);
+			}
+			crsrAksam.close();
+
+			db.close();
+		} catch (Exception ex) {
+			Log.d("#ERROR GunlukEskiKayitlariSil", ex.getMessage());
 		}
-		crsrOgle.close();
-
-		Cursor crsrAksam;
-		
-		if (gun < 10)
-			crsrAksam = db.rawQuery("select * from EUYemekhane where YemekTuru = 'aksam' and MenuTarihi like '%0" + gun + "%" + ay + "%'", null);
-		else
-			crsrAksam = db.rawQuery("select * from EUYemekhane where YemekTuru = 'aksam' and MenuTarihi like '%" + gun + "%" + ay + "%'", null);
-
-		if (crsrAksam.getCount() > 0)
-		{
-			crsrAksam.moveToFirst();
-			id = getCursorInt(crsrAksam, "id");	
-			db.execSQL("delete from EUYemekhane where EUYemekhane.YemekTuru = 'aksam' and EUYemekhane.id <" + id);
-		}
-		crsrAksam.close();
-
-		db.close();
 	}
 	
 	public void HaftalikEskiKayitlariSil()
 	{
-		final Calendar c = Calendar.getInstance();
-		int hafta = c.get(Calendar.WEEK_OF_MONTH);
+		try {
+			final Calendar c = Calendar.getInstance();
+			int hafta = c.get(Calendar.WEEK_OF_MONTH);
 
-		SQLiteDatabase db = getDatabase();
+			SQLiteDatabase db = getDatabase();
 
-		db.execSQL("delete from EUYemekhane where Hafta < " + hafta);
+			db.execSQL("delete from EUYemekhane where Hafta < " + hafta);
+			
+			if (hafta > 1)
+				GecmisAyiSil();
 
-		db.close();
+			db.close();
+		} catch (Exception ex) {
+			Log.d("#ERROR HaftalikEskiKayitlariSil", ex.getMessage());
+		}
+	}
+	
+	private void GecmisAyiSil()
+	{
+		try {
+			SQLiteDatabase db = getDatabase();
+
+			db.execSQL("delete from EUYemekhane where MenuAyi <> '" + SonOgleYemekGetir().getAy() + "'");
+
+			db.close();
+		} catch (Exception ex) {
+			Log.d("#ERROR GecmisAyiSil", ex.getMessage());
+		}
 	}
 
 }

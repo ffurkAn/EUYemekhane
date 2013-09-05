@@ -2,14 +2,13 @@ package com.euyemekhane;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import android.widget.Button;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 
 public class MainActivity extends SherlockActivity {
 
@@ -20,7 +19,7 @@ public class MainActivity extends SherlockActivity {
 
 		Button btnGunluk = (Button) findViewById(R.id.btnGunluk);
 		Button btnAylik = (Button) findViewById(R.id.btnAylik);
-		Button btnSevYemek = (Button) findViewById(R.id.btnSevYemek);
+		Button btnSevYemek = (Button) findViewById(R.id.btnSevilmeyenYemek);
 		Button btnSecilenYemek = (Button) findViewById(R.id.btnSecilenYemek);
 
 		btnGunluk.setOnClickListener(btnGunlukOnClickListener);
@@ -83,28 +82,28 @@ public class MainActivity extends SherlockActivity {
 	{
 		switch (item.getItemId())
 		{
-		case R.id.Ayarlar:
-			Intent i = new Intent(MainActivity.this, Ayarlar.class);
-			startActivity(i);
-			return true;
-
-		case R.id.Hakkinda:
-			i = new Intent(MainActivity.this, Hakkinda.class);
-			startActivity(i);
-			return true;
-
-		default:
-			return super.onOptionsItemSelected(item);
+			case R.id.Ayarlar:
+				Intent i = new Intent(MainActivity.this, Ayarlar.class);
+				startActivity(i);
+				return true;
+	
+			case R.id.Hakkinda:
+				i = new Intent(MainActivity.this, Hakkinda.class);
+				startActivity(i);
+				return true;
+	
+			default:
+				return super.onOptionsItemSelected(item);
 		}
 	}    
 
-	@Override
+	/*@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			moveTaskToBack(true);
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
-	}
+	}*/
 
 }

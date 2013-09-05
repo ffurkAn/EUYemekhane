@@ -51,7 +51,7 @@ public class WidgetOgleAksam extends AppWidgetProvider {
 				} else {
 					remoteViews.setTextColor(R.id.widgetTextViewOgle, Color.BLACK);
 				}
-				remoteViews.setTextViewText(R.id.widgetTextViewOgleBold, ogle.getTarih() + " Öðle");
+				remoteViews.setTextViewText(R.id.widgetTextViewOgleBold, ogle.getTarih() + "\nÖðle");
 				remoteViews.setTextViewText(R.id.widgetTextViewOgle, menu);
 			}
 			
@@ -71,7 +71,7 @@ public class WidgetOgleAksam extends AppWidgetProvider {
 				} else {
 					remoteViews.setTextColor(R.id.widgetTextViewAksam, Color.BLACK);
 				}
-				remoteViews.setTextViewText(R.id.widgetTextViewAksamBold, aksam.getTarih() + " Akþam");
+				remoteViews.setTextViewText(R.id.widgetTextViewAksamBold, aksam.getTarih() + "\nAkþam");
 				remoteViews.setTextViewText(R.id.widgetTextViewAksam, menu);
 			}
 
