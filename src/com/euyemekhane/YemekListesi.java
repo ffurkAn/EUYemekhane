@@ -52,7 +52,7 @@ public class YemekListesi extends SherlockActivity {
 			try {
 				doc = Jsoup.connect("https://googledrive.com/host/0Bxo4kmWq3ZluZEtaNzFub3JPcG8/ogle.html").get();
 				baslik = doc.select("title"); //sayfanin ustundeki basligi cekiyor
-				Log.d("#BASLIKOGLE", baslik.text());
+				//Log.d("#BASLIKOGLE", baslik.text());
 				baslikStr = baslik.text().toLowerCase().split("\\s+");
 
 				if (entMenu != null && entMenu.getAy().equals(baslikStr[1])) { //baslikta yazan ay ile veritabanindaki ay aynýysa guncelleme yapmiyor
@@ -65,8 +65,7 @@ public class YemekListesi extends SherlockActivity {
 					Elements yemekler = doc.select("div"); //tarihi ve o gunku yemegi cekiyor
 
 					for (Element x : yemekler) {
-						Log.d("#OGLE", x.text());
-
+						//Log.d("#OGLE", x.text());
 						entMenu = new Menu();
 
 						if (x.text().matches("\\d.*\\d.*\\d.*")) {
@@ -114,57 +113,67 @@ public class YemekListesi extends SherlockActivity {
 				Toast.makeText(appContext, "Baðlantý hatasý", Toast.LENGTH_SHORT).show();
 			}
 
+			entMenu = dalMenu.SonAksamYemekGetir();
+			
 			try {
 				doc = null;
 				baslik = null;
 				baslikStr = null;
 				doc = Jsoup.connect("https://googledrive.com/host/0Bxo4kmWq3ZluZEtaNzFub3JPcG8/aksam.html").get();
 				baslik = doc.select("title"); //sayfanin ustundeki basligi cekiyor
-				Log.d("#BASLIKAKSAM", baslik.text());
+				//Log.d("#BASLIKAKSAM", baslik.text());
 				baslikStr = baslik.text().toLowerCase().split("\\s+");
-				Elements yemekler = doc.select("div"); //tarihi ve o gunku yemegi cekiyor
+				
+				if (entMenu != null && entMenu.getAy().equals(baslikStr[1])) { //baslikta yazan ay ile veritabanindaki ay aynýysa guncelleme yapmiyor
 
-				for (Element x : yemekler) {
-					Log.d("#AKSAM", x.text());
+					sonuc = 1;
 
-					entMenu = new Menu();
+				} else {
 
-					if (x.text().matches("\\d.*\\d.*\\d.*")) {
-						yemekTarihi = x.text();
-						String[] tarih = x.text().split("[\\.\\s*]");
-						Calendar takvimHaftasi = Calendar.getInstance();
-						takvimHaftasi.set(Integer.parseInt(tarih[2]), Integer.parseInt(tarih[1])-1, Integer.parseInt(tarih[0]));
-						hafta = takvimHaftasi.get(Calendar.WEEK_OF_MONTH);
-					} else {
-						yemek = x.text();
+					sonuc = 2;
+					Elements yemekler = doc.select("div"); //tarihi ve o gunku yemegi cekiyor
+
+					for (Element x : yemekler) {
+						//Log.d("#AKSAM", x.text());
+						entMenu = new Menu();
+
+						if (x.text().matches("\\d.*\\d.*\\d.*")) {
+							yemekTarihi = x.text();
+							String[] tarih = x.text().split("[\\.\\s*]");
+							Calendar takvimHaftasi = Calendar.getInstance();
+							takvimHaftasi.set(Integer.parseInt(tarih[2]), Integer.parseInt(tarih[1])-1, Integer.parseInt(tarih[0]));
+							hafta = takvimHaftasi.get(Calendar.WEEK_OF_MONTH);
+						} else {
+							yemek = x.text();
+						}
+
+						if (yemek != null && yemekTarihi != null) { //yemek ve tarihin ikisi de null degilse veritabanina ekleniyor
+							entMenu.setGun(0);
+							if (yemekTarihi.matches("\\d.*\\d.*\\d.*Pa.*"))
+								entMenu.setGun(1);
+							else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Sa.*"))
+								entMenu.setGun(2);
+							else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Ça.*"))
+								entMenu.setGun(3);
+							else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Pe.*"))
+								entMenu.setGun(4);
+							else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Cu.*"))
+								entMenu.setGun(5);
+
+							entMenu.setSevilmeyen(0);
+							entMenu.setAy(baslikStr[1]);
+							entMenu.setTur("aksam");
+							entMenu.setTarih(yemekTarihi);
+							entMenu.setHafta(hafta);
+							entMenu.setMenu(yemek);
+							dalMenu.MenuKaydet(entMenu);
+							yemek = null;
+							yemekTarihi = null;
+						}
 					}
 
-					if (yemek != null && yemekTarihi != null) { //yemek ve tarihin ikisi de null degilse veritabanina ekleniyor
-						entMenu.setGun(0);
-						if (yemekTarihi.matches("\\d.*\\d.*\\d.*Pa.*"))
-							entMenu.setGun(1);
-						else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Sa.*"))
-							entMenu.setGun(2);
-						else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Ça.*"))
-							entMenu.setGun(3);
-						else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Pe.*"))
-							entMenu.setGun(4);
-						else if (yemekTarihi.matches("\\d.*\\d.*\\d.*Cu.*"))
-							entMenu.setGun(5);
-
-						entMenu.setSevilmeyen(0);
-						entMenu.setAy(baslikStr[1]);
-						entMenu.setTur("aksam");
-						entMenu.setTarih(yemekTarihi);
-						entMenu.setHafta(hafta);
-						entMenu.setMenu(yemek);
-						dalMenu.MenuKaydet(entMenu);
-						yemek = null;
-						yemekTarihi = null;
-					}
-				}
-
-				dalSevilmeyen.TumSevilmeyenGuncelle(2);
+					dalSevilmeyen.TumSevilmeyenGuncelle(2);
+				}			
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
