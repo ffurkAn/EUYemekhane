@@ -1098,12 +1098,13 @@ containing a value of this type.
          */
         public static final int abs__shareactionprovider_share_with_application=0x7f0b0007;
         public static final int app_name=0x7f0b000d;
-        public static final int hakkinda=0x7f0b0013;
+        public static final int hakkinda=0x7f0b0014;
         public static final int title_activity_ayarlar=0x7f0b0011;
         public static final int title_activity_hakkinda=0x7f0b0012;
         public static final int title_activity_ogle_aksam=0x7f0b000f;
         public static final int title_activity_secilen_yemekler=0x7f0b0010;
         public static final int title_activity_sevilmeyen_yemek_ekle=0x7f0b000e;
+        public static final int versiyon=0x7f0b0013;
     }
     public static final class style {
         /** 

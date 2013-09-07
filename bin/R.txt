@@ -395,12 +395,13 @@ int string abs__searchview_description_voice 0x7f0b000c
 int string abs__shareactionprovider_share_with 0x7f0b0006
 int string abs__shareactionprovider_share_with_application 0x7f0b0007
 int string app_name 0x7f0b000d
-int string hakkinda 0x7f0b0013
+int string hakkinda 0x7f0b0014
 int string title_activity_ayarlar 0x7f0b0011
 int string title_activity_hakkinda 0x7f0b0012
 int string title_activity_ogle_aksam 0x7f0b000f
 int string title_activity_secilen_yemekler 0x7f0b0010
 int string title_activity_sevilmeyen_yemek_ekle 0x7f0b000e
+int string versiyon 0x7f0b0013
 int style AppBaseTheme 0x7f0c0059
 int style AppTheme 0x7f0c005a
 int style Button_Custom 0x7f0c0061

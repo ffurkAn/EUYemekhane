@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="Ege Üniversitesi\nYemekhane\nv1.0"
+            android:text="@string/versiyon"
             android:textColor="#000000"
             android:textSize="20sp" />
     </LinearLayout>
@@ -36,6 +36,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autoLink="web|email"
             android:text="@string/hakkinda"
             android:textColor="#000000"
             android:textSize="18sp" />

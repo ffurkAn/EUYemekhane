@@ -7,13 +7,15 @@
     <string name="title_activity_secilen_yemekler">Alacağım Yemekler</string>
     <string name="title_activity_ayarlar">Ayarlar</string>
     <string name="title_activity_hakkinda">Hakkında</string>
+    <string name="versiyon">Ege Üniversitesi\nYemekhane\nv1.0</string>
     <string name="hakkinda">Yemek listeleri Ege Üniversitesi SKSDB internet sitesinden alınmaktadır. Listelerin yazılış şeklinden kaynaklanan hatalar oluşabilir.
 \n\nUygulama
 
         \n\n	Onur Cem Şenel
         \n	A. Furkan Tanrıverdi
 
-\n\ntarafından geliştirilmiştir. Bize ulaşmak için ...
+\n\ntarafından geliştirilmiştir. Bize ulaşmak için:
+\n	euyemekhane@gmail.com
 \n\nUygulamada kullanılan ikonlar için: www.visualpharm.com</string>
 
 </resources>
