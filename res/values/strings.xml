@@ -7,8 +7,8 @@
     <string name="title_activity_secilen_yemekler">Alacağım Yemekler</string>
     <string name="title_activity_ayarlar">Ayarlar</string>
     <string name="title_activity_hakkinda">Hakkında</string>
-    <string name="versiyon">Ege Üniversitesi\nYemekhane\nv1.0</string>
-    <string name="hakkinda">Yemek listeleri Ege Üniversitesi SKSDB internet sitesinden alınmaktadır. Listelerin yazılış şeklinden kaynaklanan hatalar oluşabilir.
+    <string name="versiyon">Ege Üniversitesi\nYemekhane\nv1.1</string>
+    <string name="hakkinda">Yemek listeleri Ege Üniversitesi SKSDB internet sitesinden (sksdb.ege.edu.tr/genel/aylk-yemek-menuesue) alınmaktadır. Listelerin yazılış şeklinden kaynaklanan hatalar oluşabilir.
 \n\nUygulama
 
         \n\n	Onur Cem Şenel

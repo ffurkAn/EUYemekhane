@@ -47,6 +47,10 @@ public class MenuDAL extends DAL {
 			entMenu.setHafta(getCursorInt(c, "Hafta"));
 			entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
 			entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
+			if (getCursorInt(c, "Selected") == 1)
+				entMenu.setSelected(true);
+			else
+				entMenu.setSelected(false);
 
 			c.close();
 			
@@ -82,6 +86,10 @@ public class MenuDAL extends DAL {
 			entMenu.setHafta(getCursorInt(c, "Hafta"));
 			entMenu.setMenu(getCursorStr(c, "YemekMenusu"));
 			entMenu.setSevilmeyen(getCursorInt(c, "Sevilmeyen"));
+			if (getCursorInt(c, "Selected") == 1)
+				entMenu.setSelected(true);
+			else
+				entMenu.setSelected(false);
 
 			c.close();
 			

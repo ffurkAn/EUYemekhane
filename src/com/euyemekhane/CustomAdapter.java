@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,18 +64,31 @@ public class CustomAdapter extends ArrayAdapter<Menu> {
 			v.setTag(viewHolder);
 
 		} else {
-			viewHolder = (ViewHolder)v.getTag();
+			viewHolder = (ViewHolder) v.getTag();
 			((ViewHolder) v.getTag()).checkBox.setTag(entries.get(position));
 		}
 
 		final Menu menu = entries.get(position);
+		Menu oncekiMenu = null;
+		if (position > 0)
+			oncekiMenu = entries.get(position - 1);
+		
 		if (menu != null) {
 			if (menu.getSevilmeyen() == 1)
 				viewHolder.text2.setTextColor(Color.RED);
 			else
 				viewHolder.text2.setTextColor(Color.BLACK);
 
-			viewHolder.text1.setText(menu.getTarih());
+			if (oncekiMenu != null) {
+				if (oncekiMenu.getHafta() != menu.getHafta()) {
+					viewHolder.text1.setText(Html.fromHtml("<font color=" + "#85B532" + "><i>" + menu.getHafta() + ". Hafta" + "</i></font><br/>" + menu.getTarih()));
+				} else {
+					viewHolder.text1.setText(menu.getTarih());
+				}
+			} else {
+				viewHolder.text1.setText(Html.fromHtml("<font color=" + "#85B532" + "><i>" + menu.getHafta() + ". Hafta" + "</i></font><br/>" + menu.getTarih()));
+			}
+
 			viewHolder.text2.setText("");
 			Pattern splitter = Pattern.compile("[\\/=]");
 			String[] gunlukMenu = splitter.split(menu.getMenu());

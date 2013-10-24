@@ -914,13 +914,14 @@ containing a value of this type.
         public static final int android_cheff=0x7f020071;
         public static final int aylik=0x7f020072;
         public static final int button_shape=0x7f020073;
-        public static final int eu_yemekhane=0x7f020074;
-        public static final int footer=0x7f020075;
-        public static final int gunluk=0x7f020076;
-        public static final int ic_launcher=0x7f020077;
-        public static final int secilen=0x7f020078;
-        public static final int sevilmeyen=0x7f020079;
-        public static final int widget_shape=0x7f02007a;
+        public static final int checkmark=0x7f020074;
+        public static final int eu_yemekhane=0x7f020075;
+        public static final int footer=0x7f020076;
+        public static final int gunluk=0x7f020077;
+        public static final int ic_launcher=0x7f020078;
+        public static final int secilen=0x7f020079;
+        public static final int sevilmeyen=0x7f02007a;
+        public static final int widget_shape=0x7f02007b;
     }
     public static final class id {
         public static final int Ayarlar=0x7f060057;

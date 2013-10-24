@@ -70,7 +70,9 @@ public class FragmentOgle extends SherlockFragment {
 						txtView.append("\nToplam cal = ");
 					}
 					txtView.append("" + s.trim() + "\n");
+					/*Kýrmýzý iþaretleme iþi burada yapýlacak*/
 				}
+				txtView.append("\n\n\tAfiyet olsun... :)");
 			}
 
 		} else if (getArguments().getInt("GosterimTipi", -1) == 2) {

@@ -71,6 +71,7 @@ public class FragmentAksam extends SherlockFragment {
 					}
 					txtView.append("" + s.trim() + "\n");
 				}
+				txtView.append("\n\n\tAfiyet olsun... :)");
 			}
 
 		} else if (getArguments().getInt("GosterimTipi", -1) == 2) {

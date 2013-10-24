@@ -3,6 +3,7 @@ package com.euyemekhane;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
@@ -23,6 +24,8 @@ public class Ayarlar extends SherlockPreferenceActivity {
 
 		prefListeSil.setOnPreferenceClickListener(prefListeSilClickListener);
 		prefGuncelle.setOnPreferenceClickListener(prefGuncelleClickListener);
+		
+		PreferenceManager.setDefaultValues(this, R.xml.ayarlar, false);
 	}
 
 	private Preference.OnPreferenceClickListener prefListeSilClickListener = new OnPreferenceClickListener() {

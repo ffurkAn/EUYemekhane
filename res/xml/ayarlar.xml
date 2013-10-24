@@ -12,5 +12,9 @@
         android:summary="Öğle ve akşam yemek listeleri silinir"
         android:title="Listeleri sil" >
     </Preference>
+    
+    <CheckBoxPreference 
+        android:key="splashKontrol"
+        android:title="Başlangıç ekranını gösterme" />
 
 </PreferenceScreen>
