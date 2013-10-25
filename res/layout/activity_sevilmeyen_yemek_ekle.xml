@@ -5,36 +5,14 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    android:weightSum="1"
     tools:context=".SevilmeyenYemekEkle" >
-
-    <ListView
-        android:id="@+id/sevilmeyenYemekListView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_weight="0.5"
-        android:cacheColorHint="#00000000" >
-    </ListView>
-
-    <Button
-        android:id="@+id/btnSevilmeyenYemekSil"
-        style="@style/Button.Custom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="4dp"
-        android:text="Seçilenleri Sil" >
-    </Button>
 
     <ScrollView
         android:id="@+id/sevilmeyenYemekEkleScrollView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_weight="0.5" >
+        android:layout_marginRight="8dp" >
 
         <LinearLayout
             android:id="@+id/scrollLinear"
@@ -43,15 +21,5 @@
             android:orientation="vertical" >
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/btnSevilmeyenYemekEkle"
-        style="@style/Button.Custom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="4dp"
-        android:text="Yemekleri Ekle" >
-    </Button>
 
 </LinearLayout>

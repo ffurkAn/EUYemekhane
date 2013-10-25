@@ -55,7 +55,7 @@ public class MainActivity extends SherlockActivity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			Intent i = new Intent(MainActivity.this, SevilmeyenYemekEkle.class);
+			Intent i = new Intent(MainActivity.this, SevilmeyenYemekSil.class);
 			startActivity(i);
 		}
 	};

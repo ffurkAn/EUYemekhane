@@ -8,14 +8,13 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager.LayoutParams;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 
 public class SevilmeyenYemekEkle extends SherlockActivity {
 
@@ -23,7 +22,6 @@ public class SevilmeyenYemekEkle extends SherlockActivity {
 	private int editTextCount = 0;
 	private String text;
 	private LinearLayout ll;
-	private ListView listView;
 	private EditText editText;
 	private List<EditText> editTextList = new ArrayList<EditText>();
 	private SevilmeyenYemekDAL dalSevilmeyen = new SevilmeyenYemekDAL(this);
@@ -33,9 +31,8 @@ public class SevilmeyenYemekEkle extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sevilmeyen_yemek_ekle);
-		
+
 		ll = (LinearLayout) findViewById(R.id.scrollLinear);
-		listView = (ListView) findViewById(R.id.sevilmeyenYemekListView);
 
 		TextWatcher watcher = new TextWatcher() {
 
@@ -46,6 +43,7 @@ public class SevilmeyenYemekEkle extends SherlockActivity {
 				if (text != null && editTextCount < 10) {
 					if (editText.getId() == 1)
 						Toast.makeText(getApplicationContext(), "Lütfen, Türkçe karakter kullanýn", Toast.LENGTH_LONG).show();
+					
 					editText.removeTextChangedListener(this);
 					editText = getEditText();
 					editText.addTextChangedListener(this);
@@ -70,24 +68,11 @@ public class SevilmeyenYemekEkle extends SherlockActivity {
 		};
 
 		editText = getEditText();
+		if (editText.getId() == 1)
+			editText.setHint("Örn. Balýk");
 		editText.addTextChangedListener(watcher);
 		editTextList.add(editText);
 		ll.addView(editText);
-
-		ArrayList<SevilmeyenYemek> sevilmeyenYemekListe = dalSevilmeyen.TumYemekleriGetir();
-		if (sevilmeyenYemekListe.isEmpty()) {
-			LinearLayout sevilmeyenLL = (LinearLayout) findViewById(R.id.dynamicLayout);
-			sevilmeyenLL.removeView(findViewById(R.id.sevilmeyenYemekListView));
-			sevilmeyenLL.removeView(findViewById(R.id.btnSevilmeyenYemekSil));
-		} else {
-			SevilmeyenYemekAdapter adapter = new SevilmeyenYemekAdapter(this, R.id.sevilmeyenYemekListView, sevilmeyenYemekListe);
-			listView.setAdapter(adapter);
-			Button btnYemekSil = (Button) findViewById(R.id.btnSevilmeyenYemekSil);
-			btnYemekSil.setOnClickListener(btnYemekSilOnClickListener);
-		}
-		
-		Button btnYemekKaydet = (Button) findViewById(R.id.btnSevilmeyenYemekEkle);
-		btnYemekKaydet.setOnClickListener(btnYemekKaydetOnClickListener);
 
 	}
 
@@ -105,13 +90,23 @@ public class SevilmeyenYemekEkle extends SherlockActivity {
 		return txt;
 	}
 
-	private Button.OnClickListener btnYemekKaydetOnClickListener = new Button.OnClickListener() {
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		com.actionbarsherlock.view.MenuInflater inflater = getSupportMenuInflater();
+		inflater.inflate(R.menu.actionbar_check, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
 
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+		case R.id.actionbar_check_btn:
+
 			SevilmeyenYemek entYemek;
 			String newYemekAdi;
+			int yemekSayisi = 0;
 			for (EditText x : editTextList) {
 				if (x.getText().length() > 0) {
 					entYemek = new SevilmeyenYemek();
@@ -119,29 +114,22 @@ public class SevilmeyenYemekEkle extends SherlockActivity {
 					entYemek.setYemekAdi(newYemekAdi);
 					dalSevilmeyen.YemekKaydet(entYemek);
 					dalSevilmeyen.SevilmeyenGuncelle(entYemek, 1);
+					yemekSayisi++;
 				}
 			}
-			Intent i = new Intent(SevilmeyenYemekEkle.this, MainActivity.class);
-			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(i);
-			finish();
-		}
-	};
-	
-	private Button.OnClickListener btnYemekSilOnClickListener = new Button.OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			for (SevilmeyenYemek x : dalSevilmeyen.SeciliYemekleriGetir()) {
-					dalSevilmeyen.YemekSil(x);
-					dalSevilmeyen.SevilmeyenGuncelle(x, 0);
+			
+			if (yemekSayisi > 0) {
+				Intent i = new Intent(SevilmeyenYemekEkle.this, SevilmeyenYemekSil.class);
+				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(i);
+				finish();
 			}
-			Intent i = new Intent(SevilmeyenYemekEkle.this, MainActivity.class);
-			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(i);
-			finish();
+
+			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
 		}
-	};
+	}
 
 }

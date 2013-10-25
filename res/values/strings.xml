@@ -2,12 +2,13 @@
 <resources>
 
     <string name="app_name">EÜ Yemekhane</string>
-    <string name="title_activity_sevilmeyen_yemek_ekle">Sevmediğim Yemekler</string>
+    <string name="title_activity_sevilmeyen_yemek_sil">Sevmediğim Yemekler</string>
+    <string name="title_activity_sevilmeyen_yemek_ekle">Yemek Ekle</string>
     <string name="title_activity_ogle_aksam">Aylık Menü</string>
     <string name="title_activity_secilen_yemekler">Alacağım Yemekler</string>
     <string name="title_activity_ayarlar">Ayarlar</string>
     <string name="title_activity_hakkinda">Hakkında</string>
-    <string name="versiyon">Ege Üniversitesi\nYemekhane\nv1.1</string>
+    <string name="versiyon">Ege Üniversitesi\nYemekhane\nv1.2</string>
     <string name="hakkinda">Yemek listeleri Ege Üniversitesi SKSDB internet sitesinden (sksdb.ege.edu.tr/genel/aylk-yemek-menuesue) alınmaktadır. Listelerin yazılış şeklinden kaynaklanan hatalar oluşabilir.
 \n\nUygulama
 

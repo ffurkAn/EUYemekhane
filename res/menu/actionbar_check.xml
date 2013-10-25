@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/actionbar_check_btn"
+        android:icon="@drawable/actionbar_check"
+        android:showAsAction="ifRoom|withText"
+        android:title="Ekle" >
+    </item>
+
+</menu>
