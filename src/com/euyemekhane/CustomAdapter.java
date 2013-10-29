@@ -76,6 +76,7 @@ public class CustomAdapter extends ArrayAdapter<Menu> {
 		if (menu != null) {
 			if (menu.getSevilmeyen() == 1)
 				viewHolder.text2.setTextColor(Color.RED);
+				/*Kýrmýzý iþaretleme iþi burada yapýlacak*/
 			else
 				viewHolder.text2.setTextColor(Color.BLACK);
 

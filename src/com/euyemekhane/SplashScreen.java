@@ -20,7 +20,7 @@ public class SplashScreen extends YemekListesi {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         
 		boolean isShowSplash = sharedPreferences.getBoolean("splashKontrol", false);
 		if (!isShowSplash) {
@@ -42,7 +42,8 @@ public class SplashScreen extends YemekListesi {
 		}
 
 		int sonuc = yemekListesiIndir(false);
-		haftalikEskiKayitlariSil();
+		//haftalikEskiKayitlariSil();
+		gunlukEskiKayitlariSil();
 
 		Log.d("#SONUC", "" + sonuc);
 		if (sonuc != -1) {
@@ -57,7 +58,15 @@ public class SplashScreen extends YemekListesi {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				Intent i = new Intent(SplashScreen.this, MainActivity.class);
+				Intent i;
+				
+				if (sharedPreferences.getBoolean("firstrun", true)) {
+					i = new Intent(SplashScreen.this, Tutorial.class);
+					sharedPreferences.edit().putBoolean("firstrun", false).commit();
+		        } else {
+		        	i = new Intent(SplashScreen.this, MainActivity.class);
+		        }
+
 				startActivity(i);
 				SplashScreen.this.finish();
 			}

@@ -186,6 +186,11 @@ public class YemekListesi extends SherlockActivity {
 		return sonuc;
 	}
 
+	protected void gunlukEskiKayitlariSil() {
+		MenuDAL dalMenu = new MenuDAL(appContext);
+		dalMenu.GunlukEskiKayitlariSil();
+	}
+	
 	protected void haftalikEskiKayitlariSil() {
 		MenuDAL dalMenu = new MenuDAL(appContext);
 		dalMenu.HaftalikEskiKayitlariSil();

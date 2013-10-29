@@ -4,17 +4,25 @@
     <Preference
         android:key="guncelle"
         android:summary="Güncel liste indirilir"
-        android:title="Listeleri güncelle" >
+        android:title="Listeleri Güncelle" >
     </Preference>
 
     <Preference
         android:key="listeSil"
         android:summary="Öğle ve akşam yemek listeleri silinir"
-        android:title="Listeleri sil" >
+        android:title="Listeleri Sil" >
     </Preference>
-    
-    <CheckBoxPreference 
+
+    <EditTextPreference
+        android:defaultValue="2.5"
+        android:inputType="numberDecimal"
+        android:key="birimFiyat"
+        android:summary="Bir öğünün birim fiyatı"
+        android:title="Birim Fiyat" />
+
+    <CheckBoxPreference
         android:key="splashKontrol"
-        android:title="Başlangıç ekranını gösterme" />
+        android:summary="Seçiliyse açılış ekranı gösterilmez"
+        android:title="Açılış Ekranını Kapat" />
 
 </PreferenceScreen>
