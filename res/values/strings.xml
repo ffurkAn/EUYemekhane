@@ -8,16 +8,16 @@
     <string name="title_activity_secilen_yemekler">Alacağım Yemekler</string>
     <string name="title_activity_ayarlar">Ayarlar</string>
     <string name="title_activity_hakkinda">Hakkında</string>
-    <string name="versiyon">Ege Üniversitesi\nYemekhane\nv1.2</string>
-    <string name="hakkinda">Yemek listeleri Ege Üniversitesi SKSDB internet sitesinden (sksdb.ege.edu.tr/genel/aylk-yemek-menuesue) alınmaktadır. Listelerin yazılış şeklinden kaynaklanan hatalar oluşabilir.
-\n\nUygulama
+    <string name="versiyon">Ege Üniversitesi\nYemekhane\nv1.3</string>
+    <string name="hakkinda">Yemek listeleri Ege Üniversitesi SKSDB internet sitesinden (sksdb.ege.edu.tr/genel/aylk-yemek-menuesue) alınmaktadır.
+        \n\nUygulama
 
         \n\n	Onur Cem Şenel
         \n	A. Furkan Tanrıverdi
 
-\n\ntarafından geliştirilmiştir. Bize ulaşmak için:
-\n	euyemekhane@gmail.com
-\n\nUygulamada kullanılan ikonlar için: www.visualpharm.com</string>
+		\n\ntarafından geliştirilmiştir. Bize ulaşmak için:
+		\n	euyemekhane@gmail.com
+		\n\nUygulamada kullanılan ikonlar için: www.visualpharm.com</string>
     <string name="title_activity_tutorial">EÜ Yemekhane</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>

@@ -29,6 +29,7 @@ public class Tutorial extends SherlockFragmentActivity {
         fragments.add(Fragment.instantiate(this, TutorialFragment2.class.getName()));
         fragments.add(Fragment.instantiate(this, TutorialFragment3.class.getName()));
         fragments.add(Fragment.instantiate(this, TutorialFragment4.class.getName()));
+        fragments.add(Fragment.instantiate(this, TutorialFragment5.class.getName()));
 		
 		mPagerAdapter  = new TutorialPagerAdapter(super.getSupportFragmentManager(), fragments);
 		mPager = (ViewPager) findViewById(R.id.tutorialPager);

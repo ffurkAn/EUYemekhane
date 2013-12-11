@@ -483,7 +483,7 @@ public class MenuDAL extends DAL {
 		try {
 			final Calendar c = Calendar.getInstance();
 			int gun = c.get(Calendar.DAY_OF_MONTH); 
-			int ay = (c.get(Calendar.MONTH)+1); 
+			int ay = (c.get(Calendar.MONTH) + 1); 
 			int id;
 
 			SQLiteDatabase db = getDatabase();

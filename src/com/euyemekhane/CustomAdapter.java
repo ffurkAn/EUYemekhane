@@ -91,7 +91,7 @@ public class CustomAdapter extends ArrayAdapter<Menu> {
 			}
 
 			viewHolder.text2.setText("");
-			Pattern splitter = Pattern.compile("[\\/=]");
+			Pattern splitter = Pattern.compile("[\\-]");
 			String[] gunlukMenu = splitter.split(menu.getMenu());
 			int size = gunlukMenu.length;
 			for (String s : gunlukMenu) {

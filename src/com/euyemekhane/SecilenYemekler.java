@@ -20,6 +20,7 @@ public class SecilenYemekler extends SherlockActivity {
 		
 		boolean uyari = true;
 		int yemekSayisi = 0;
+		String birimFiyat;
 		MenuDAL dalMenu = new MenuDAL(this);
 		final Calendar c = Calendar.getInstance();
 		ArrayList<com.euyemekhane.Menu> seciliKayitlar;
@@ -28,6 +29,8 @@ public class SecilenYemekler extends SherlockActivity {
 		TextView txtViewAksam = (TextView) findViewById(R.id.secilenYemeklerTextViewAksam);
 		TextView txtViewOgleFiyat = (TextView) findViewById(R.id.ogleToplamFiyat);
 		TextView txtViewAksamFiyat = (TextView) findViewById(R.id.aksamToplamFiyat);
+		
+		birimFiyat = sharedPreferences.getString("birimFiyat", "2.5");
 		
 		seciliKayitlar = dalMenu.SeciliKayitlariGetir(1);
 		if (!seciliKayitlar.isEmpty()) {
@@ -47,7 +50,7 @@ public class SecilenYemekler extends SherlockActivity {
 			}
 			
 			if (yemekSayisi > 0) {
-				txtViewOgleFiyat.setText("Toplam Fiyat = " + Float.parseFloat(sharedPreferences.getString("birimFiyat", ""))*yemekSayisi + " TL");
+				txtViewOgleFiyat.setText("Toplam Fiyat = " + Float.parseFloat(birimFiyat)*yemekSayisi + " TL");
 			}
 		}
 		
@@ -70,7 +73,7 @@ public class SecilenYemekler extends SherlockActivity {
 			}
 			
 			if (yemekSayisi > 0) {
-				txtViewAksamFiyat.setText("Toplam Fiyat = " + Float.parseFloat(sharedPreferences.getString("birimFiyat", ""))*yemekSayisi + " TL");
+				txtViewAksamFiyat.setText("Toplam Fiyat = " + Float.parseFloat(birimFiyat)*yemekSayisi + " TL");
 			}
 		}
 		

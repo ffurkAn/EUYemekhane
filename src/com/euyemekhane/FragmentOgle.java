@@ -33,7 +33,7 @@ public class FragmentOgle extends SherlockFragment {
 			String[] gunlukMenu;
 			Menu menu;
 			Calendar c = Calendar.getInstance();
-			Pattern splitter = Pattern.compile("[\\/=]");
+			Pattern splitter = Pattern.compile("[\\-]");
 			LinearLayout ll = (LinearLayout) getView().findViewById(R.id.ogleLinear);
 			LayoutParams params1 = new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 			params1.setMargins(margin, margin, 0, 0);

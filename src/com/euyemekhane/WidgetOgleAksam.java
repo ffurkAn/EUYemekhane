@@ -30,7 +30,7 @@ public class WidgetOgleAksam extends AppWidgetProvider {
 		for (int widgetId : allWidgetIds) {
 
 			RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
-			Pattern splitter = Pattern.compile("[\\/=]");
+			Pattern splitter = Pattern.compile("[\\-]");
 			String menu;
 			String[] gunlukMenu;
 			int size;

@@ -25,7 +25,6 @@ public class SevilmeyenYemekEkle extends SherlockActivity {
 	private EditText editText;
 	private List<EditText> editTextList = new ArrayList<EditText>();
 	private SevilmeyenYemekDAL dalSevilmeyen = new SevilmeyenYemekDAL(this);
-	//private RelativeLayout.LayoutParams params;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +46,6 @@ public class SevilmeyenYemekEkle extends SherlockActivity {
 					editText.removeTextChangedListener(this);
 					editText = getEditText();
 					editText.addTextChangedListener(this);
-					//params = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-					//params.addRule(RelativeLayout.BELOW, editTextList.get(editTextList.size() - 1).getId());
-					//editText.setLayoutParams(params);
 					editTextList.add(editText);
 					ll.addView(editText);
 				}
@@ -84,6 +80,7 @@ public class SevilmeyenYemekEkle extends SherlockActivity {
 		param.width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 		param.height = android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 		txt.setId(editTextID);
+		txt.setSingleLine(true);
 		txt.setLayoutParams(param);
 		txt.setText("");
 

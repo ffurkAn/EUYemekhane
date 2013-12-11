@@ -43,27 +43,6 @@ public class SevilmeyenYemekDAL extends DAL {
 			return null;
 		}
 	}
-	
-	public ArrayList<SevilmeyenYemek> SeciliYemekleriGetir()
-	{
-		ArrayList<SevilmeyenYemek> yemekler = new ArrayList<SevilmeyenYemek>();
-		try {
-			SQLiteDatabase db = getDatabase();
-
-			Cursor c = db.rawQuery("select * from SevilmeyenYemek where Selected = 1", null);
-
-			yemekler = ConvertToEntity(c);
-
-			c.close();
-			
-			db.close();
-
-			return yemekler;
-
-		} catch (Exception ex) {
-			return null;
-		}
-	}
 
 	private ArrayList<SevilmeyenYemek> ConvertToEntity(Cursor c)
 	{
@@ -74,11 +53,6 @@ public class SevilmeyenYemekDAL extends DAL {
 				SevilmeyenYemek entYemek = new SevilmeyenYemek();
 
 				entYemek.setYemekAdi(getCursorStr(c, "YemekAdi"));
-				
-				if (getCursorInt(c, "Selected") == 1)
-					entYemek.setSelected(true);
-				else
-					entYemek.setSelected(false);
 
 				lstYemek.add(entYemek);
 
@@ -97,11 +71,6 @@ public class SevilmeyenYemekDAL extends DAL {
 			ContentValues values = new ContentValues();
 
 			values.put("YemekAdi", entYemek.getYemekAdi());
-
-			if(entYemek.isSelected() == false)
-				values.put("Selected", 0);
-			else
-				values.put("Selected", 1);
 			
 			db.insert("SevilmeyenYemek", null, values);
 			
@@ -123,23 +92,6 @@ public class SevilmeyenYemekDAL extends DAL {
 
 		} catch (Exception ex) {
 			Log.d("#ERROR SevilmeyenYemekSil", ex.getMessage());
-		}
-	}
-	
-	public void SecilenGuncelle(SevilmeyenYemek entYemek, int x)
-	{
-		try {
-			SQLiteDatabase db = getDatabase();
-			ContentValues args = new ContentValues();
-			
-			args.put("Selected", x);
-
-			db.update("SevilmeyenYemek", args, "YemekAdi = '" + entYemek.getYemekAdi() + "'", null);
-
-			db.close();
-
-		} catch (Exception ex) {
-			Log.d("#ERROR SecilenGuncelle", ex.getMessage());
 		}
 	}
 
